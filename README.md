@@ -2,7 +2,7 @@
 <h1 align="center">Software Planning Evidence</h1>
 ChatBot to improve productivity and tasks’ visibility of each team member by the end of the semester using Oracle Cloud Infrastructure Tools to enhance the users service based on DevOps methodology.
 
-<h2 align="center">Equipo 6</h2>
+<h2 align="center">Team 6</h2>
 <div align="center">
 <img src="https://forthebadge.com/images/badges/powered-by-coders-sweat.svg" width="250px">
 <table>
@@ -29,6 +29,14 @@ ChatBot to improve productivity and tasks’ visibility of each team member by t
   </table>
 </div>
 
+<h2 align="center">Features</h2>
+<div align="center">
+<p> 
+<img src="https://img.shields.io/badge/OCI-F80000?style=for-the-badge&logo=oracle&logoColor=FFFFF&labelColor=F80000"/>
+<img src="https://img.shields.io/badge/SPRING-FFFFF?style=for-the-badge&logo=spring&labelColor=FFF&color=FFF"/>
+<img src="https://img.shields.io/badge/TELEGRAM-FFFFF?style=for-the-badge&logo=telegram&labelColor=26A5E4&color=26A5E4"/>
+</div>
+
 ## Devilerables upon completion of the project
 
 * Develop a bot dedicated to task management for Oracle Corporation. 
@@ -38,7 +46,7 @@ ChatBot to improve productivity and tasks’ visibility of each team member by t
 * The manager can see the tasks of the development team.
 * A public github will be delivered to the developers that will continue with the service.
   
-## PROJECT DEFINITION AND INITIATION
+## Project definition and initiation
 
 **Date:** 01/03/2024
 
@@ -94,4 +102,3 @@ GitHub Projects to track the workflow throughout the project.
 - **Project Leader:** Juan José Salazar Cortés
 - **Sponsor:** Oracle (Oswaldo Rojas)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
