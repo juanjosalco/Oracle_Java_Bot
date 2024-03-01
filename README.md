@@ -12,11 +12,11 @@ ChatBot to improve productivity and tasks’ visibility of each team member by t
   </tr>
     <tr>
     <th> Jesus Enrique Diaz Bernal Robinson Bours </th>
-    <th> A01642126 </th>
+    <th> A00227255 </th>
   </tr>
     <tr>
     <th> Juan José Salazar Cortés </th>
-    <th> A00227831 </th>
+    <th> A01642126 </th>
   </tr>
   <tr>
     <th> Mariana Esquivel Hernández </th>
