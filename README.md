@@ -37,7 +37,7 @@ ChatBot to improve productivity and tasks’ visibility of each team member by t
 <img src="https://img.shields.io/badge/TELEGRAM-FFFFF?style=for-the-badge&logo=telegram&labelColor=26A5E4&color=26A5E4"/>
 </div>
 
-## Devilerables upon completion of the project
+## Deliverables upon completion of the project
 
 * Develop a bot dedicated to task management for Oracle Corporation. 
 * The communication will be through Telegram.
