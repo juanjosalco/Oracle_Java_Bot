@@ -1,0 +1,63 @@
+# Liquibase Workflow: Runs an update on Oracle Database everytime a push is made to main
+
+name: liquibase
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Restore the wallet
+        env:
+          CWALLET_SSO: ${{ secrets.CWALLET_SSO }}
+          EWALLET_P12: ${{ secrets.EWALLET_P12 }}
+          EWALLET_PEM: ${{ secrets.EWALLET_PEM }}
+          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
+          OJDBC_PROPERTIES: ${{ secrets.OJDBC_PROPERTIES }}
+          SQLNET_ORA: ${{ secrets.SQLNET_ORA }}
+          TNSNAMES_ORA: ${{ secrets.TNSNAMES_ORA }}
+          TRUSTSTORE_JKS: ${{ secrets.TRUSTSTORE_JKS }}
+        run: |
+          pwd
+          mkdir oracle
+          echo $CWALLET_SSO | base64 -di > oracle/cwallet.sso
+          echo $EWALLET_P12 | base64 -di > oracle/ewallet.p12
+          echo $EWALLET_PEM | base64 -di > oracle/ewallet.pem
+          echo $KEYSTORE_JKS | base64 -di > oracle/keystore.jks
+          echo $OJDBC_PROPERTIES | base64 -di > oracle/ojdbc.properties
+          echo $SQLNET_ORA | base64 -di > oracle/sqlnet.ora
+          echo $TNSNAMES_ORA | base64 -di > oracle/tnsnames.ora
+          echo $TRUSTSTORE_JKS | base64 -di > oracle/truststore.jks
+          ls oracle
+      - name: Install Liquibase
+        run: |
+          wget -O- https://repo.liquibase.com/liquibase.asc | gpg --dearmor > liquibase-keyring.gpg && \
+          cat liquibase-keyring.gpg | sudo tee /usr/share/keyrings/liquibase-keyring.gpg > /dev/null && \
+          echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/liquibase-keyring.gpg] https://repo.liquibase.com stable main' | sudo tee /etc/apt/sources.list.d/liquibase.list
+          sudo apt-get update
+          sudo apt-get install liquibase
+          liquibase --version
+      - name: Run Liquibase status and update commands
+        env: 
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          liquibase status --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
+          liquibase update-sql --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
+          liquibase update --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
