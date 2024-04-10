@@ -19,4 +19,4 @@ CREATE TABLE task (
 -- CREATE INDEX FOR FAST QUERIES
 CREATE INDEX task_assigneeId_idx ON task(assigneeId);
 CREATE INDEX task_status_idx ON task(currentStatus);
-CREATE INDEX task_priority_idx ON task(priority);
+CREATE INDEX task_priority_idx ON task(priority);
