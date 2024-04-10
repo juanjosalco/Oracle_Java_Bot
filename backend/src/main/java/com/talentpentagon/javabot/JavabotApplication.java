@@ -1,13 +1,12 @@
-package com.javaBot.backend;
+package com.talentpentagon.javabot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendApplication {
+public class JavabotApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
+		SpringApplication.run(JavabotApplication.class, args);
 	}
-
 }
