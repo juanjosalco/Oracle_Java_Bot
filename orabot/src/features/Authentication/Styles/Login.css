@@ -1,0 +1,49 @@
+input{
+    all: unset;
+}
+
+h1{
+    all: unset;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    display: block;
+    margin-top: 48px;
+    margin-bottom: 24px;
+}
+
+.container{
+    margin-inline: 48px;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.inputs{
+   border-bottom: 2px solid #C84431;
+   padding: 16px;
+   text-align: left;
+}
+
+.btn{
+    background-color: #3A3632;
+    color: #F2F2F2;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 32px;
+    width: 100%;
+}
+
+.questionBtn{
+    all: unset;
+    margin-top: 24px;
+    color: #C84431;
+    cursor: pointer;
+}
