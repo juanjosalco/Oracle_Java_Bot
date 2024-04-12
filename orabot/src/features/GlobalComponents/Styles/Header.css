@@ -1,0 +1,16 @@
+.containerHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;  
+    background-color: #3A3632;
+}
+
+h2{
+    all: unset;
+    font-size: 24px;
+    color: #F2F2F2;
+    font-weight: 700;
+    padding-block: 8px;
+}
