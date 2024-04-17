@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/task")
 public class TaskController {
 
         // Hardcoded status: return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
@@ -32,14 +31,14 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping()
+    @GetMapping("task")
     public ResponseEntity<List<TaskItem>> getTasks(){
         List<TaskItem> tasks = taskService.getTasks();
         return ResponseEntity.ok(tasks);
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
         try{
             ResponseEntity<TaskItem> task = taskService.getTaskById(id);
@@ -51,11 +50,37 @@ public class TaskController {
         }        
     }
 
-    @PostMapping("")
+    @PostMapping("task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
         try{
             ResponseEntity<TaskItem> newTask = taskService.addTask(task);
             return new ResponseEntity<TaskItem>(newTask.getBody(), newTask.getStatusCode());
+        } 
+        catch (Exception e){
+            System.out.println("ERROR: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }        
+    }
+
+    // Whole edit
+    @PutMapping("task/{id}")
+    public ResponseEntity<TaskItem> putTask(@PathVariable int id,@RequestBody TaskItem task) {
+        try{
+            ResponseEntity<TaskItem> updatedTask = taskService.updateTask(id, task);
+            return new ResponseEntity<TaskItem>(updatedTask.getBody(), updatedTask.getStatusCode());
+        } 
+        catch (Exception e){
+            System.out.println("ERROR: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }        
+    }
+
+    // Use this only to change the status
+    @PutMapping("task/{id}/status")
+    public ResponseEntity<TaskItem> putTaskStatus(@PathVariable int id, @RequestBody TaskItem task) {
+        try{
+            ResponseEntity<TaskItem> updatedTask = taskService.updateTaskStatus(id, task.getStatus());
+            return new ResponseEntity<TaskItem>(updatedTask.getBody(), updatedTask.getStatusCode());
         } 
         catch (Exception e){
             System.out.println("ERROR: " + e.getMessage());

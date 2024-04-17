@@ -37,12 +37,29 @@ public class TaskService {
         return new ResponseEntity<TaskItem>(newTask, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<TaskItem> updateTask(TaskItem task){
-        Optional<TaskItem> taskOptional = taskRepository.findById(task.getId());
+    public ResponseEntity<TaskItem> updateTask(int id, TaskItem task){
+        Optional<TaskItem> taskOptional = taskRepository.findById(id);
 
         if(taskOptional.isPresent()){
             TaskItem updatedTask = taskRepository.save(task);
+            updatedTask.setId(id);
+            updatedTask.setCreationDate(task.getCreationDate());
+            updatedTask.setDescription(task.getDescription());
+            updatedTask.setStatus(task.getStatus());
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.OK);
+        } 
+        else{
+            return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
+        } 
+    }
+
+    public ResponseEntity<TaskItem> updateTaskStatus(int id, String status){
+        Optional<TaskItem> task = taskRepository.findById(id);
+
+        if(task.isPresent()){
+            task.get().setStatus(status);
+            taskRepository.save(task.get());
+            return new ResponseEntity<TaskItem>(HttpStatus.OK);
         } 
         else{
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
