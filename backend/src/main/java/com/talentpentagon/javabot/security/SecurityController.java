@@ -1,7 +1,5 @@
 package com.talentpentagon.javabot.security;
 
-import com.talentpentagon.javabot.security.LoginRequest;
-
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +71,5 @@ public class SecurityController {
         customUserRepository.save(newUser);
         return ResponseEntity.ok("User created successfully");
     }
-    
-    
+        
 }
