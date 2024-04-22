@@ -31,22 +31,45 @@ public class SecurityController {
     
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest request) {
-        
-        try{
+        Optional<CustomUser> userOptional = customUserRepository.findByUsername(request.getUsername());
+
+        if(userOptional.isPresent()){
+            if(!userOptional.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
             
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+            try {
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+                Authentication authentication = authenticationManager.authenticate(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+                String username = request.getUsername();
+    
+                // Get user data
+                CustomUser user = userOptional.get();
+                String role = user.getRole();
+                int id = user.getId();
+        
+                // Generate JWT token
+                String jwtToken = JWTUtil.generateToken(username, role, id);
+        
+                return ResponseEntity.ok(new JwtResponse(jwtToken));
 
-            Authentication authentication = authenticationManager.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            // Generate JWT Token
-            String jwtToken = JWTUtil.generateToken(request.getUsername());
-            return ResponseEntity.ok(new JwtResponse(jwtToken));
+            } catch (Exception e) {
+    
+                CustomUser user = userOptional.get();
+                if (user.getAttempts() >= 3) {
+                    user.setEnabled(false);
+                    customUserRepository.save(user);
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
+                } else {
+                    user.setAttempts(user.getAttempts() + 1);
+                    customUserRepository.save(user);
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                }
 
-        } catch (Exception e) {
-            System.out.println("Received Password: " + request.getPassword());
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            }
         }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         
     }
 
@@ -67,6 +90,8 @@ public class SecurityController {
         newUser.setPhonenumber(request.getPhonenumber());
         newUser.setRole(request.getRole());
         newUser.setTeamId(request.getTeamId());
+        newUser.setAttempts(0);
+        newUser.setEnabled(true);
 
         customUserRepository.save(newUser);
         return ResponseEntity.ok("User created successfully");

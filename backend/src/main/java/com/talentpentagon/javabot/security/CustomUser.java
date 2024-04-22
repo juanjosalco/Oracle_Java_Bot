@@ -39,8 +39,12 @@ public class CustomUser {
     @Column(name = "phonenumber")
     private String phonenumber;
 
-    
-    // Generate getters and setters...
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
+    @Column(name = "login_attempts")
+    private int attempts;
+
 
     public int getId() {
         return id;
@@ -114,6 +118,22 @@ public class CustomUser {
         this.phonenumber = phonenumber;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
+    }
+
     public CustomUser() {
     }
 
@@ -126,5 +146,7 @@ public class CustomUser {
         this.lastname = lastname;
         this.email = email;
         this.phonenumber = phonenumber;
+        this.isEnabled = true;
+        this.attempts = 0;
     }
 }

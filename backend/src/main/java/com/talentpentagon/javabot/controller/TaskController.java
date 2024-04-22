@@ -1,8 +1,6 @@
 package com.talentpentagon.javabot.controller;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
@@ -12,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.talentpentagon.javabot.repository.TaskRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,6 +31,11 @@ public class TaskController {
         List<TaskItem> tasks = taskService.getTasks();
         return ResponseEntity.ok(tasks);
 
+    }
+
+    @GetMapping("task/user/{assignee}")
+    public ResponseEntity<List<TaskItem>> getTasksForUser(@PathVariable("assignee") int assignee) {
+        return taskService.getTasksForUser(assignee);
     }
 
     @GetMapping("task/{id}")
@@ -64,7 +64,7 @@ public class TaskController {
 
     // Whole edit
     @PutMapping("task/{id}")
-    public ResponseEntity<TaskItem> putTask(@PathVariable int id,@RequestBody TaskItem task) {
+    public ResponseEntity<TaskItem> putTask(@PathVariable int id, @RequestBody TaskItem task) {
         try{
             ResponseEntity<TaskItem> updatedTask = taskService.updateTask(id, task);
             return new ResponseEntity<TaskItem>(updatedTask.getBody(), updatedTask.getStatusCode());

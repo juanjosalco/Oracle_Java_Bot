@@ -31,6 +31,15 @@ public class TaskService {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
         } 
     }
+    
+    public ResponseEntity<List<TaskItem>> getTasksForUser(Integer assignee) {
+        List<TaskItem> tasks = taskRepository.findByAssignee(assignee);
+        if (tasks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(tasks, HttpStatus.OK);
+        }
+    }
 
     public ResponseEntity<TaskItem> addTask(TaskItem task){
         TaskItem newTask = taskRepository.save(task);
