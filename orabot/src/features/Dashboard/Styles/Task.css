@@ -1,0 +1,114 @@
+.circle{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.green{
+    background-color: #436B1D;
+}
+
+.orange{
+    background-color: #E18012;
+}
+
+.red{
+    background-color: #B3311F;
+}
+
+.taskContainer{
+    display: flex;
+    flex-direction: row;
+    margin-inline: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #47423E;
+}
+
+.task{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.taskInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 8;
+    padding: 8px;
+    font-size: 1.2rem;
+}
+
+.titleInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.titleX{
+    all: unset;
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.priorInfo{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.prior{
+    all: unset;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    font-size: .8rem;
+}
+
+.textP{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: .8rem;
+}
+
+.priorP{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: .8rem;
+}
+
+.xd{
+    padding: 4px 12px;
+    border-radius: 24px;
+    margin-left: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.statusX{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.static{
+    all: unset;
+    font-size: .6rem;
+    text-align: right;
+}
+
+.date{
+    font-size: .8rem;
+}

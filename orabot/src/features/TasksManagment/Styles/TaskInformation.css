@@ -1,0 +1,63 @@
+.taskContainerV{
+    margin-inline: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputsSpe{
+    padding: 16px;
+    border: 1px solid #161513;
+}
+
+.inputArea{
+    padding: 16px;
+    border: 1px solid #161513;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.statusText{
+    all: unset;
+    margin-block: 24px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.buttonsContainer{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.button{
+    border: 0;
+    border-radius: 8px;
+    padding: 16px 24px;
+    flex: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.black{
+    background-color: #161513;
+}
+
+.priorityContainer{
+    display: flex;
+    gap: 8px;
+}
+
+.dueDate{
+    flex: 1;
+    border: 1px solid #161513;
+    padding: 8px;
+    margin-bottom: 16px;
+}
+
+.gray{
+    background-color: #16151350;
+}
