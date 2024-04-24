@@ -1,0 +1,121 @@
+.filterContainer {
+  background-color: #3a3632;
+}
+
+.filterOpt {
+  display: flex;
+  color: #f2f2f2;
+  gap: 8px;
+}
+
+.sep {
+  margin-right: 8px;
+}
+
+.textX{
+    font-size: .9rem;
+    margin-right: 8px;
+    max-width: 56px;
+}
+
+select {
+  flex: 2;
+  padding: 8px 16px;
+  margin-block: 16px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.leftSide {
+  display: flex;
+  margin-left: 16px;
+}
+
+.rightSide {
+  display: flex;
+  margin-right: 16px;
+}
+
+.bigger{
+    flex: 2;
+}
+
+.smaller{
+    flex: 1;
+}
+
+p {
+  all: unset;
+  align-self: center;
+}
+
+.btn {
+  display: flex;
+  background-color: #bb501c;
+  border: none;
+  padding: 4px;
+  margin: 16px;
+  cursor: pointer;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex: 1;
+  color: white;
+  border-radius: 8px;
+}
+
+.prioritySelector {
+  display: flex;
+  justify-content: space-between;
+}
+
+.status {
+  display: flex;
+  flex: 2;
+  gap: 8px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+
+.statusSel {
+  all: unset;
+  font-size: 0.8rem;
+  background-color: #161513;
+  padding: 12px 12px;
+  border-radius: 8px;
+  color: #f2f2f2;
+}
+
+.priority {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.prioritySel {
+  all: unset;
+  font-size: 0.8rem;
+  background-color: #161513;
+  padding: 10px 16px;
+  border-radius: 50%;
+  color: #f2f2f2;
+}
+
+.statusSelAct {
+  all: unset;
+  font-size: 0.8rem;
+  background-color: #fff;
+  padding: 12px 12px;
+  border-radius: 8px;
+  color: #000;
+}
+
+.prioritySelAct {
+  all: unset;
+  font-size: 0.8rem;
+  background-color: #fff;
+  padding: 10px 16px;
+  border-radius: 50%;
+  color: #000;
+}

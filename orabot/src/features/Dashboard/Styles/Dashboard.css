@@ -1,0 +1,17 @@
+.bold{
+    font-weight: bold;
+}
+
+h3{
+    all: unset;
+}
+
+.containerDashboard{
+    margin-inline: 16px;
+    margin-bottom: 36px;
+}
+
+.subtitle {
+    text-align: left;
+    
+}
