@@ -1,6 +1,11 @@
 package com.talentpentagon.javabot.security;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.talentpentagon.javabot.repository.CustomUserRepository;
+import com.talentpentagon.javabot.model.CustomUser;
+import com.talentpentagon.javabot.model.Team;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,12 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-
-
 
 @RestController
 public class SecurityController {
@@ -47,9 +51,11 @@ public class SecurityController {
                 CustomUser user = userOptional.get();
                 String role = user.getRole();
                 int id = user.getId();
+                int teamId = user.getTeamId();
         
+                System.out.println("User: " + username + " Role: " + role + " ID: " + id + " Team: " + teamId);
                 // Generate JWT token
-                String jwtToken = JWTUtil.generateToken(username, role, id);
+                String jwtToken = JWTUtil.generateToken(username, role, id, teamId);
         
                 return ResponseEntity.ok(new JwtResponse(jwtToken));
 

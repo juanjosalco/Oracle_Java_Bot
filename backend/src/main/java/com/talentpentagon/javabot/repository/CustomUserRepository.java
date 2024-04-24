@@ -1,5 +1,6 @@
-package com.talentpentagon.javabot.security;
+package com.talentpentagon.javabot.repository;
 
+import com.talentpentagon.javabot.model.CustomUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

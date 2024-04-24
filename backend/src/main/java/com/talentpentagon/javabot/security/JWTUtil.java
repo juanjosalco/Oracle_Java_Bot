@@ -22,19 +22,21 @@ public class JWTUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(JWTUtil.class);
     
-    public static String generateToken(String username, String role, int id){
+    public static String generateToken(String username, String role, int id, int teamId){
 
         return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .claim("role", role)
                 .claim("id", id)
+                .claim("team", teamId)
                 .signWith(SECRET)
                 .compact();
     }
 
     // Extract username
     public static String extractUsername(String token){
+        if(token != null && token.startsWith("Bearer ")) token = token.substring(7); 
         return Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token)
@@ -44,6 +46,7 @@ public class JWTUtil {
 
     // Extract role
     public static String extractRole(String token){
+        if(token != null && token.startsWith("Bearer ")) token = token.substring(7); 
         return Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token)
@@ -53,11 +56,22 @@ public class JWTUtil {
 
     // Extract ID
     public static int extractId(String token){
+        if(token != null && token.startsWith("Bearer ")) token = token.substring(7); 
         return Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token)
                     .getBody()
                     .get("id", Integer.class);
+    }
+
+    // Extract team ID
+    public static int extractTeamId(String token){
+        if(token != null && token.startsWith("Bearer ")) token = token.substring(7); 
+        return Jwts.parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .get("team", Integer.class);
     }
 
     public static boolean validateToken(String token){

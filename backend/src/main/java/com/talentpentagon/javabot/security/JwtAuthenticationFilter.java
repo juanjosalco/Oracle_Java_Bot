@@ -9,8 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -29,8 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if(token != null && JWTUtil.validateToken(token)){
             String username = JWTUtil.extractUsername(token);
+            String role = JWTUtil.extractRole(token);
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+
+
+            Authentication auth = new UsernamePasswordAuthenticationToken(username, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(auth);
 
         }

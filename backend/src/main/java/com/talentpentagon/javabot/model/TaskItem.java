@@ -15,8 +15,9 @@ public class TaskItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(name = "assignee_id")
-    private Integer assignee;
+    private int assignee;
 
     @Column(name = "name")
     private String name;
@@ -42,7 +43,7 @@ public class TaskItem {
     public TaskItem() {
     }
 
-    public TaskItem(Integer assignee, String name, String description, Integer priority, OffsetDateTime dueDate) {
+    public TaskItem(int assignee, String name, String description, Integer priority, OffsetDateTime dueDate) {
         this.assignee = assignee;
         this.name = name;
         this.description = description;
@@ -61,11 +62,11 @@ public class TaskItem {
         this.id = id;
     }
 
-    public Integer getAssignee() {
+    public int getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(Integer assignee) {
+    public void setAssignee(int assignee) {
         this.assignee = assignee;
     }
 

@@ -1,10 +1,9 @@
-package com.talentpentagon.javabot.security;
+package com.talentpentagon.javabot.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import lombok.Data;
+import java.util.List;
 
 @Entity
 @Table(name="staff")
@@ -44,6 +43,10 @@ public class CustomUser {
 
     @Column(name = "login_attempts")
     private int attempts;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "assignee_id")
+    private List<TaskItem> assignedTasks;
 
 
     public int getId() {
@@ -132,6 +135,10 @@ public class CustomUser {
 
     public void setAttempts(int attempts) {
         this.attempts = attempts;
+    }
+
+    public List<TaskItem> getAssignedTasks() {
+        return assignedTasks;
     }
 
     public CustomUser() {

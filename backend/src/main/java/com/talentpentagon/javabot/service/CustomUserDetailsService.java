@@ -1,4 +1,4 @@
-package com.talentpentagon.javabot.security;
+package com.talentpentagon.javabot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+
+import com.talentpentagon.javabot.model.CustomUser;
+import com.talentpentagon.javabot.repository.CustomUserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -32,6 +36,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(customUser.getPassword())
                 .build();
     }
-    
+
 }
     

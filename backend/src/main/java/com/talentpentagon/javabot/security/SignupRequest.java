@@ -1,5 +1,7 @@
 package com.talentpentagon.javabot.security;
 
+import com.talentpentagon.javabot.model.Team;
+
 public class SignupRequest {
     private String username;
     private String password;

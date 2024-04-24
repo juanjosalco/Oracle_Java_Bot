@@ -1,5 +1,6 @@
 package com.talentpentagon.javabot.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class TaskService {
@@ -17,10 +19,12 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
     
+    // Get all task data
     public List<TaskItem> getTasks(){
         return taskRepository.findAll();
     }
 
+    // Get individual task data by id
     public ResponseEntity<TaskItem> getTaskById(int id){
         Optional<TaskItem> task = taskRepository.findById(id);
 
@@ -32,23 +36,43 @@ public class TaskService {
         } 
     }
     
-    public ResponseEntity<List<TaskItem>> getTasksForUser(Integer assignee) {
-        List<TaskItem> tasks = taskRepository.findByAssignee(assignee);
-        if (tasks.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(tasks, HttpStatus.OK);
+    // Extracts user from the JWT token and returns the tasks assigned to that user
+    public ResponseEntity<List<TaskItem>> getTasksForUser(Integer assignee, String sortBy, String status) {
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (sortBy.startsWith("-")) {
+            direction = Sort.Direction.DESC;
+            sortBy = sortBy.substring(1); 
         }
+    
+        Sort sort = Sort.by(direction, sortBy);
+    
+        if(status.equals("ALL")){
+            List<TaskItem> tasks = taskRepository.findByAssignee(assignee, sort);
+
+            if(tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+            else return ResponseEntity.ok(tasks);
+        }
+        else{
+            List<TaskItem> tasks = taskRepository.findByAssigneeAndStatus(assignee, status, sort);
+
+            if(tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+            else return ResponseEntity.ok(tasks);
+        } 
     }
 
+    // Add a new task
     public ResponseEntity<TaskItem> addTask(TaskItem task){
+        task.setStatus("ToDo");
+        task.setCreationDate(OffsetDateTime.now());
+        task.setStatusChangeDate(OffsetDateTime.now());
+        
         TaskItem newTask = taskRepository.save(task);
         return new ResponseEntity<TaskItem>(newTask, HttpStatus.CREATED);
     }
 
+    // Update a task
     public ResponseEntity<TaskItem> updateTask(int id, TaskItem task){
         Optional<TaskItem> taskOptional = taskRepository.findById(id);
-
         if(taskOptional.isPresent()){
             TaskItem updatedTask = taskRepository.save(task);
             updatedTask.setId(id);
@@ -62,6 +86,7 @@ public class TaskService {
         } 
     }
 
+    // Update task status
     public ResponseEntity<TaskItem> updateTaskStatus(int id, String status){
         Optional<TaskItem> task = taskRepository.findById(id);
 
@@ -73,6 +98,28 @@ public class TaskService {
         else{
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
         } 
+    }
+
+    // Sort and filter data
+    public ResponseEntity<List<TaskItem>> sortAndFilter(List<TaskItem> tasks, String sortBy, String status){
+        
+        // Sort
+        if (sortBy.equals("dueDate")) {
+            tasks.sort((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate()));
+        } else if (sortBy.equals("priority")) {
+            tasks.sort((t1, t2) -> t1.getPriority().compareTo(t2.getPriority()));
+        } else if (sortBy.equals("creationDate")) {
+            tasks.sort((t1, t2) -> t1.getCreationDate().compareTo(t2.getCreationDate()));
+        } else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        // Filter
+        if (!status.equals("ALL")) {
+            tasks.removeIf(task -> !task.getStatus().equals(status));
+        }
+
+        return ResponseEntity.ok(tasks);
     }
 
     
