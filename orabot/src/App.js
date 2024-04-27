@@ -5,6 +5,7 @@ import { RecoverScreen } from './features/Authentication/Views/RecoverScreen';
 import { TicketScreen } from './features/Authentication/Views/TicketScreen';
 import { DashboardScreen } from './features/Dashboard/Views/DashboardScreen';
 import { RouterProvider, Route, createBrowserRouter } from 'react-router-dom';
+import { TaskInformationScreen } from './features/TasksManagment/Views/TaskInformationScreen';
 
 import axios from 'axios';
 
@@ -40,6 +41,10 @@ function App() {
         path: '/dashboard',
         element: <DashboardScreen />
     },
+    {
+        path: '/task/:id',
+        element: <TaskInformationScreen />
+    }
   ])
 
   return (

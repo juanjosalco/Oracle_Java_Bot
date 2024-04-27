@@ -11,11 +11,11 @@ import { DeveloperScreen } from "./DeveloperScreen";
 import { ManagerScreen } from "./ManagerScreen";
 
 const Tasks = [
-    {title: "Task title", priority: 1, description: "This is a task", date: "12/12/2021", status: "Completed"},
-    {title: "Task title", priority: 2, description: "This is a task", date: "12/12/2021", status: "Ongoing"},
-    {title: "Task title", priority: 3, description: "This is a task", date: "12/12/2021", status: "To do"},
-    {title: "Task title", priority: 1, description: "This is a task", date: "12/12/2021", status: "To do"},
-    {title: "Task title", priority: 2, description: "This is a task", date: "12/12/2021", status: "Ongoing"},
+    {id: 1, title: "Task title", priority: 1, description: "This is a task", date: "2021-12-23", status: "Done"},
+    {id: 2, title: "Task title", priority: 2, description: "This is a task", date: "2021-12-24", status: "Ongoing"},
+    {id: 3, title: "Task title", priority: 3, description: "This is a task", date: "2021-12-25", status: "To do"},
+    {id: 4, title: "Task title", priority: 1, description: "This is a task", date: "2022-05-06", status: "To do"},
+    {id: 5, title: "Task title", priority: 2, description: "This is a task", date: "2023-07-12", status: "Ongoing"},
 ]
 
 export const DashboardScreen = () => {
