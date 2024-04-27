@@ -6,13 +6,21 @@ import { TicketScreen } from './features/Authentication/Views/TicketScreen';
 import { DashboardScreen } from './features/Dashboard/Views/DashboardScreen';
 import { RouterProvider, Route, createBrowserRouter } from 'react-router-dom';
 
+import axios from 'axios';
+
 const tele = window.Telegram.WebApp;
 
 
 function App() {
+
+  const getTest = async () => {
+    const res = await axios.get('https://rickandmortyapi.com/api/character/2')
+    console.log(res.data)
+  }
   
   useEffect(() => {
     tele.ready()
+    getTest()
   }, [])
 
   const router = createBrowserRouter([
