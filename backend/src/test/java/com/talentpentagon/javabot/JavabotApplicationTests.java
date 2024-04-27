@@ -1,15 +1,13 @@
-/*
-package com.talentpentagon.javabot;
+// package com.talentpentagon.javabot;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class JavabotApplicationTests {
+// @SpringBootTest
+// class JavabotApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// @Test
+// void contextLoads() {
+// }
 
-}
-*/
+// }
