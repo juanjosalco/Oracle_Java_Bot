@@ -3,3 +3,23 @@
     margin-bottom: 1rem;
     text-align: center;
 }
+
+.options{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.btnSelector{
+    all: unset;
+    flex: 1;
+    margin-top: 1rem;
+    padding: 8px 0;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.borderSelected{
+    border-bottom: 2px solid #C84431;
+}
