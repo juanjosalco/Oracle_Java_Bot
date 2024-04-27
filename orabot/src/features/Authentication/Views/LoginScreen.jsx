@@ -37,6 +37,10 @@ export const LoginScreen = () => {
     }
   };
 
+  const handleRecover = () => {
+    navigate("/recover");
+  };
+
   return (
     <>
       <Header />
@@ -60,7 +64,7 @@ export const LoginScreen = () => {
         </div>
         {error && <p className="error">{error}</p>}
           <button className="btnX" onClick={handleLogin}>Log in</button>
-        <button className="questionBtn">Forgot username or password?</button>
+        <button className="questionBtn" onClick={handleRecover}>Forgot username or password?</button>
       </div>
     </>
   );
