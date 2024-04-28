@@ -43,7 +43,7 @@ export const LoginScreen = () => {
 
   return (
     <>
-      <Header />
+      <Header back={false}/>
       <div className="container">
         <h1>Welcome to OraBot!</h1>
         <div className="inputContainer">

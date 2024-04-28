@@ -1,0 +1,32 @@
+.popUpContainer{
+    width: 100%;
+    background-color: whitesmoke;
+    justify-content: center;
+    text-align: center;
+    position:fixed;
+    z-index: 1;
+}
+
+.title{
+    justify-content: center;
+    text-align: center;
+}
+
+
+.popUpButtons{
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    background-color: #3a3632;
+    color: #f2f2f2;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 32px;
+    width: 100%;
+  }

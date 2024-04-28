@@ -1,17 +1,10 @@
-import {React, useState} from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import {React} from "react";
+import { NavLink } from "react-router-dom";
 
 // Styles
 import "../Styles/Task.css";
 
 export const Task = ({ task }) => {
-  
-
-  const navigate = useNavigate();
-
-  // const handleTaskClick = () => {
-  //   navigate("/task/:"+task.id);
-  // }
     
   return (
     <NavLink to={"/task/:"+task.id} state={task}>

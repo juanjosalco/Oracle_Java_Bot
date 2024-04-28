@@ -7,6 +7,12 @@
     background-color: #3A3632;
 }
 
+.back{
+    position: absolute;
+    left: 0;
+    top: auto;
+}
+
 h2{
     all: unset;
     font-size: 24px;
