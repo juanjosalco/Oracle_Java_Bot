@@ -6,10 +6,11 @@ import "../Styles/TaskInformation.css";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
+import { PopUp } from "../../GlobalComponents/PopUp";
 
 const Statuses = ["To do", "Ongoing", "Done"];
 
-export const TaskInformationScreen = ({isNewTask, task}) => {
+export const TaskInformationScreen = ({isNewTask}) => {
   
   // Router
   const location = useLocation();
@@ -21,14 +22,39 @@ export const TaskInformationScreen = ({isNewTask, task}) => {
   const statusIdx = Statuses.indexOf(state.status);
 
   const [status, setStatus] = useState(statusIdx);
+  const [popUp, setPopUp] = useState(false);
+  const [popUpTitle, setPopUpTitle] = useState("");
+  const [popUpMessage, setPopUpMessage] = useState("");
 
-  const handleButtonClick = () => {
+  const handleConfirm = () => {
     navigate("/dashboard");
   };
 
+  const handleCancel = () => {
+    setPopUp(false);
+  }
+
+  const handleClick = (e) => {
+    setPopUp(true);
+    if(e.target.innerText === "Save") {
+      setPopUpTitle("Save");
+      setPopUpMessage("Are you sure you want to save the changes?");
+    }
+    if(e.target.innerText === "Delete") {
+      setPopUpTitle("Delete");
+      setPopUpMessage("Are you sure you want to delete the task?");
+    }
+    if(e.target.innerText === "Cancel") {
+      setPopUpTitle("Cancel");
+      setPopUpMessage("You will lose all changes. Dou you wish to continue?");
+    }
+  }
+  
+
   return (
     <>
-      <Header />
+      <Header back={true}/>
+      {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
         <h1>Task title</h1>
         <input type="text" placeholder="Title" className="inputsSpe" value={state.title}/>
@@ -60,11 +86,11 @@ export const TaskInformationScreen = ({isNewTask, task}) => {
         </div>
         <div style={{marginBottom: 16, marginTop: 8}}>
           <div className="buttonsContainer">
-          <button className="button black" onClick={handleButtonClick}>Save</button>
-          <button className="button black" onClick={handleButtonClick}>Cancel</button>
+          <button className="button black" onClick={handleClick}>Cancel</button>
+          <button className="button black" onClick={handleClick}>Save</button>
           </div>
           {!isNewTask && <div className="buttonsContainer">
-          <button className="button red" onClick={handleButtonClick}>Delete</button>
+          <button className="button red" onClick={handleClick}>Delete</button>
           </div>}
         </div>
       </div>

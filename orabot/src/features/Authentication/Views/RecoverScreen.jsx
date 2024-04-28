@@ -11,7 +11,7 @@ export const RecoverScreen = () => {
     const [recoverMethod, setRecoverMethod] = useState("password");
     return (
         <>
-        <Header />
+        <Header back={true}/>
         <div className="container">
             <div className="options">
                 <button className={recoverMethod === 'password' ? "btnSelector borderSelected" : "btnSelector"} onClick={() => setRecoverMethod('password')}>Password</button>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
 
 // Styles
 import "../Styles/Filter.css";
