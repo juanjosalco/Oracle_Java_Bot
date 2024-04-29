@@ -1,13 +1,14 @@
 .popUpContainer{
-    width: 100%;
     background-color: whitesmoke;
     justify-content: center;
     text-align: center;
     position:fixed;
     z-index: 1;
+    padding: 16px;
+    margin-inline: 32px;
 }
 
-.title{
+.titleZ{
     justify-content: center;
     text-align: center;
 }

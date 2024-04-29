@@ -37,15 +37,15 @@ export const TaskInformationScreen = ({isNewTask}) => {
   const handleClick = (e) => {
     setPopUp(true);
     if(e.target.innerText === "Save") {
-      setPopUpTitle("Save");
-      setPopUpMessage("Are you sure you want to save the changes?");
+      setPopUpTitle("Changes saved!");
+      setPopUpMessage("The changes have been saved successfully.");
     }
     if(e.target.innerText === "Delete") {
-      setPopUpTitle("Delete");
-      setPopUpMessage("Are you sure you want to delete the task?");
+      setPopUpTitle("Are you sure you want to delete the task?");
+      setPopUpMessage("You will lose all the information related to this task. Do you wish to continue?");
     }
     if(e.target.innerText === "Cancel") {
-      setPopUpTitle("Cancel");
+      setPopUpTitle("Are you sure you want to cancel?");
       setPopUpMessage("You will lose all changes. Dou you wish to continue?");
     }
   }
