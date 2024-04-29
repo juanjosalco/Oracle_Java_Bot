@@ -6,7 +6,7 @@ export const PopUp = ({ title, message, onConfirm, onCancel }) => {
 
     return (
         <div className="popUpContainer">
-                    <h1 className="title">{title}</h1>
+                    <h1 className="titleZ">{title}</h1>
                 <p>{message}</p>
                 <div className="popUpButtons">
                     <button className="btn" onClick={onCancel}>Cancel</button>
