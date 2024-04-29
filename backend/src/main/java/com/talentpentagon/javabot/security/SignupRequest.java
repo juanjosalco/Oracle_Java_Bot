@@ -1,26 +1,19 @@
 package com.talentpentagon.javabot.security;
 
-import com.talentpentagon.javabot.model.Team;
+import com.talentpentagon.javabot.model.Auth;
 
 public class SignupRequest {
-    private String username;
+    private String email;
     private String password;
     private String role;
     private String firstname;
     private String lastname;
-    private String email;
     private String phonenumber;
     private int teamId;
 
+
+
     // Generate getters and setters
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

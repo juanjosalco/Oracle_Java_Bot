@@ -81,6 +81,6 @@ public class Team {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
-    }
+    }   
 
 }

@@ -8,32 +8,32 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
-import com.talentpentagon.javabot.model.CustomUser;
-import com.talentpentagon.javabot.repository.CustomUserRepository;
+import com.talentpentagon.javabot.model.Auth;
+import com.talentpentagon.javabot.repository.AuthRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     
     @Autowired
-    private CustomUserRepository customUserRepository;
+    private AuthRepository authRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CustomUser customUser = customUserRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Auth tpAuth = authRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return User
-                .withUsername(customUser.getUsername())
-                .password(customUser.getPassword())
+                .withUsername(tpAuth.getEmail())
+                .password(tpAuth.getPassword())
                 .build();
     }
 
     // Method to load user by ID
     public UserDetails loadUserById(Integer id) throws UsernameNotFoundException {
-        CustomUser customUser = customUserRepository.findById(id)
+        Auth tpAuth = authRepository.findByUid(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return User
-                .withUsername(customUser.getUsername())
-                .password(customUser.getPassword())
+                .withUsername(tpAuth.getEmail())
+                .password(tpAuth.getPassword())
                 .build();
     }
 

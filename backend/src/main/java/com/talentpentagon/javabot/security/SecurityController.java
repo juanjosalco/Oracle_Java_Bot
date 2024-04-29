@@ -2,10 +2,10 @@ package com.talentpentagon.javabot.security;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.talentpentagon.javabot.repository.AuthRepository;
 import com.talentpentagon.javabot.repository.CustomUserRepository;
+import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.model.CustomUser;
-import com.talentpentagon.javabot.model.Team;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,44 +31,48 @@ public class SecurityController {
     private CustomUserRepository customUserRepository;
 
     @Autowired
+    private AuthRepository authRepository;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest request) {
-        Optional<CustomUser> userOptional = customUserRepository.findByUsername(request.getUsername());
+        Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
+        System.out.println("Auth: " + authConfirmation);
 
-        if(userOptional.isPresent()){
-            if(!userOptional.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
-            
+        if(authConfirmation.isPresent()){
+            if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
+            System.out.println("Auth: " + authConfirmation.get());
             try {
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
                 Authentication authentication = authenticationManager.authenticate(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
         
-                String username = request.getUsername();
+                int uid = authRepository.findByEmail(request.getEmail()).get().getUid();
     
                 // Get user data
-                CustomUser user = userOptional.get();
+                CustomUser user = customUserRepository.findById(uid).get();
                 String role = user.getRole();
-                int id = user.getId();
+                String email = authConfirmation.get().getEmail();
                 int teamId = user.getTeamId();
         
-                System.out.println("User: " + username + " Role: " + role + " ID: " + id + " Team: " + teamId);
                 // Generate JWT token
-                String jwtToken = JWTUtil.generateToken(username, role, id, teamId);
+                String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
         
                 return ResponseEntity.ok(new JwtResponse(jwtToken));
 
             } catch (Exception e) {
     
-                CustomUser user = userOptional.get();
-                if (user.getAttempts() >= 3) {
-                    user.setEnabled(false);
-                    customUserRepository.save(user);
+                System.out.println("Exception: " + e.getMessage());
+                Auth authentication = authConfirmation.get();
+                if (authentication.getAttempts() >= 3) {
+                    authentication.setEnabled(false);
+                    authRepository.save(authentication);
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
                 } else {
-                    user.setAttempts(user.getAttempts() + 1);
-                    customUserRepository.save(user);
+                    authentication.setAttempts(authentication.getAttempts() + 1);
+                    authRepository.save(authentication);
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
                 }
 
@@ -81,25 +85,31 @@ public class SecurityController {
 
     @PostMapping("/signUp")
     public ResponseEntity createUser(@RequestBody SignupRequest request) {
-        Optional<CustomUser> user = customUserRepository.findByUsername(request.getUsername());
+        Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
 
-        if(user.isPresent()){
+        if(credentials.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         }
 
         CustomUser newUser = new CustomUser();
-        newUser.setUsername(request.getUsername());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-        newUser.setEmail(request.getEmail());
         newUser.setFirstName(request.getFirstname());
         newUser.setLastName(request.getLastname());
         newUser.setPhonenumber(request.getPhonenumber());
         newUser.setRole(request.getRole());
         newUser.setTeamId(request.getTeamId());
-        newUser.setAttempts(0);
-        newUser.setEnabled(true);
+
+
+        Auth newAuth = new Auth();
+        newAuth.setEmail(request.getEmail());
+        newAuth.setPassword(passwordEncoder.encode(request.getPassword()));
+        newAuth.setUser(newUser);
+        newAuth.setAttempts(0);
+        newAuth.setEnabled(true);
 
         customUserRepository.save(newUser);
+        newAuth.setUser(newUser);
+        authRepository.save(newAuth);
+        
         return ResponseEntity.ok("User created successfully");
     }
         
