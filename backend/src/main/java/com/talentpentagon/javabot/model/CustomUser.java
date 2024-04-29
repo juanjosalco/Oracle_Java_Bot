@@ -17,12 +17,6 @@ public class CustomUser {
     @Column(name = "team_id")
     private int teamId;
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "pass")
-    private String password;
-
     @Column(name = "role")
     private String role;
 
@@ -32,17 +26,8 @@ public class CustomUser {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "phonenumber")
     private String phonenumber;
-
-    @Column(name = "is_enabled")
-    private boolean isEnabled;
-
-    @Column(name = "login_attempts")
-    private int attempts;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "assignee_id")
@@ -63,22 +48,6 @@ public class CustomUser {
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {
@@ -105,36 +74,12 @@ public class CustomUser {
         this.lastname = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhonenumber() {
         return phonenumber;
     }
 
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    public int getAttempts() {
-        return attempts;
-    }
-
-    public void setAttempts(int attempts) {
-        this.attempts = attempts;
     }
 
     public List<TaskItem> getAssignedTasks() {
@@ -144,16 +89,11 @@ public class CustomUser {
     public CustomUser() {
     }
 
-    public CustomUser(int teamId, String username, String password, String role, String firstname, String lastname, String email, String phonenumber) {
+    public CustomUser(int teamId, String password, String role, String firstname, String lastname, String phonenumber) {
         this.teamId = teamId;
-        this.username = username;
-        this.password = password;
         this.role = role;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
         this.phonenumber = phonenumber;
-        this.isEnabled = true;
-        this.attempts = 0;
     }
 }

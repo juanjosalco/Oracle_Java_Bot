@@ -22,10 +22,10 @@ public class JWTUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(JWTUtil.class);
     
-    public static String generateToken(String username, String role, int id, int teamId){
+    public static String generateToken(String email, String role, int id, int teamId){
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .claim("role", role)
                 .claim("id", id)

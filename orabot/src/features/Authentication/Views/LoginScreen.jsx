@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
+import { emailRegex, passwordRegex } from "../../GlobalComponents/Utils/RegexUtils";
 
 export const LoginScreen = () => {
   const [username, setUsername] = useState("");
@@ -20,12 +21,19 @@ export const LoginScreen = () => {
   };
 
   const validateCredentials = () => {
-    // Perform your validation here, e.g., check if username and password are not empty
+    
     if (username.trim() === "" || password.trim() === "") {
       setError("Please enter both username and password.");
       return false;
     }
-    // Add more validation logic as needed
+    else if (!emailRegex.test(username)) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+    else if (!passwordRegex.test(password)) {
+      setError("Please enter a valid password.");
+      return false;
+    }
 
     return true;
   };

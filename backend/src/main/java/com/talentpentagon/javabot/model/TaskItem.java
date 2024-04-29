@@ -15,7 +15,6 @@ public class TaskItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @Column(name = "assignee_id")
     private int assignee;
 
