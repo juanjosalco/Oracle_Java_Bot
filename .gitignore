@@ -1,0 +1,14 @@
+*.zip
+*.log
+*.gz
+*.tar
+
+# Ignore all files in the build directory
+/build/*
+
+# Ignore oracle files
+/oracle
+*.ora
+*.sql
+*.dmp
+
