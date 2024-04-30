@@ -7,8 +7,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-
-public interface TaskRepository extends JpaRepository<TaskItem, Integer>{
+public interface TaskRepository extends JpaRepository<TaskItem, Integer> {
     List<TaskItem> findByAssignee(Integer assignee, Sort sortBy);
 
     List<TaskItem> findByAssigneeAndStatus(Integer assignee, String status, Sort sortBy);

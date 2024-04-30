@@ -1,18 +1,20 @@
 package com.talentpentagon.javabot.commandhandlers;
 
+// import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.talentpentagon.javabot.Command;
+import com.talentpentagon.Commands.PostCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TaskRepository;
 
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class EditTaskStatusCommandHandler implements Command<TaskItem, ResponseEntity<TaskItem>> {
+public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, ResponseEntity<TaskItem>> {
 
     @Autowired
     private TaskRepository taskRepository;
@@ -38,15 +40,6 @@ public class EditTaskStatusCommandHandler implements Command<TaskItem, ResponseE
         taskRepository.save(task);
         return ResponseEntity.status(HttpStatus.OK).body(task);
 
-        // try {
-        // ResponseEntity<TaskItem> updatedTask = taskService.updateTaskStatus(id,
-        // task.getStatus());
-        // return new ResponseEntity<TaskItem>(updatedTask.getBody(),
-        // updatedTask.getStatusCode());
-        // } catch (Exception e) {
-        // System.out.println("ERROR: " + e.getMessage());
-        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        // }
     }
 
 }

@@ -6,26 +6,24 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.javabot.Command;
+import com.talentpentagon.Commands.GetByIdCommand;
 import com.talentpentagon.javabot.model.TaskItem;
-import com.talentpentagon.javabot.repository.TaskRepository;
+import com.talentpentagon.javabot.service.TaskService;
 
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class NewTaskCommandHandler implements Command<TaskItem, ResponseEntity<TaskItem>> {
+public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseEntity<TaskItem>> {
 
     @Autowired
-    private TaskRepository taskRepository;
-    // @Autowired
-    // private TeamService teamService;
+    private TaskService taskService;
 
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
 
         // id
         if (task.getId() != null) {
-            throw new RuntimeException("Task id must be empty");
+            throw new RuntimeException("Task id cant be empty");
         }
 
         // assignee
@@ -62,7 +60,7 @@ public class NewTaskCommandHandler implements Command<TaskItem, ResponseEntity<T
             throw new RuntimeException("Task due date cannot be before creation date");
         }
 
-        // priotity
+        // priority
         if (task.getPriority() == null) {
             throw new RuntimeException("Task priority cannot be empty");
         }
@@ -78,17 +76,8 @@ public class NewTaskCommandHandler implements Command<TaskItem, ResponseEntity<T
             throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
         }
 
-        taskRepository.save(task);
+        taskService.addTask(task);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
-
-        // try {
-        // ResponseEntity<TaskItem> newTask = taskService.addTask(task);
-        // return new ResponseEntity<TaskItem>(newTask.getBody(),
-        // newTask.getStatusCode());
-        // } catch (Exception e) {
-        // System.out.println("ERROR: " + e.getMessage());
-        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        // }
 
     }
 

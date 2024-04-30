@@ -1,9 +1,11 @@
-package com.talentpentagon.javabot;
+package com.talentpentagon.Commands;
 
 import org.springframework.http.ResponseEntity;
 
 import com.talentpentagon.javabot.model.TaskItem;
 
-public interface Command<E, T> {
+public interface PostCommand<E, T> {
+
     ResponseEntity<TaskItem> execute(E entity);
+
 }
