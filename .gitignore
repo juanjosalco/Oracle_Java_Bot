@@ -7,7 +7,7 @@
 /build/*
 
 # Ignore oracle files
-oracle
+oracle/
 *.ora
 *.sql
 *.dmp

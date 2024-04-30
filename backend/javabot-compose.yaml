@@ -50,17 +50,17 @@ spec:
         - name: db_user
           value: "APP_DATA"
         - name: db_url
-          value: "jdbc:oracle:thin:@%SERVICE_PDB_NAME%_tp?TNS_ADMIN=/OracleBotProject/Oracle_Java_Bot/oracle"
+          value: "jdbc:oracle:thin:@oraclebotdb_tp?TNS_ADMIN=/OracleBotProject/Oracle_Java_Bot/oracle"
         - name: driver_class_name 
           value: "oracle.jdbc.OracleDriver"
-        - name: OCI_REGION
-          value: "%OCI_REGION%"
         - name: dbpassword
-          valueFrom:
-            secretKeyRef:
-              name: oracle-db-secret
-              key: password
-              optional: true
+          value: "verySafePassword123"
+        # TODO: Change the value to the secret key
+          # valueFrom:
+          #   secretKeyRef:
+          #     name: oracle-db-secret
+          #     key: password
+          #     optional: true
       volumneMounts:
       - name: credentials
         mountPath: /OracleBotProject/Oracle_Java_Bot/oracle
