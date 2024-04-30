@@ -14,6 +14,9 @@ target/
 .sts4-cache
 .log
 .gz
+backend/.log
+backend/.tmp
+backend/.gz
 
 ### IntelliJ IDEA ###
 .idea
