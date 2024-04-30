@@ -1,28 +1,46 @@
-import React, { useState } from "react";
-
-// Styles
+import React, { useEffect, useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
 import { emailRegex, passwordRegex } from "../../GlobalComponents/Utils/RegexUtils";
+import { useUser } from "../../../hooks/useUser";
 
 export const LoginScreen = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [role, setRole] = useState("Developer");
-  const navigate = useNavigate();
+ const { userData, saveUserData } = useUser();
+ const [username, setUsername] = useState("");
+ const [password, setPassword] = useState("");
+ const [error, setError] = useState("");
+ const [role, setRole] = useState("Developer");
+ const navigate = useNavigate();
 
-  const handleUsername = (e) => {
+ const handleUsername = (e) => {
     setUsername(e.target.value);
-  };
+ };
 
-  const handlePassword = (e) => {
+ const handlePassword = (e) => {
     setPassword(e.target.value);
-  };
+ };
 
-  const validateCredentials = () => {
-    
+  const testSavingData = () => {
+    saveUserData({
+       token: "1",
+       UID: "Developer",
+       team_id: "John Doe",
+       role: "d",
+    });
+
+ };
+
+ // Use useEffect to log the updated state after it has been set
+ useEffect(() => {
+    testSavingData();
+ }, []); // Empty dependency array means this effect runs once after the initial render
+
+ useEffect(() => {
+    console.log(userData);
+ }, [userData]); // This effect runs whenever userData changes
+
+ const validateCredentials = () => {
     if (username.trim() === "" || password.trim() === "") {
       setError("Please enter both username and password.");
       return false;
@@ -37,27 +55,24 @@ export const LoginScreen = () => {
     }
 
     return true;
-  };
+ };
 
-  const handleLogin = () => {
+ const handleLogin = () => {
     setRole("Developer");
     if (validateCredentials()) {
-      // If validation passes, navigate to the dashboard
       if(role === "Developer") {
         navigate("/dashboard", { state: { isDeveloper: true } });
-      }
-      else if(role === "Manager"){
+      } else if(role === "Manager"){
         navigate("/dashboard", { state: { isDeveloper: false } });
       }
-
     }
-  };
+ };
 
-  const handleRecover = () => {
+ const handleRecover = () => {
     navigate("/recover");
-  };
+ };
 
-  return (
+ return (
     <>
       <Header back={false}/>
       <div className="container">
@@ -79,9 +94,9 @@ export const LoginScreen = () => {
           />
         </div>
         {error && <p className="error">{error}</p>}
-          <button className="btnX" onClick={handleLogin}>Log in</button>
+        <button className="btnX" onClick={handleLogin}>Log in</button>
         <button className="questionBtn" onClick={handleRecover}>Forgot username or password?</button>
       </div>
     </>
-  );
+ );
 };
