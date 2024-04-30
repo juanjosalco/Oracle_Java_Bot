@@ -37,12 +37,11 @@ public class SecurityController {
     private BCryptPasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest request) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
-        System.out.println("Auth: " + authConfirmation);
 
         if(authConfirmation.isPresent()){
-            if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
+            if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Account locked"));
             System.out.println("Auth: " + authConfirmation.get());
             try {
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
@@ -60,31 +59,30 @@ public class SecurityController {
                 // Generate JWT token
                 String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
         
-                return ResponseEntity.ok(new JwtResponse(jwtToken));
+                return ResponseEntity.ok(new JwtResponse(jwtToken, "Success"));
 
             } catch (Exception e) {
     
-                System.out.println("Exception: " + e.getMessage());
                 Auth authentication = authConfirmation.get();
                 if (authentication.getAttempts() >= 3) {
                     authentication.setEnabled(false);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Account locked"));
                 } else {
                     authentication.setAttempts(authentication.getAttempts() + 1);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Invalid credentials"));
                 }
 
             }
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("User not found"));
         
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity createUser(@RequestBody SignupRequest request) {
+    public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
 
         if(credentials.isPresent()){
