@@ -77,7 +77,7 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
         }
 
         taskService.addTask(task);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(task);
 
     }
 

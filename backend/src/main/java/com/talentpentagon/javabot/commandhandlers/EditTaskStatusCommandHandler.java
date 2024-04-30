@@ -34,7 +34,7 @@ public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, Respo
         }
         
         taskRepository.save(task);
-        return ResponseEntity.status(HttpStatus.OK).body(task);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
 
     }
 
