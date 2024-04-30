@@ -10,6 +10,7 @@ export const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [role, setRole] = useState("Developer");
   const navigate = useNavigate();
 
   const handleUsername = (e) => {
@@ -39,9 +40,15 @@ export const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    if (validateCredentials()) {
+    if (1) {
       // If validation passes, navigate to the dashboard
-      navigate("/dashboard");
+      if(role === "Developer") {
+        navigate("/dashboard", { state: { isDeveloper: true } });
+      }
+      else if(role == "Manager"){
+        navigate("/dashboard", { state: { isDeveloper: false } });
+      }
+
     }
   };
 

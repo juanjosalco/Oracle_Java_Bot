@@ -4,7 +4,7 @@ import React from "react";
 import { Task } from "../Components/Task";
 import { Filter } from "../Components/Filter";
 
-export const ManagerScreen = ({tasks, isDeveloper}) => {
+export const ManagerScreen = (props) => {
     return (
         <>
           <div className="containerDashboard">
@@ -13,9 +13,9 @@ export const ManagerScreen = ({tasks, isDeveloper}) => {
                 Here you can see what your team is working on.
             </h3>
           </div>
-          <Filter isDeveloper={isDeveloper} />
-          {tasks.map((task, index) => (
-            <Task key={index} task={task} />
+          <Filter isDeveloper={props.isDeveloper} />
+          {props.tasks.map((task, index) => (
+            <Task key={index} task={task} isDeveloper={props.isDeveloper}/>
           ))}
         </>
       );
