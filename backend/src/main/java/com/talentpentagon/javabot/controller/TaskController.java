@@ -2,16 +2,20 @@ package com.talentpentagon.javabot.controller;
 
 import java.util.List;
 
-import com.talentpentagon.javabot.commandhandlers.EditTaskCommandHandler;
-import com.talentpentagon.javabot.commandhandlers.EditTaskStatusCommandHandler;
-import com.talentpentagon.javabot.commandhandlers.NewTaskCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.EditTaskCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.EditTaskStatusCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.GetTaskByIdCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.GetTaskByUserCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.NewTaskCommandHandler;
+// import com.talentpentagon.javabot.commandhandlers.GetTaskByTeamHandler;
+import com.talentpentagon.javabot.commandhandlers.*;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 import com.talentpentagon.javabot.security.JWTUtil;
-import com.talentpentagon.javabot.service.TeamService;
+// import com.talentpentagon.javabot.service.TeamService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+// import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +33,8 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @Autowired
-    private TeamService teamService;
+    // @Autowired
+    // private TeamService teamService;
 
     @Autowired
     private NewTaskCommandHandler newTaskCommandHandler;
@@ -40,6 +44,15 @@ public class TaskController {
 
     @Autowired
     private EditTaskStatusCommandHandler editTaskStatusCommandHandler;
+
+    @Autowired
+    private GetTaskByIdCommandHandler getTaskByIdCommandHandler;
+
+    @Autowired
+    private GetTaskByUserCommandHandler getTaskByUserCommandHandler;
+
+    @Autowired
+    private GetTaskByTeamHandler getTaskByTeamHandler;
 
     // TEST ONLY
     @GetMapping("task")
@@ -52,13 +65,14 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer')")
     @GetMapping("task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
-        try {
-            ResponseEntity<TaskItem> task = taskService.getTaskById(id);
-            return new ResponseEntity<TaskItem>(task.getBody(), task.getStatusCode());
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+        // try {
+        // ResponseEntity<TaskItem> task = taskService.getTaskById(id);
+        // return new ResponseEntity<TaskItem>(task.getBody(), task.getStatusCode());
+        // } catch (Exception e) {
+        // System.out.println("ERROR: " + e.getMessage());
+        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        // }
+        return getTaskByIdCommandHandler.execute(id);
     }
 
     // Get all tasks for a team
@@ -68,11 +82,12 @@ public class TaskController {
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status) {
 
-        int teamId = JWTUtil.extractTeamId(token);
+        // int teamId = JWTUtil.extractTeamId(token);
 
-        List<TaskItem> tasks = teamService.getTeamTasks(teamId, sortBy, status);
+        // List<TaskItem> tasks = teamService.getTeamTasks(teamId, sortBy, status);
 
-        return taskService.sortAndFilter(tasks, sortBy, status);
+        // return taskService.sortAndFilter(tasks, sortBy, status);
+        return getTaskByTeamHandler.execute(null, sortBy, status); // ask Diego
     }
 
     // Get User's tasks
@@ -84,7 +99,8 @@ public class TaskController {
 
         int assignee = JWTUtil.extractId(token);
 
-        return taskService.getTasksForUser(assignee, sortBy, status);
+        // return taskService.getTasksForUser(assignee, sortBy, status);
+        return getTaskByUserCommandHandler.execute(assignee, sortBy, status); // ask Diego
     }
 
     // Add task
