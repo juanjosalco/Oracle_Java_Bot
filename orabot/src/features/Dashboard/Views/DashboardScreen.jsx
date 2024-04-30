@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
@@ -19,12 +20,18 @@ const Tasks = [
 ]
 
 export const DashboardScreen = () => {
-    const isDeveloper = false;
+
+    // Router
+    const location = useLocation();
+
+    const { state } = location;
+
+    console.log(state.isDeveloper);
 
     return (
         <>
         <Header />
-        {isDeveloper ? <DeveloperScreen tasks={Tasks} isDeveloper={isDeveloper} /> : <ManagerScreen tasks={Tasks} isDeveloper={isDeveloper} />}
+        {state.isDeveloper ? <DeveloperScreen tasks={Tasks} isDeveloper={state.isDeveloper} /> : <ManagerScreen tasks={Tasks} isDeveloper={state.isDeveloper} />}
         </>
     );
 }

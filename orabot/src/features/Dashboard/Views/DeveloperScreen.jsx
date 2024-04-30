@@ -4,7 +4,7 @@ import React from "react";
 import { Task } from "../Components/Task";
 import { Filter } from "../Components/Filter";
 
-export const DeveloperScreen = ({tasks, isDeveloper}) => {
+export const DeveloperScreen = (props) => {
   return (
     <>
       <div className="containerDashboard">
@@ -13,9 +13,9 @@ export const DeveloperScreen = ({tasks, isDeveloper}) => {
           Here you can see and modify your assigned tasks.
         </h3>
       </div>
-      <Filter isDeveloper={isDeveloper} />
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} />
+      <Filter isDeveloper={props.isDeveloper} />
+      {props.tasks.map((task, index) => (
+        <Task key={index} task={task} isDeveloper={props.isDeveloper}/>
       ))}
     </>
   );

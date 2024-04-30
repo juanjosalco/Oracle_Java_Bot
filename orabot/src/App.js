@@ -44,7 +44,11 @@ function App() {
     {
         path: '/task/:id',
         element: <TaskInformationScreen />
-    }
+    },
+    {
+      path: '/task/add',
+      element: <TaskInformationScreen isNewTask={true}/>
+  }
   ])
 
   return (

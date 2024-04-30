@@ -10,7 +10,7 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 
 const Statuses = ["To do", "Ongoing", "Done"];
 
-export const TaskInformationScreen = ({isNewTask}) => {
+export const TaskInformationScreen = (props) => {
   
   // Router
   const location = useLocation();
@@ -19,15 +19,17 @@ export const TaskInformationScreen = ({isNewTask}) => {
 
   const { state } = location;
 
-  const statusIdx = Statuses.indexOf(state.status);
+  const statusIdx = Statuses.indexOf(state.task.status);
 
   const [status, setStatus] = useState(statusIdx);
   const [popUp, setPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpMessage, setPopUpMessage] = useState("");
 
+  console.log(state.isDeveloper)
+
   const handleConfirm = () => {
-    navigate("/dashboard");
+    navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
   };
 
   const handleCancel = () => {
@@ -57,9 +59,9 @@ export const TaskInformationScreen = ({isNewTask}) => {
       {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
         <h1>Task title</h1>
-        <input type="text" placeholder="Title" className="inputsSpe" value={state.title}/>
+        <input type="text" placeholder="Title" className="inputsSpe" value={state.task.title}/>
         <h1>Description</h1>
-        <textarea placeholder="Description" className="inputArea" value={state.description}  rows={5} />
+        <textarea placeholder="Description" className="inputArea" value={state.task.description}  rows={5} />
         <h1 className="statusText">Status</h1>
         <div className="buttonsContainer">
           {Statuses.map((st, index) => (
@@ -74,7 +76,7 @@ export const TaskInformationScreen = ({isNewTask}) => {
         </div>
         <div className="priorityContainer">
           <p>Priority:</p>
-          <select value={state.priority}>
+          <select value={state.task.priority}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -82,14 +84,14 @@ export const TaskInformationScreen = ({isNewTask}) => {
         </div>
         <div className="priorityContainer">
           <p>Due date:</p>
-          <input type="date" className="dueDate" value={state.date}/>
+          <input type="date" className="dueDate" value={state.task.date}/>
         </div>
         <div style={{marginBottom: 16, marginTop: 8}}>
           <div className="buttonsContainer">
           <button className="button black" onClick={handleClick}>Cancel</button>
           <button className="button black" onClick={handleClick}>Save</button>
           </div>
-          {!isNewTask && <div className="buttonsContainer">
+          {!props.isNewTask && <div className="buttonsContainer">
           <button className="button red" onClick={handleClick}>Delete</button>
           </div>}
         </div>
