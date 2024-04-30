@@ -26,8 +26,6 @@ export const DashboardScreen = () => {
 
     const { state } = location;
 
-    console.log(state.isDeveloper);
-
     return (
         <>
         <Header />
