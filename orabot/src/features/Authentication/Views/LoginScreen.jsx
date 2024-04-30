@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { emailRegex, passwordRegex } from "../../GlobalComponents/Utils/RegexUtils";
 import { useUser } from "../../../hooks/useUser";
 import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
-import axios from "axios";
+import { login } from "../../../api/AuthAPI";
 
 export const LoginScreen = () => {
  const { userData, saveUserData } = useUser();
@@ -13,16 +13,9 @@ export const LoginScreen = () => {
  const [password, setPassword] = useState("");
  const [error, setError] = useState("");
  const [role, setRole] = useState("Developer");
+ const [token, setToken] = useState("");
  const navigate = useNavigate();
 
-
-
- // Get token from backend
- const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZXN0TWFuYWdlckB0ZXN0LmNvbSIsImV4cCI6MTcxNTM2MDEwOCwicm9sZSI6Ik1hbmFnZXIiLCJpZCI6MCwidGVhbSI6MX0.EQ2K22QMq-t66PR5dZ9mQ6n5T5TuX-KTzqJ6yWJei7moDkmC2PhRbxpwdhAm41PdVz_xpdMIFJYApBurQy5YxQ";
- // Decode jwt
- const decodedToken = decodeJwt(token);
- // Use jwt 
-//  console.log(decodedToken.role)
 
  const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -68,17 +61,16 @@ export const LoginScreen = () => {
     return true;
  };
 
- const handleLogin = () => {
-      axios.post("http://localhost:8080/login", {
-        email: username,
-        password: password
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+ const handleLogin = async () => {
+    const response = await login(username, password);
+    setToken(response.token);
+
+    // Decode jwt
+    const decodedToken = decodeJwt(token);
+    // Use jwt 
+     setRole(decodedToken.role)
+
+    
     if (validateCredentials()) {
       if(role === "Developer") {
         navigate("/dashboard", { state: { isDeveloper: true } });

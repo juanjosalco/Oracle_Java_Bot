@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -36,6 +37,7 @@ public class SecurityController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());

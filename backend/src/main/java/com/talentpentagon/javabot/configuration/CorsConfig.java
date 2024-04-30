@@ -26,6 +26,7 @@ public class CorsConfig {
         config.setAllowedOrigins(Collections.singletonList("*"));
         config.addAllowedHeader("*");
         config.addExposedHeader("location");
+        config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         CorsFilter filter = new CorsFilter(source);
