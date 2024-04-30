@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### LOGS ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+.DS_Store?
+._*
+
+### Java ###
+*.class
+*.jar
+*.war
+
+### Node ###
+**/node_modules
+npm-debug.log
+yarn-error.log
+
