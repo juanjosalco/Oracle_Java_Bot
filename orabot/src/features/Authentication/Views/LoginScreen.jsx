@@ -40,12 +40,13 @@ export const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    if (1) {
+    setRole("Developer");
+    if (validateCredentials()) {
       // If validation passes, navigate to the dashboard
       if(role === "Developer") {
         navigate("/dashboard", { state: { isDeveloper: true } });
       }
-      else if(role == "Manager"){
+      else if(role === "Manager"){
         navigate("/dashboard", { state: { isDeveloper: false } });
       }
 
