@@ -1,5 +1,5 @@
 package com.talentpentagon.javabot.TaskControllerTest;
 
-public class NewTaskTest {
+public class GetTaskByIdCommandHandlerTest {
 
 }

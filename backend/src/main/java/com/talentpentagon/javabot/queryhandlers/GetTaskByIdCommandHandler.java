@@ -30,6 +30,6 @@ public class GetTaskByIdCommandHandler implements GetByIdCommand<Integer, Respon
 
         // taskService.addTask(task);
         taskService.getTaskById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 }
