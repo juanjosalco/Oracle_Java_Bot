@@ -3,6 +3,8 @@ package com.talentpentagon.javabot.model;
 import java.time.OffsetDateTime;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -16,27 +18,35 @@ public class TaskItem {
     private Integer id;
 
     @Column(name = "assignee_id")
+    @NotNull
     private int assignee;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "description")
+    @NotBlank
     private String description;
 
     @Column(name = "status")
+    @NotBlank
     private String status;
 
     @Column(name = "creation_date")
+    @NotNull
     private OffsetDateTime creationDate;
 
     @Column(name = "due_date")
+    @NotNull
     private OffsetDateTime dueDate;
 
     @Column(name = "status_change_date")
+    @NotNull
     private OffsetDateTime statusChangeDate;
 
     @Column(name = "priority")
+    @NotNull
     private Integer priority;
 
     public TaskItem() {
@@ -46,7 +56,7 @@ public class TaskItem {
         this.assignee = assignee;
         this.name = name;
         this.description = description;
-        this.status = "ToDo";
+        this.status = "To do";
         this.priority = priority;
         this.dueDate = dueDate;
         this.creationDate = OffsetDateTime.now();
