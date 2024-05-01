@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentpentagon.javabot.repository.AuthRepository;
 import com.talentpentagon.javabot.repository.CustomUserRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.model.CustomUser;
 import org.springframework.http.HttpStatus;
@@ -37,7 +40,7 @@ public class SecurityController {
     private BCryptPasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
         System.out.println("Auth: " + authConfirmation);
 
@@ -60,7 +63,7 @@ public class SecurityController {
                 // Generate JWT token
                 String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
         
-                return ResponseEntity.ok(new JwtResponse(jwtToken).toString());
+                return ResponseEntity.ok(new JwtResponse(jwtToken));
 
             } catch (Exception e) {
     
@@ -83,6 +86,7 @@ public class SecurityController {
         
     }
 
+    @Transactional
     @PostMapping("/signUp")
     public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
@@ -106,9 +110,13 @@ public class SecurityController {
         newAuth.setAttempts(0);
         newAuth.setEnabled(true);
 
-        customUserRepository.save(newUser);
+        CustomUser savedUser = customUserRepository.save(newUser);
         newAuth.setUser(newUser);
-        authRepository.save(newAuth);
+        Auth savedAuth = authRepository.save(newAuth);
+
+        if (savedUser == null || savedAuth == null) {
+            throw new RuntimeException("Failed to create user or auth");
+        }
         
         return ResponseEntity.ok("User created successfully");
     }
