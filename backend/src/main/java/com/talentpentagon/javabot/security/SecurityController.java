@@ -42,11 +42,8 @@ public class SecurityController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
-        System.out.println("Auth: " + authConfirmation);
-
         if(authConfirmation.isPresent()){
             if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
-            System.out.println("Auth: " + authConfirmation.get());
             try {
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
                 Authentication authentication = authenticationManager.authenticate(token);
@@ -67,7 +64,6 @@ public class SecurityController {
 
             } catch (Exception e) {
     
-                System.out.println("Exception: " + e.getMessage());
                 Auth authentication = authConfirmation.get();
                 if (authentication.getAttempts() >= 3) {
                     authentication.setEnabled(false);
@@ -90,9 +86,13 @@ public class SecurityController {
     @PostMapping("/signUp")
     public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
+        Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
 
         if(credentials.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        }
+        if(roleCheck.isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Team " + request.getTeamId() + " already has an assigned manager.");
         }
 
         CustomUser newUser = new CustomUser();
