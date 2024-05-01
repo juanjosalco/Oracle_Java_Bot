@@ -62,6 +62,7 @@ spec:
           volumeMounts:
             - name: credentials
               mountPath: /OracleBotProject/Oracle_Java_Bot/oracle
+      restartPolicy: Always
       volumes:
         - name: credentials
           secret:
