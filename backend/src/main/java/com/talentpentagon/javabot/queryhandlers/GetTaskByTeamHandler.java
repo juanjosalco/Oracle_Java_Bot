@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.Commands.GetCommand;
+import com.talentpentagon.javabot.Commands.GetCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
 import com.talentpentagon.javabot.repository.TeamRepository;

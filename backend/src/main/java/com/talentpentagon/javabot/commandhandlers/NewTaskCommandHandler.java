@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Commands.GetByIdCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -18,8 +18,11 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
     @Autowired
     private TaskService taskService;
 
+    String specialChars = ".*[^@$%^&*()_+=\\[\\]{}'\"\\\\|<>\\/].*";
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
+
+        System.out.println("Task: " + task);
 
         // id
         if (task.getId() != null) {
@@ -31,34 +34,31 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
             throw new RuntimeException("Task assignee cannot be empty");
         }
 
-        // name
-        if (StringUtils.isBlank(task.getName())) {
-            throw new RuntimeException("Task name cannot be empty");
+        // title
+        if (StringUtils.isBlank(task.getTaskTitle())) {
+            throw new RuntimeException("Task title cannot be empty");
         }
-        if (task.getName().matches(".*[!@#$%^&*()_+=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
-            throw new RuntimeException("Task name cannot contain special characters");
+        if (!task.getTaskTitle().matches(specialChars)) {
+            throw new RuntimeException("Task title cannot contain special characters");
         }
 
         // description
         if (StringUtils.isBlank(task.getDescription())) {
             throw new RuntimeException("Task description cannot be empty");
         }
-        if (task.getDescription().matches(".*[!@#$%^&*()_+=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+        if (!task.getDescription().matches(specialChars)) {
             throw new RuntimeException("Task description cannot contain special characters");
-        }
-
-        // creation_date
-        if (task.getCreationDate() == null) {
-            throw new RuntimeException("Task creation date cannot be empty");
         }
 
         // due_date
         if (task.getDueDate() == null) {
             throw new RuntimeException("Task due date cannot be empty");
         }
-        if (task.getDueDate().isBefore(task.getCreationDate())) {
-            throw new RuntimeException("Task due date cannot be before creation date");
-        }
+
+        // TODO: FIX THIS
+        // if (task.getDueDate().isBefore(task.getCreationDate())) {
+        //     throw new RuntimeException("Task due date cannot be before creation date");
+        // }
 
         // priority
         if (task.getPriority() == null) {
@@ -72,8 +72,8 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
         if (StringUtils.isBlank(task.getStatus())) {
             throw new RuntimeException("Task status cannot be empty");
         }
-        if ((!task.getStatus().matches("^(?i) *(ToDo|Ongoing|Done|Cancelled)$"))) {
-            throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
+        if ((!task.getStatus().matches("^(?i) *(To do|Ongoing|Done|Cancelled)$"))) {
+            throw new RuntimeException("Task status must be one of 'To do', 'Ongoing', 'Done', 'Cancelled'");
         }
 
         taskService.addTask(task);

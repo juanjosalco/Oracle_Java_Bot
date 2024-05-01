@@ -21,9 +21,9 @@ public class TaskItem {
     @NotNull
     private int assignee;
 
-    @Column(name = "name")
+    @Column(name = "title")
     @NotBlank
-    private String name;
+    private String title;
 
     @Column(name = "description")
     @NotBlank
@@ -52,15 +52,15 @@ public class TaskItem {
     public TaskItem() {
     }
 
-    public TaskItem(int assignee, String name, String description, Integer priority, OffsetDateTime dueDate) {
+    public TaskItem(int assignee, String title, String description, Integer priority, OffsetDateTime dueDate, OffsetDateTime creationDate, OffsetDateTime statusChangeDate) {
         this.assignee = assignee;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.status = "To do";
         this.priority = priority;
         this.dueDate = dueDate;
-        this.creationDate = OffsetDateTime.now();
-        this.statusChangeDate = OffsetDateTime.now();
+        this.creationDate = creationDate;
+        this.statusChangeDate = statusChangeDate;
     }
 
     public Integer getId() {
@@ -80,11 +80,11 @@ public class TaskItem {
     }
 
     public String getTaskTitle() {
-        return name;
+        return title;
     }
 
-    public void setTaskTitle(String name) {
-        this.name = name;
+    public void setTaskTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -132,7 +132,7 @@ public class TaskItem {
         return "TaskItem{" +
                 "id=" + id +
                 ", assignee_id=" + assignee +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", priority=" + priority +

@@ -110,6 +110,7 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer')")
     @PostMapping("task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
+        task.setStatus("To do");
         return newTaskCommandHandler.execute(task);
     }
 

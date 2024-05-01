@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.talentpentagon.Commands.PostCommand;
+import com.talentpentagon.javabot.Commands.PostCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TaskRepository;
 
@@ -19,21 +19,23 @@ public class EditTaskCommandHandler implements PostCommand<TaskItem, ResponseEnt
     @Autowired
     private TaskRepository taskRepository;
 
+    String specialChars = ".*[^@$%^&*()_+=\\[\\]{}'\"\\\\|<>\\/].*";
+
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
-        // name
-        if (StringUtils.isBlank(task.getName())) {
-            throw new RuntimeException("Task name cannot be empty");
+        // title
+        if (StringUtils.isBlank(task.getTaskTitle())) {
+            throw new RuntimeException("Task title cannot be empty");
         }
-        if (task.getName().matches(".*[!@#$%^&*()_+=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
-            throw new RuntimeException("Task name cannot contain special characters");
+        if (!task.getTaskTitle().matches(specialChars)) {
+            throw new RuntimeException("Task title cannot contain special characters");
         }
 
         // description
         if (StringUtils.isBlank(task.getDescription())) {
             throw new RuntimeException("Task description cannot be empty");
         }
-        if (task.getDescription().matches(".*[!@#$%^&*()_+=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+        if (!task.getDescription().matches(specialChars)) {
             throw new RuntimeException("Task description cannot contain special characters");
         }
 

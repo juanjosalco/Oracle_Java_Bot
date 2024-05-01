@@ -1,6 +1,6 @@
 package com.talentpentagon.javabot.queryhandlers;
 
-import com.talentpentagon.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Commands.GetByIdCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 

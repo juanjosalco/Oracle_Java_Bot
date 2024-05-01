@@ -1,6 +1,5 @@
 package com.talentpentagon.javabot.service;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,9 +63,7 @@ public class TaskService {
 
     // Add a new task
     public ResponseEntity<TaskItem> addTask(TaskItem task) {
-        task.setStatus("ToDo");
-        task.setCreationDate(OffsetDateTime.now());
-        task.setStatusChangeDate(OffsetDateTime.now());
+        task.setStatus("To do");
 
         TaskItem newTask = taskRepository.save(task);
         return new ResponseEntity<TaskItem>(newTask, HttpStatus.CREATED);
@@ -80,7 +77,7 @@ public class TaskService {
             updatedTask.setId(id);
             updatedTask.setCreationDate(task.getCreationDate());
             updatedTask.setDescription(task.getDescription());
-            updatedTask.setStatus(task.getStatus());
+            task.setStatus("To do");
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.OK);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);

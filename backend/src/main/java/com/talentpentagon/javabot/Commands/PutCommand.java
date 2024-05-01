@@ -1,3 +1,4 @@
+package com.talentpentagon.javabot.Commands;
 // package com.talentpentagon.Commands;
 
 // public interface PutCommand<E, T> {

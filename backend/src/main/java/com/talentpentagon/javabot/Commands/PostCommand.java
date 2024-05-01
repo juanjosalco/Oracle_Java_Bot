@@ -1,4 +1,4 @@
-package com.talentpentagon.Commands;
+package com.talentpentagon.javabot.Commands;
 
 import org.springframework.http.ResponseEntity;
 
