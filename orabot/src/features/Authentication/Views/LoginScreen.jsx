@@ -12,15 +12,14 @@ import { login } from "../../../api/AuthAPI";
 
 export const LoginScreen = () => {
   const { userData, saveUserData } = useUser();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [role, setRole] = useState("Developer");
   const [token, setToken] = useState("");
   const navigate = useNavigate();
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
   };
 
   const handlePassword = (e) => {
@@ -28,10 +27,10 @@ export const LoginScreen = () => {
   };
 
   const validateCredentials = () => {
-    if (username.trim() === "" || password.trim() === "") {
-      setError("Please enter both username and password.");
+    if (email.trim() === "" || password.trim() === "") {
+      setError("Please enter both email and password.");
       return false;
-    } else if (!emailRegex.test(username)) {
+    } else if (!emailRegex.test(email)) {
       setError("Please enter a valid email address.");
       return false;
     } else if (!passwordRegex.test(password)) {
@@ -43,7 +42,7 @@ export const LoginScreen = () => {
   };
 
   const handleLogin = async () => {
-    const response = await login(username, password);
+    const response = await login(email, password);
     if (response.error) {
       setError(response.error);
     } else {
@@ -59,13 +58,12 @@ export const LoginScreen = () => {
         role: decodedToken.role,
       });
 
-      // Use jwt
-      setRole(decodedToken.role);
+      console.log("userData.role = " + userData.role);
 
-      if (1) {
-        if (role === "Developer") {
+      if(1){
+        if (userData.role === "Developer") {
           navigate("/dashboard", { state: { isDeveloper: true } });
-        } else if (role === "Manager") {
+        } else if (userData.role === "Manager") {
           navigate("/dashboard", { state: { isDeveloper: false } });
         }
       }
@@ -85,10 +83,10 @@ export const LoginScreen = () => {
         <div className="inputContainer">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             className="inputs"
-            value={username}
-            onChange={handleUsername}
+            value={email}
+            onChange={handleEmail}
           />
           <input
             type="password"
@@ -103,7 +101,7 @@ export const LoginScreen = () => {
           Log in
         </button>
         <button className="questionBtn" onClick={handleRecover}>
-          Forgot username or password?
+          Forgot password?
         </button>
       </div>
     </>

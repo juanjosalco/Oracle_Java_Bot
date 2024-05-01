@@ -13,8 +13,6 @@ import { ManagerScreen } from "./ManagerScreen";
 
 import { useUser } from "../../../hooks/useUser";
 
-import { getTasks } from "../../../api/TasksAPI";
-
 const Tasks = [
     {id: 1, title: "Task title", priority: 1, description: "This is a task", date: "2021-12-23", status: "Done"},
     {id: 2, title: "Task title", priority: 2, description: "This is a task", date: "2021-12-24", status: "Ongoing"},

@@ -13,3 +13,14 @@ export const getTasks = async (token) => {
     return { error: "Error fetching tasks" };
   }
 };
+
+export const getTeamTasks = async (token) => {
+  try {
+    const response = await axios.get(`${url}/task/team`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    return { error: "Error fetching tasks" };
+  }
+};
