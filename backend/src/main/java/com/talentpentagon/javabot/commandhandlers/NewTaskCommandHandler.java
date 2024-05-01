@@ -25,7 +25,7 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
         System.out.println("Task: " + task);
 
         // id
-        if (task.getId() != null) {
+        if (task.getId() == null) {
             throw new RuntimeException("Task id cant be empty");
         }
 

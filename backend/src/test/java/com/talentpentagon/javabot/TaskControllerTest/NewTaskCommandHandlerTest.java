@@ -35,7 +35,7 @@ public class NewTaskCommandHandlerTest {
     @Test
     public void newTaskCommandHandler_validTask_returnSuccess() {
         TaskItem task = new TaskItem();
-        task.setId(null);
+        task.setId(1);
         task.setAssignee(1);
         task.setName("Task 1");
         task.setDescription("Task 1 description");
