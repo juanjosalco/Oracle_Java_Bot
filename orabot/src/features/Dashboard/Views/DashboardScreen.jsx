@@ -23,15 +23,13 @@ const Tasks = [
 
 export const DashboardScreen = () => {
 
-    const { userData } = useUser();
-
-    console.log("saludos",userData);
-    
-    // Router
-
     const location = useLocation();
 
     const { state } = location;
+
+    const { userData } = useUser();
+
+    console.log(userData);
 
     return (
         <>
