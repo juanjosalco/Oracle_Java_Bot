@@ -25,7 +25,7 @@ public class GetTaskByIdCommandHandler implements GetByIdCommand<Integer, Respon
             throw new RuntimeException("User ID cannot be null");
         }
         if (task == null) {
-            throw new RuntimeException("No tasks found for the user");
+            throw new RuntimeException("No tasks found for the provided Id");
         }
 
         // taskService.addTask(task);
