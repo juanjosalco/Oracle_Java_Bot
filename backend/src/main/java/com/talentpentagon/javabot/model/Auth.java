@@ -10,10 +10,6 @@ import lombok.Data;
 public class Auth {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "user_id")
     private int uid;
 
@@ -29,17 +25,10 @@ public class Auth {
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", table = "staff")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "user_id")
     private CustomUser user;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getPassword() {
         return password;
