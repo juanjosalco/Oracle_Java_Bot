@@ -11,6 +11,7 @@ import java.util.List;
 public class CustomUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -33,6 +34,9 @@ public class CustomUser {
     @JoinColumn(name = "assignee_id")
     private List<TaskItem> assignedTasks;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Auth auth;
 
     public int getId() {
         return id;
