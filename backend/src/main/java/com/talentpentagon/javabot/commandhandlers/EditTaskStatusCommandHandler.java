@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.talentpentagon.javabot.Commands.PostCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TaskRepository;
+import com.talentpentagon.javabot.service.TaskService;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -17,7 +18,7 @@ import io.micrometer.common.util.StringUtils;
 public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, ResponseEntity<TaskItem>> {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
@@ -32,8 +33,13 @@ public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, Respo
         if ((!task.getStatus().matches("^(?i) *(ToDo|Ongoing|Done|Cancelled)$"))) {
             throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
         }
-        
-        taskRepository.save(task);
+
+        // status_change_date
+        if (task.getStatusChangeDate() == null) {
+            throw new RuntimeException("Task status change date cannot be empty");
+        }
+
+        taskService.updateTaskStatus(task.getId(), task.getStatus(), task.getStatusChangeDate());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
 
     }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.talentpentagon.javabot.Commands.PostCommand;
 import com.talentpentagon.javabot.model.TaskItem;
-import com.talentpentagon.javabot.repository.TaskRepository;
+import com.talentpentagon.javabot.service.TaskService;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -17,7 +17,7 @@ import io.micrometer.common.util.StringUtils;
 public class EditTaskCommandHandler implements PostCommand<TaskItem, ResponseEntity<TaskItem>> {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
     String specialChars = ".*[^@$%^&*()_+=\\[\\]{}'\"\\\\|<>\\/].*";
 
@@ -57,7 +57,7 @@ public class EditTaskCommandHandler implements PostCommand<TaskItem, ResponseEnt
             throw new RuntimeException("Task priority must be between 1 and 3");
         }
 
-        taskRepository.save(task);
+        taskService.updateTask(task.getId(), task);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
 
     }

@@ -56,14 +56,17 @@ public class TaskService {
             if (tasks.isEmpty())
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
             else
-                return ResponseEntity.ok(tasks);
+                // return ResponseEntity.ok(tasks);
+                return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.NO_CONTENT);
         } else {
             List<TaskItem> tasks = taskRepository.findByAssigneeAndStatus(assignee, status, sort);
 
             if (tasks.isEmpty())
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
             else
-                return ResponseEntity.ok(tasks);
+                // return ResponseEntity.ok(tasks);
+                return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.NO_CONTENT);
+
         }
     }
 
@@ -83,21 +86,22 @@ public class TaskService {
             updatedTask.setId(id);
             updatedTask.setCreationDate(task.getCreationDate());
             updatedTask.setDescription(task.getDescription());
-            task.setStatus("To do");
-            return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.OK);
+            updatedTask.setStatus(task.getStatus());
+            return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
         }
     }
 
     // Update task status
-    public ResponseEntity<TaskItem> updateTaskStatus(int id, String status) {
+    public ResponseEntity<TaskItem> updateTaskStatus(int id, String status, OffsetDateTime taskCreationDate) {
         Optional<TaskItem> task = taskRepository.findById(id);
 
         if (task.isPresent()) {
             task.get().setStatus(status);
+            task.get().setStatusChangeDate(OffsetDateTime.now().plusDays(0));
             taskRepository.save(task.get());
-            return new ResponseEntity<TaskItem>(HttpStatus.OK);
+            return new ResponseEntity<TaskItem>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
         }
