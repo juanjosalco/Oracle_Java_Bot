@@ -37,7 +37,7 @@ public class SecurityController {
     private BCryptPasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest request) {
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
         System.out.println("Auth: " + authConfirmation);
 
@@ -60,7 +60,7 @@ public class SecurityController {
                 // Generate JWT token
                 String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
         
-                return ResponseEntity.ok(new JwtResponse(jwtToken));
+                return ResponseEntity.ok(new JwtResponse(jwtToken).toString());
 
             } catch (Exception e) {
     
@@ -84,7 +84,7 @@ public class SecurityController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity createUser(@RequestBody SignupRequest request) {
+    public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
 
         if(credentials.isPresent()){
