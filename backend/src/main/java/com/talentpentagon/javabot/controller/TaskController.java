@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +66,7 @@ public class TaskController {
     }
 
     // Get single task
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @GetMapping("task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
@@ -79,6 +81,7 @@ public class TaskController {
     }
 
     // Get all tasks for a team
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Manager')")
     @GetMapping("task/team")
     public ResponseEntity<List<TaskItem>> getTasksForTeam(@RequestHeader(name = "Authorization") String token,
@@ -94,6 +97,7 @@ public class TaskController {
     }
 
     // Get User's tasks
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @GetMapping("task/user")
     public ResponseEntity<List<TaskItem>> getTasksForUser(@RequestHeader(name = "Authorization") String token,
@@ -107,6 +111,7 @@ public class TaskController {
     }
 
     // Add task
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @PostMapping("task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
@@ -114,6 +119,7 @@ public class TaskController {
     }
 
     // Whole edit
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @PutMapping("task/{id}")
     public ResponseEntity<TaskItem> putTask(@PathVariable int id, @RequestBody TaskItem task) {
@@ -121,6 +127,7 @@ public class TaskController {
     }
 
     // Use this only to change the status
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @PutMapping("task/{id}/status")
     public ResponseEntity<TaskItem> putTaskStatus(@PathVariable int id, @RequestBody TaskItem task) {

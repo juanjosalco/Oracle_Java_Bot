@@ -11,12 +11,16 @@ export const login = async (email, password) => {
         password: password
     }
 
-    const call = axios.post( url + '/login', body)
-      .then( (response) => {
-        return(response.data);
-      })
-      .catch((error) => {
-        return(error);
-      });
-      return call;
-}
+    const handleLogin = async () => {
+      try{
+        const response = await axios.post(`${url}/login`, body);
+        return response.data;
+      }
+      catch(err){
+        return {error: 'Invalid credentials'};
+      }
+    }
+
+    return handleLogin();
+
+  }
