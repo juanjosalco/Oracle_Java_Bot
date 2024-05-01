@@ -42,7 +42,7 @@ public class EditTaskCommandHandlerTest {
         task.setCreationDate(OffsetDateTime.now().plusDays(10));
         task.setDueDate(OffsetDateTime.now().plusDays(11));
         task.setPriority(1);
-        task.setStatus("ToDo");
+        task.setStatus("To do");
 
         // Stub behavior of the task service
         Mockito.when(taskService.updateTask(task.getId(), task))

@@ -30,8 +30,8 @@ public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, Respo
         if (StringUtils.isBlank(task.getStatus())) {
             throw new RuntimeException("Task status cannot be empty");
         }
-        if ((!task.getStatus().matches("^(?i) *(ToDo|Ongoing|Done|Cancelled)$"))) {
-            throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
+        if ((!task.getStatus().matches("^(?i) *(To do|Ongoing|Done|Cancelled)$"))) {
+            throw new RuntimeException("Task status must be one of 'To do', 'Ongoing', 'Done', 'Cancelled'");
         }
 
         // status_change_date
