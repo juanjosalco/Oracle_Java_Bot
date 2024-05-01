@@ -19,6 +19,8 @@ export const TaskInformationScreen = (props) => {
 
   const { state } = location;
 
+  console.log(state);
+
   const statusIdx = Statuses.indexOf(state.task.status);
 
   const [status, setStatus] = useState(statusIdx);
@@ -26,7 +28,9 @@ export const TaskInformationScreen = (props) => {
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpMessage, setPopUpMessage] = useState("");
   const [priority, setPriority] = useState(state.task.priority);
-  const [date, setDate] = useState(state.task.date);
+
+  const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
+  const [date, setDate] = useState(dateX);
 
   const handleConfirm = () => {
     navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
@@ -69,7 +73,7 @@ export const TaskInformationScreen = (props) => {
       {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
         <h1>Task title</h1>
-        {state.isDeveloper ? <input type="text" placeholder="Title" className="inputsSpe" value={state.task.title}/> : <p className="taskTitle">{state.task.title}</p>}
+        {state.isDeveloper ? <input type="text" placeholder="Title" className="inputsSpe" value={state.task.name}/> : <p className="taskTitle">{state.task.name}</p>}
         <h1 style={{marginTop: 16}}>Description</h1>
         {state.isDeveloper ? <textarea placeholder="Description" className="inputArea" value={state.task.description}  rows={5} /> : <p className="taskTitle">{state.task.description}</p>}
         <h1 className="statusText" >Status</h1>

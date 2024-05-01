@@ -5,6 +5,9 @@ import { NavLink } from "react-router-dom";
 import "../Styles/Task.css";
 
 export const Task = (props) => {
+
+  const date = new Date(props.task.dueDate).toISOString().split("T")[0];
+  
   return (
     <NavLink to={"/task/:"+props.task.id} state={{task: props.task, isDeveloper: props.isDeveloper}}>
       <div className="taskContainer">
@@ -20,7 +23,7 @@ export const Task = (props) => {
           />
           <div className="taskInfo">
             <div className="titleInfo">
-              <h1 className="titleX">{props.task.title}</h1>
+              <h1 className="titleX">{props.task.name}</h1>
               {props.isDeveloper && <img
                 src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
                 alt="Edit icon"
@@ -46,7 +49,7 @@ export const Task = (props) => {
 
               <div className="statusX">
                 <p className="static">Due date</p>
-                <p className="date">{props.task.date}</p>
+                <p className="date">{date}</p>
               </div>
             </div>
           </div>
