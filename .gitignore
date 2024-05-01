@@ -15,9 +15,10 @@
 .log
 logs.log
 .gz
-backend/.log
-backend/.tmp
-backend/.gz
+backend/*.log
+backend/*.tmp
+backend/*.gz
+/oracle
 
 ### IntelliJ IDEA ###
 .idea
