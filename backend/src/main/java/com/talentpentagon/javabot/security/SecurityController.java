@@ -44,6 +44,7 @@ public class SecurityController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
+
         if(authConfirmation.isPresent()){
             if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
             try {
@@ -70,17 +71,17 @@ public class SecurityController {
                 if (authentication.getAttempts() >= 3) {
                     authentication.setEnabled(false);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Account locked"));
                 } else {
                     authentication.setAttempts(authentication.getAttempts() + 1);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Invalid credentials"));
                 }
 
             }
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("User not found"));
         
     }
 
