@@ -19,6 +19,8 @@ backend/*.log
 backend/*.tmp
 backend/*.gz
 /oracle
+/backend/src/main/resources/application.properties
+
 
 ### IntelliJ IDEA ###
 .idea
