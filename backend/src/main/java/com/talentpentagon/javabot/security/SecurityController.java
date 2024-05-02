@@ -71,17 +71,17 @@ public class SecurityController {
                 if (authentication.getAttempts() >= 3) {
                     authentication.setEnabled(false);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Account locked"));
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
                 } else {
                     authentication.setAttempts(authentication.getAttempts() + 1);
                     authRepository.save(authentication);
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Invalid credentials"));
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
                 }
 
             }
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("User not found"));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         
     }
 

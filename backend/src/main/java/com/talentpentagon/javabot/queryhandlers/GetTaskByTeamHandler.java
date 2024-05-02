@@ -16,7 +16,7 @@ import com.talentpentagon.javabot.service.TeamService;
 import java.util.List;
 
 @Service
-public class GetTaskByTeamHandler implements GetCommand<Team, List<TaskItem>> {
+public class GetTaskByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
 
     // @Autowired
     // private TaskService taskService;
@@ -28,9 +28,9 @@ public class GetTaskByTeamHandler implements GetCommand<Team, List<TaskItem>> {
     private TeamRepository teamRepository;
 
     @Override
-    public ResponseEntity<List<TaskItem>> execute(Team team, String sortBy, String status) {
+    public ResponseEntity<List<TaskItem>> execute(Integer teamId, String sortBy, String status) {
         // Fetch the team from the repository
-        Team persistedTeam = teamRepository.findById(team.getId()).orElse(null);
+        Team persistedTeam = teamRepository.findById(teamId).orElse(null);
 
         // If the team doesn't exist, return not found
         if (persistedTeam == null) {

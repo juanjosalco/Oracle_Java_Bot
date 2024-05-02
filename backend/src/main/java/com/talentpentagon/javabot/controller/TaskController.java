@@ -67,7 +67,7 @@ public class TaskController {
 
     // Get single task
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize("hasRole('Developer')")
+    @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
     @GetMapping("task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
         // try {
@@ -88,12 +88,9 @@ public class TaskController {
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status) {
 
-        // int teamId = JWTUtil.extractTeamId(token);
+        int teamId = JWTUtil.extractTeamId(token);
 
-        // List<TaskItem> tasks = teamService.getTeamTasks(teamId, sortBy, status);
-
-        // return taskService.sortAndFilter(tasks, sortBy, status);
-        return getTaskByTeamHandler.execute(null, sortBy, status); // ask Diego
+        return getTaskByTeamHandler.execute(teamId, sortBy, status); // ask Diego
     }
 
     // Get User's tasks
