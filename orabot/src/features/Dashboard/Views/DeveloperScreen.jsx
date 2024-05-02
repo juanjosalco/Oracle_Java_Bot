@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import { Task } from "../Components/Task";
 import { Filter } from "../Components/Filter";
 
-export const DeveloperScreen = ({tasks, isDeveloper}) => {
+import { getTasks } from "../../../api/TasksAPI";
+
+import { useUser } from "../../../hooks/useUser";
+
+export const DeveloperScreen = (props) => {
+  const [tasks, setTasks] = useState([]);
+
+  const { userData } = useUser();
+
+  const getDeveloperTasks = async () => {
+    const tasks = await getTasks(userData.token);
+    if (tasks.error) {
+      console.log(tasks.error);
+    } else {
+      setTasks(tasks);
+    } 
+  };
+
+  useEffect(() => {
+getDeveloperTasks()
+  }, []);
+
   return (
     <>
       <div className="containerDashboard">
@@ -13,9 +34,9 @@ export const DeveloperScreen = ({tasks, isDeveloper}) => {
           Here you can see and modify your assigned tasks.
         </h3>
       </div>
-      <Filter isDeveloper={isDeveloper} />
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} />
+      <Filter isDeveloper={props.isDeveloper} />
+      {tasks && tasks.map((task, index) => (
+        <Task key={index} task={task} isDeveloper={props.isDeveloper} />
       ))}
     </>
   );

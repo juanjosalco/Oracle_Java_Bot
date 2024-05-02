@@ -1,7 +1,8 @@
 package com.talentpentagon.javabot.model;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.util.List;
 
@@ -11,28 +12,37 @@ import java.util.List;
 public class CustomUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @Column(name = "team_id")
+    @NotNull
     private int teamId;
 
     @Column(name = "role")
+    @NotBlank
     private String role;
 
     @Column(name = "firstname")
+    @NotBlank
     private String firstname;
 
     @Column(name = "lastname")
+    @NotBlank
     private String lastname;
 
     @Column(name = "phonenumber")
+    @NotBlank
     private String phonenumber;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "assignee_id")
     private List<TaskItem> assignedTasks;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Auth auth;
 
     public int getId() {
         return id;

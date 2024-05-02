@@ -1,10 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 // Components
 import { Task } from "../Components/Task";
 import { Filter } from "../Components/Filter";
 
-export const ManagerScreen = ({tasks, isDeveloper}) => {
+import { getTeamTasks } from "../../../api/TasksAPI";
+
+import { useUser } from "../../../hooks/useUser";
+
+export const ManagerScreen = (props) => {
+  const [tasks, setTasks] = useState([]);
+
+  const { userData } = useUser();
+
+  const getManagerTasks = async () => {
+    const tasks = await getTeamTasks(userData.token);
+    if (tasks.error) {
+      console.log(tasks.error);
+    } else {
+      setTasks(tasks);
+    } 
+  };
+
+  useEffect(() => {
+    getManagerTasks()
+      }, []);
+
     return (
         <>
           <div className="containerDashboard">
@@ -13,9 +34,9 @@ export const ManagerScreen = ({tasks, isDeveloper}) => {
                 Here you can see what your team is working on.
             </h3>
           </div>
-          <Filter isDeveloper={isDeveloper} />
-          {tasks.map((task, index) => (
-            <Task key={index} task={task} />
+          <Filter isDeveloper={props.isDeveloper} />
+          {props.tasks.map((task, index) => (
+            <Task key={index} task={task} isDeveloper={props.isDeveloper}/>
           ))}
         </>
       );

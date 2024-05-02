@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-
-// Styles
+import React, { useEffect, useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
-import { emailRegex, passwordRegex } from "../../GlobalComponents/Utils/RegexUtils";
+import {
+  emailRegex,
+  passwordRegex,
+} from "../../GlobalComponents/Utils/RegexUtils";
+import { useUser } from "../../../hooks/useUser";
+import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
+import { login } from "../../../api/AuthAPI";
 
 export const LoginScreen = () => {
-  const [username, setUsername] = useState("");
+  const { userData, saveUserData } = useUser();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
   };
 
   const handlePassword = (e) => {
@@ -21,16 +27,13 @@ export const LoginScreen = () => {
   };
 
   const validateCredentials = () => {
-    
-    if (username.trim() === "" || password.trim() === "") {
-      setError("Please enter both username and password.");
+    if (email.trim() === "" || password.trim() === "") {
+      setError("Please enter both email and password.");
       return false;
-    }
-    else if (!emailRegex.test(username)) {
+    } else if (!emailRegex.test(email)) {
       setError("Please enter a valid email address.");
       return false;
-    }
-    else if (!passwordRegex.test(password)) {
+    } else if (!passwordRegex.test(password)) {
       setError("Please enter a valid password.");
       return false;
     }
@@ -38,10 +41,33 @@ export const LoginScreen = () => {
     return true;
   };
 
-  const handleLogin = () => {
-    if (validateCredentials()) {
-      // If validation passes, navigate to the dashboard
-      navigate("/dashboard");
+  const handleLogin = async () => {
+    const response = await login(email, password);
+    if (response.error) {
+      setError(response.error);
+    } else {
+      const { token } = response;
+      setToken(response.token);
+
+      const decodedToken = decodeJwt(token);
+
+      saveUserData({
+        token: token,
+        UID: decodedToken.id,
+        team_id: decodedToken.team,
+        role: decodedToken.role,
+      });
+
+      console.log("userData.role = " + userData.role);
+
+      if(1){
+        if (userData.role === "Developer") {
+          navigate("/dashboard", { state: { isDeveloper: true } });
+        } else if (userData.role === "Manager") {
+          navigate("/dashboard", { state: { isDeveloper: false } });
+        }
+      }
+    
     }
   };
 
@@ -51,16 +77,16 @@ export const LoginScreen = () => {
 
   return (
     <>
-      <Header back={false}/>
+      <Header back={false} />
       <div className="container">
         <h1>Welcome to OraBot!</h1>
         <div className="inputContainer">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             className="inputs"
-            value={username}
-            onChange={handleUsername}
+            value={email}
+            onChange={handleEmail}
           />
           <input
             type="password"
@@ -71,8 +97,12 @@ export const LoginScreen = () => {
           />
         </div>
         {error && <p className="error">{error}</p>}
-          <button className="btnX" onClick={handleLogin}>Log in</button>
-        <button className="questionBtn" onClick={handleRecover}>Forgot username or password?</button>
+        <button className="btnX" onClick={handleLogin}>
+          Log in
+        </button>
+        <button className="questionBtn" onClick={handleRecover}>
+          Forgot password?
+        </button>
       </div>
     </>
   );

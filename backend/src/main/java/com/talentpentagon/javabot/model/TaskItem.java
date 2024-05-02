@@ -3,6 +3,8 @@ package com.talentpentagon.javabot.model;
 import java.time.OffsetDateTime;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -16,41 +18,49 @@ public class TaskItem {
     private Integer id;
 
     @Column(name = "assignee_id")
+    @NotNull
     private int assignee;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    @NotBlank
+    private String title;
 
     @Column(name = "description")
+    @NotBlank
     private String description;
 
     @Column(name = "status")
+    @NotBlank
     private String status;
 
     @Column(name = "creation_date")
+    @NotNull
     private OffsetDateTime creationDate;
 
     @Column(name = "due_date")
+    @NotNull
     private OffsetDateTime dueDate;
 
     @Column(name = "status_change_date")
+    @NotNull
     private OffsetDateTime statusChangeDate;
 
     @Column(name = "priority")
+    @NotNull
     private Integer priority;
 
     public TaskItem() {
     }
 
-    public TaskItem(int assignee, String name, String description, Integer priority, OffsetDateTime dueDate) {
+    public TaskItem(int assignee, String title, String description, Integer priority, OffsetDateTime dueDate, OffsetDateTime creationDate, OffsetDateTime statusChangeDate) {
         this.assignee = assignee;
-        this.name = name;
+        this.title = title;
         this.description = description;
-        this.status = "ToDo";
+        this.status = "To do";
         this.priority = priority;
         this.dueDate = dueDate;
-        this.creationDate = OffsetDateTime.now();
-        this.statusChangeDate = OffsetDateTime.now();
+        this.creationDate = creationDate;
+        this.statusChangeDate = statusChangeDate;
     }
 
     public Integer getId() {
@@ -70,11 +80,11 @@ public class TaskItem {
     }
 
     public String getTaskTitle() {
-        return name;
+        return title;
     }
 
-    public void setTaskTitle(String name) {
-        this.name = name;
+    public void setTaskTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -122,7 +132,7 @@ public class TaskItem {
         return "TaskItem{" +
                 "id=" + id +
                 ", assignee_id=" + assignee +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", priority=" + priority +
@@ -130,6 +140,5 @@ public class TaskItem {
                 ", creation_date=" + creationDate +
                 '}';
     }
-
 
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 // Styles
 import "../Styles/Filter.css";
@@ -6,14 +7,16 @@ import "../Styles/Filter.css";
 const Statuses = ["To do", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
-export const Filter = ({ isDeveloper }) => {
+export const Filter = (props) => {
   const [priority, setPriority] = useState(null);
   const [status, setStatus] = useState(null);
+
+  const emptyTask = {id: 0, title: "", priority: 0, description: "", dueDate: Date.now(), status: ""}
 
   return (
     <div className="filterContainer">
       <div className="filterOpt">
-        {!isDeveloper ? (
+        {!props.isDeveloper ? (
           <>
             <div className="leftSide smaller">
               <p className="textX">Sort by: </p>
@@ -39,7 +42,7 @@ export const Filter = ({ isDeveloper }) => {
                 <option value="completed">Date</option>
               </select>
             </div>
-            <button className="btn smaller">+</button>
+            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: props.isDeveloper}}>+</NavLink>
           </>
         )}
       </div>

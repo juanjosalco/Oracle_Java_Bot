@@ -10,7 +10,7 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 
 const Statuses = ["To do", "Ongoing", "Done"];
 
-export const TaskInformationScreen = ({isNewTask}) => {
+export const TaskInformationScreen = (props) => {
   
   // Router
   const location = useLocation();
@@ -19,15 +19,21 @@ export const TaskInformationScreen = ({isNewTask}) => {
 
   const { state } = location;
 
-  const statusIdx = Statuses.indexOf(state.status);
+  console.log(state);
+
+  const statusIdx = Statuses.indexOf(state.task.status);
 
   const [status, setStatus] = useState(statusIdx);
   const [popUp, setPopUp] = useState(false);
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpMessage, setPopUpMessage] = useState("");
+  const [priority, setPriority] = useState(state.task.priority);
+
+  const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
+  const [date, setDate] = useState(dateX);
 
   const handleConfirm = () => {
-    navigate("/dashboard");
+    navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
   };
 
   const handleCancel = () => {
@@ -51,18 +57,28 @@ export const TaskInformationScreen = ({isNewTask}) => {
   }
   
 
+  const handlePriorityChange = (e) => {
+    const newPriority = parseInt(e.target.value); // Convert value to integer
+    setPriority(newPriority); // Update state with new priority
+  };
+
+  const handleDateChange = (e) => {
+    const newDate = e.target.value; // Get new date
+    setDate(newDate); // Update state with new date
+  };
+
   return (
     <>
       <Header back={true}/>
       {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
         <h1>Task title</h1>
-        <input type="text" placeholder="Title" className="inputsSpe" value={state.title}/>
-        <h1>Description</h1>
-        <textarea placeholder="Description" className="inputArea" value={state.description}  rows={5} />
-        <h1 className="statusText">Status</h1>
-        <div className="buttonsContainer">
-          {Statuses.map((st, index) => (
+        {state.isDeveloper ? <input type="text" placeholder="Title" className="inputsSpe" value={state.task.name}/> : <p className="taskTitle">{state.task.name}</p>}
+        <h1 style={{marginTop: 16}}>Description</h1>
+        {state.isDeveloper ? <textarea placeholder="Description" className="inputArea" value={state.task.description}  rows={5} /> : <p className="taskTitle">{state.task.description}</p>}
+        <h1 className="statusText" >Status</h1>
+        <div className={state.isDeveloper ? "buttonsContainer" : ''}>
+          {state.isDeveloper ? Statuses.map((st, index) => (
             <button
               className={index === status ? "button red" : "button gray"}
               key={st}
@@ -70,28 +86,33 @@ export const TaskInformationScreen = ({isNewTask}) => {
             >
               {st}
             </button>
-          ))}
+          )) : <p className="taskTitle">{state.task.status}</p>}
         </div>
-        <div className="priorityContainer">
-          <p>Priority:</p>
-          <select value={state.priority}>
+        <div className={!state.isDeveloper ? "groups" : ""} >
+        <div className={state.isDeveloper ? "priorityContainer"  : "" } style={{marginBlock: 16, flex: 1}}>
+          {state.isDeveloper ? <p>Priority:</p> : <h1 style={{marginTop: 16,}}>Priority:</h1>}
+         {state.isDeveloper ? <select value={priority} onChange={handlePriorityChange} >
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
-          </select>
+          </select> : <p className="taskTitle">{state.task.priority}</p>}
         </div>
-        <div className="priorityContainer">
-          <p>Due date:</p>
-          <input type="date" className="dueDate" value={state.date}/>
+        <div className={state.isDeveloper ? "priorityContainer" : ''} style={{marginBlock: 16, flex: 1}}>
+          {state.isDeveloper ? <p>Due date:</p> : <h1 style={{marginTop: 16}}>Due date:</h1>}
+          {state.isDeveloper ? <input type="date" className="dueDate" value={date} onChange={handleDateChange}/> : <p>{state.task.date}</p>}
+        </div>
         </div>
         <div style={{marginBottom: 16, marginTop: 8}}>
-          <div className="buttonsContainer">
+          { state.isDeveloper && <div className="buttonsContainer">
           <button className="button black" onClick={handleClick}>Cancel</button>
           <button className="button black" onClick={handleClick}>Save</button>
-          </div>
-          {!isNewTask && <div className="buttonsContainer">
-          <button className="button red" onClick={handleClick}>Delete</button>
           </div>}
+          {state.isDeveloper ? !state.isNewTask && 
+          <div className="buttonsContainer"> 
+            <button className="button red" onClick={handleClick}>Delete</button>
+          </div> : <div className="buttonsContainer">
+          <button className="button black"  onClick={handleConfirm}>Return to Dashboard</button> 
+          </div>} 
         </div>
       </div>
     </>

@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentpentagon.javabot.repository.AuthRepository;
 import com.talentpentagon.javabot.repository.CustomUserRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.model.CustomUser;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -36,13 +40,13 @@ public class SecurityController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<Auth> authConfirmation = authRepository.findByEmail(request.getEmail());
 
         if(authConfirmation.isPresent()){
-            if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse("Account locked"));
-            System.out.println("Auth: " + authConfirmation.get());
+            if(!authConfirmation.get().isEnabled()) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account locked");
             try {
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
                 Authentication authentication = authenticationManager.authenticate(token);
@@ -59,7 +63,7 @@ public class SecurityController {
                 // Generate JWT token
                 String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
         
-                return ResponseEntity.ok(new JwtResponse(jwtToken, "Success"));
+                return ResponseEntity.ok(new JwtResponse(jwtToken));
 
             } catch (Exception e) {
     
@@ -81,12 +85,17 @@ public class SecurityController {
         
     }
 
+    @Transactional
     @PostMapping("/signUp")
     public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
+        Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
 
         if(credentials.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        }
+        if(roleCheck.isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Team " + request.getTeamId() + " already has an assigned manager.");
         }
 
         CustomUser newUser = new CustomUser();
@@ -104,9 +113,13 @@ public class SecurityController {
         newAuth.setAttempts(0);
         newAuth.setEnabled(true);
 
-        customUserRepository.save(newUser);
+        CustomUser savedUser = customUserRepository.save(newUser);
         newAuth.setUser(newUser);
-        authRepository.save(newAuth);
+        Auth savedAuth = authRepository.save(newAuth);
+
+        if (savedUser == null || savedAuth == null) {
+            throw new RuntimeException("Failed to create user or auth");
+        }
         
         return ResponseEntity.ok("User created successfully");
     }

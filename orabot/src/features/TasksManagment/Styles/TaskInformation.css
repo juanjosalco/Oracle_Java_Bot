@@ -55,9 +55,19 @@
     flex: 1;
     border: 1px solid #161513;
     padding: 8px;
-    margin-bottom: 16px;
 }
 
 .gray{
     background-color: #16151350;
+}
+
+.taskTitle{
+    all: unset;
+    font-size: 1rem;
+}
+
+.groups{
+    display: flex;
+    gap: 8px;
+
 }

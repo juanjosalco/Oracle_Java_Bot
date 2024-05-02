@@ -1,7 +1,7 @@
 package com.talentpentagon.javabot.model;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -10,17 +10,15 @@ import lombok.Data;
 public class Auth {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @Column(name = "user_id")
+    @Column(name = "user_id", unique = true, nullable = false)
     private int uid;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
+    @NotBlank
     private String email;
 
     @Column(name = "password")
+    @NotBlank
     private String password;
 
     @Column(name = "login_attempts")
@@ -29,17 +27,10 @@ public class Auth {
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", table = "staff")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "user_id")
     private CustomUser user;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getPassword() {
         return password;

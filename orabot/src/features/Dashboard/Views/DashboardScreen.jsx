@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
@@ -10,6 +11,8 @@ import "../Styles/Dashboard.css";
 import { DeveloperScreen } from "./DeveloperScreen";
 import { ManagerScreen } from "./ManagerScreen";
 
+import { useUser } from "../../../hooks/useUser";
+
 const Tasks = [
     {id: 1, title: "Task title", priority: 1, description: "This is a task", date: "2021-12-23", status: "Done"},
     {id: 2, title: "Task title", priority: 2, description: "This is a task", date: "2021-12-24", status: "Ongoing"},
@@ -19,12 +22,19 @@ const Tasks = [
 ]
 
 export const DashboardScreen = () => {
-    const isDeveloper = false;
+
+    const location = useLocation();
+
+    const { state } = location;
+
+    const { userData } = useUser();
+
+    console.log(userData);
 
     return (
         <>
         <Header />
-        {isDeveloper ? <DeveloperScreen tasks={Tasks} isDeveloper={isDeveloper} /> : <ManagerScreen tasks={Tasks} isDeveloper={isDeveloper} />}
+        {state.isDeveloper ? <DeveloperScreen tasks={Tasks} isDeveloper={state.isDeveloper} /> : <ManagerScreen tasks={Tasks} isDeveloper={state.isDeveloper} />}
         </>
     );
 }
