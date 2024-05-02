@@ -23,7 +23,7 @@ export const Task = (props) => {
           />
           <div className="taskInfo">
             <div className="titleInfo">
-              <h1 className="titleX">{props.task.name}</h1>
+              <h1 className="titleX">{props.task.title}</h1>
               {props.isDeveloper && <img
                 src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
                 alt="Edit icon"

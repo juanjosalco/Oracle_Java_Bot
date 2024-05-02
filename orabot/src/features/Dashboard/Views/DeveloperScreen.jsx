@@ -10,13 +10,14 @@ import { useUser } from "../../../hooks/useUser";
 
 export const DeveloperScreen = (props) => {
   const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState("");
 
   const { userData } = useUser();
 
   const getDeveloperTasks = async () => {
     const tasks = await getTasks(userData.token);
     if (tasks.error) {
-      console.log(tasks.error);
+      setError(tasks.error);
     } else {
       setTasks(tasks);
     } 
@@ -35,7 +36,8 @@ getDeveloperTasks()
         </h3>
       </div>
       <Filter isDeveloper={props.isDeveloper} />
-      {tasks && tasks.map((task, index) => (
+      {error && <p className="error">{error}</p>}
+      {tasks.map((task, index) => (
         <Task key={index} task={task} isDeveloper={props.isDeveloper} />
       ))}
     </>

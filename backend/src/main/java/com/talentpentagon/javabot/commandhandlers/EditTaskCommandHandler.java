@@ -48,9 +48,6 @@ public class EditTaskCommandHandler implements PostCommand<TaskItem, ResponseEnt
         if (task.getDueDate() == null) {
             throw new RuntimeException("Task due date cannot be empty");
         }
-        if (task.getDueDate().isBefore(task.getCreationDate())) {
-            throw new RuntimeException("Task due date cannot be before creation date");
-        }
 
         // priotity
         if (task.getPriority() == null) {

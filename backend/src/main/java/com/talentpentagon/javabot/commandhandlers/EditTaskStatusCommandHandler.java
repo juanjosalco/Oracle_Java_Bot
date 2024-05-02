@@ -25,10 +25,6 @@ public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, Respo
         if (task.getStatusChangeDate() == null) {
             throw new RuntimeException("Task status change date cannot be empty");
         }
-        if (task.getStatusChangeDate().isBefore(task.getCreationDate())) {
-            throw new RuntimeException("Task status change date cannot be before creation date");
-        }
-
         // status
         if (StringUtils.isBlank(task.getStatus())) {
             throw new RuntimeException("Task status cannot be empty");
