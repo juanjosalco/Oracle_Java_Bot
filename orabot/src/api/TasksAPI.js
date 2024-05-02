@@ -50,11 +50,20 @@ export const postTask = async (token, task) => {
   }
 };
 
-export const deleteTask = async (token, taskId) => {
+export const deleteTask = async (token, taskId, task) => {
   try {
     const response = await axios.put(
       `${url}/task/${taskId}/status`,
-      { status: "Cancelled", statusChangeDate: Date.now() },
+      { 
+        assignee: task.assignee,
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        dueDate: task.dueDate,
+        creationDate: task.creationDate,
+        status: "Cancelled", 
+        statusChangeDate: Date.now() 
+      },
       {
         headers: { Authorization: `Bearer ${token}` },
       }

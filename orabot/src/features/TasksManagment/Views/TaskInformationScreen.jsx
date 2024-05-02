@@ -49,7 +49,7 @@ export const TaskInformationScreen = (props) => {
   }
 
   const handleDelete = async () => {
-    const response = await deleteTask(userData.token, state.task.id);
+    const response = await deleteTask(userData.token, state.task.id, state.task);
     if (response.error) {
       setError(response.error);
     } else {

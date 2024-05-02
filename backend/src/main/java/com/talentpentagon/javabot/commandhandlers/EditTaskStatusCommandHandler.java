@@ -32,7 +32,7 @@ public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, Respo
         if ((!task.getStatus().matches("^(?i) *(ToDo|Ongoing|Done|Cancelled)$"))) {
             throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
         }
-
+        
         taskRepository.save(task);
         return ResponseEntity.status(HttpStatus.OK).body(task);
 

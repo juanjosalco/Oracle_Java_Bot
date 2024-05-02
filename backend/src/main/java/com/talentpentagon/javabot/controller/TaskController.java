@@ -70,13 +70,7 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
     @GetMapping("task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
-        // try {
-        // ResponseEntity<TaskItem> task = taskService.getTaskById(id);
-        // return new ResponseEntity<TaskItem>(task.getBody(), task.getStatusCode());
-        // } catch (Exception e) {
-        // System.out.println("ERROR: " + e.getMessage());
-        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        // }
+
         return getTaskByIdCommandHandler.execute(id);
     }
 
@@ -122,16 +116,29 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer')")
     @PutMapping("task/{id}")
     public ResponseEntity<TaskItem> putTask(@PathVariable int id, @RequestBody TaskItem task) {
-        return editTaskCommandHandler.execute(task);
+        TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
+        if(t!=null){
+            t.setDescription(task.getDescription());
+            t.setTaskTitle(task.getTitle());
+            t.setDueDate(task.getDueDate());
+            t.setPriority(task.getPriority());
+            t.setStatus(task.getStatus());
+            t.setStatusChangeDate(task.getStatusChangeDate());
+        }
+        return editTaskCommandHandler.execute(t);
     }
 
-    // TODO: BUG - INSERT NULL IN TITLE
     // Use this only to change the status
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @PutMapping("task/{id}/status")
     public ResponseEntity<TaskItem> putTaskStatus(@PathVariable int id, @RequestBody TaskItem task) {
-        return editTaskStatusCommandHandler.execute(task);
+        TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
+        if(t != null){
+            t.setStatus(task.getStatus());
+            t.setStatusChangeDate(task.getStatusChangeDate());
+        }
+        return editTaskStatusCommandHandler.execute(t);
     }
 
 }

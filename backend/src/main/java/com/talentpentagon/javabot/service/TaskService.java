@@ -47,6 +47,12 @@ public class TaskService {
         if (status.equals("ALL")) {
             List<TaskItem> tasks = taskRepository.findByAssignee(assignee, sort);
 
+            // for (TaskItem taskItem : tasks) {
+            //     if (taskItem.getStatus().equals("Cancelled")) {
+            //         tasks.remove(taskItem);
+            //     }
+            // }
+
             if (tasks.isEmpty())
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
             else
