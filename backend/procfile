@@ -1,1 +1,1 @@
-web: mvn spring-boot:run -Dserver.port=8080
+web: cd /Users/juan_salazar_kodda/Documents/ITESM/Oracle_Java_Bot/backend && mvn spring-boot:run -Dserver.port=8080
