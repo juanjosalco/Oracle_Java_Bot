@@ -98,7 +98,7 @@ public class TaskController {
         int assignee = JWTUtil.extractId(token);
 
         // return taskService.getTasksForUser(assignee, sortBy, status);
-        return getTaskByUserCommandHandler.execute(assignee, sortBy, status); // ask Diego
+        return getTaskByUserCommandHandler.execute(assignee, sortBy, status);
     }
 
     // Add task
