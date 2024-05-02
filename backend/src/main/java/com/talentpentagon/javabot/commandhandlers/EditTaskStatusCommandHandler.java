@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.talentpentagon.javabot.Commands.PostCommand;
+import com.talentpentagon.javabot.Commands.PostPutCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class EditTaskStatusCommandHandler implements PostCommand<TaskItem, ResponseEntity<TaskItem>> {
+public class EditTaskStatusCommandHandler implements PostPutCommand<TaskItem, ResponseEntity<TaskItem>> {
 
     @Autowired
     private TaskService taskService;

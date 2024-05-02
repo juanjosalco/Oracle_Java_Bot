@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.talentpentagon.javabot.model.TaskItem;
 
-public interface PostCommand<E, T> {
+public interface PostPutCommand<E, T> {
 
     ResponseEntity<TaskItem> execute(E entity);
 

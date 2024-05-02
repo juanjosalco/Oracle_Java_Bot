@@ -17,6 +17,11 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
     @Override
     public ResponseEntity<List<TaskItem>> execute(Integer userId, String sortBy, String status) {
 
@@ -28,7 +33,7 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
         List<TaskItem> tasks = taskService.getTasksForUser(userId, sortBy, status).getBody();
 
         // Check if tasks were found for the user
-        if (tasks == null) {
+        if (tasks.isEmpty()) {
             throw new RuntimeException("No tasks found for the user");
         }
 

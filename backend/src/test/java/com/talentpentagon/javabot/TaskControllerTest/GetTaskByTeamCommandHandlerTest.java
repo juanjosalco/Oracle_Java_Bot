@@ -52,12 +52,12 @@ public class GetTaskByTeamCommandHandlerTest {
 
         // Create a CustomUser object for the test scenario
         CustomUser user = new CustomUser();
-        user.setId(1); // Set the user ID
-        user.setTeamId(1); // Set the team ID
-        user.setRole("Employee"); // Set the user role
-        user.setFirstName("John"); // Set the user first name
-        user.setLastName("Doe"); // Set the user last name
-        user.setPhonenumber("1234567890"); // Set the user phone number
+        user.setId(1);
+        user.setTeamId(1);
+        user.setRole("Employee");
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setPhonenumber("1234567890");
         members.add(user);
 
         // Set the list of members for the team
