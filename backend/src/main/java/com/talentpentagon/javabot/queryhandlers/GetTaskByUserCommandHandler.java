@@ -33,7 +33,7 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
         List<TaskItem> tasks = taskService.getTasksForUser(userId, sortBy, status).getBody();
 
         // Check if tasks were found for the user
-        if (tasks == null) {
+        if (tasks.isEmpty()) {
             throw new RuntimeException("No tasks found for the user");
         }
 

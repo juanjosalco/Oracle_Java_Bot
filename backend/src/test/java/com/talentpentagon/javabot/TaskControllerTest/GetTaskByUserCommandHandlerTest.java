@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+// import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -30,9 +30,6 @@ public class GetTaskByUserCommandHandlerTest {
 
     @Mock
     private CustomUserRepository customUserRepository;
-
-    @InjectMocks
-    private GetTaskByUserCommandHandler getTaskByUserCommandHandler;
 
     @BeforeEach
     public void setup() {
