@@ -13,6 +13,16 @@ export const Filter = (props) => {
 
   const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
+  const handlePriority = (index) => {
+    console.log(index)
+    setPriority(priority === index ? null : index)
+  }
+
+  const handleStatus = (index) => {
+    console.log(index)
+    setStatus(status === index ? null : index)
+  }
+
   return (
     <div className="filterContainer">
       <div className="filterOpt">
@@ -52,7 +62,7 @@ export const Filter = (props) => {
             <button
               className={status === index ? "statusSelAct" : "statusSel"}
               key={st}
-              onClick={() => setStatus(status === index ? null : index)}
+              onClick={() => handleStatus(index)}
             >
               {st}
             </button>
@@ -63,7 +73,7 @@ export const Filter = (props) => {
             <button
               className={priority === index ? "prioritySelAct" : "prioritySel"}
               key={pr}
-              onClick={() => setPriority(priority === index ? null : index)}
+              onClick={() => handlePriority(index)}
             >
               {pr}
             </button>

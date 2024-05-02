@@ -55,8 +55,7 @@ export const TaskInformationScreen = (props) => {
     if (response.error) {
       setError(response.error);
     } else {
-      // TOAST TASK DELETED
-      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskDeleted" } } );
     } 
   }
 
@@ -75,8 +74,7 @@ export const TaskInformationScreen = (props) => {
     if (response.error) {
       setError(response.error);
     } else {
-      // TOAST TASK Updated
-      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskUpdated" } } );
     } 
   }
 
@@ -96,8 +94,7 @@ export const TaskInformationScreen = (props) => {
         if (response.error) {
           setError(response.error);
         } else {
-          // TOAST TASK CREATED
-          navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+          navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskCreated" } } );
         } 
   }
 
