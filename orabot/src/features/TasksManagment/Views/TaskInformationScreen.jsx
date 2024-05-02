@@ -10,6 +10,7 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 
 import {postTask, deleteTask, updateTask} from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
+import toast from "react-hot-toast";
 
 const Statuses = ["To do", "Ongoing", "Done"];
 
@@ -53,8 +54,7 @@ export const TaskInformationScreen = (props) => {
     if (response.error) {
       setError(response.error);
     } else {
-      // TOAST TASK DELETED
-      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskDeleted" } } );
     } 
   }
 
@@ -69,13 +69,11 @@ export const TaskInformationScreen = (props) => {
       creationDate: creationDate,
       statusChangeDate: statusChangeDate
     } 
-    console.log(newTask);
     const response = await updateTask(userData.token, state.task.id, newTask);
     if (response.error) {
       setError(response.error);
     } else {
-      // TOAST TASK Updated
-      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+      navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskUpdated" } } );
     } 
   }
 
@@ -95,8 +93,7 @@ export const TaskInformationScreen = (props) => {
         if (response.error) {
           setError(response.error);
         } else {
-          // TOAST TASK CREATED
-          navigate("/dashboard", { state: { isDeveloper: state.isDeveloper } } );
+          navigate("/dashboard", { state: { isDeveloper: state.isDeveloper, toast: "taskCreated" } } );
         } 
   }
 
