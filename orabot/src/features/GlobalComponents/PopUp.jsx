@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Styles/PopUp.css";
 
-export const PopUp = ({ title, message, onConfirm, onCancel }) => {
+export const PopUp = ({ title, message, onConfirm, onCancel}) => {
 
     return (
         <div className="popUpContainer">

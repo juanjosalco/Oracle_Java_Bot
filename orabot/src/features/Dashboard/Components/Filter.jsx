@@ -11,7 +11,7 @@ export const Filter = (props) => {
   const [priority, setPriority] = useState(null);
   const [status, setStatus] = useState(null);
 
-  const emptyTask = {id: 0, title: "", priority: 0, description: "", dueDate: Date.now(), status: ""}
+  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: Date.now(), status: ""}
 
   return (
     <div className="filterContainer">
@@ -42,7 +42,7 @@ export const Filter = (props) => {
                 <option value="completed">Date</option>
               </select>
             </div>
-            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: props.isDeveloper}}>+</NavLink>
+            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: props.isDeveloper, isNewTask : true}}>+</NavLink>
           </>
         )}
       </div>

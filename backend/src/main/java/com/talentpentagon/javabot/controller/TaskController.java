@@ -116,6 +116,7 @@ public class TaskController {
         return newTaskCommandHandler.execute(task);
     }
 
+    // TODO: BUG - THIS INSERTS A NEW TASK
     // Whole edit
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
@@ -124,6 +125,7 @@ public class TaskController {
         return editTaskCommandHandler.execute(task);
     }
 
+    // TODO: BUG - INSERT NULL IN TITLE
     // Use this only to change the status
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
