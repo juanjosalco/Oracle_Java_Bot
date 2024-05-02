@@ -10,7 +10,6 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 
 import {postTask, deleteTask, updateTask} from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
-import toast from "react-hot-toast";
 
 const Statuses = ["To do", "Ongoing", "Done"];
 
