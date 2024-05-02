@@ -37,7 +37,7 @@ public class EditTaskCommandHandlerTest {
         TaskItem task = new TaskItem();
         task.setId(2);
         task.setAssignee(1);
-        task.setName("Task 1");
+        task.setTaskTitle("Task 1");
         task.setDescription("Task 1 description");
         task.setCreationDate(OffsetDateTime.now().plusDays(10));
         task.setDueDate(OffsetDateTime.now().plusDays(11));

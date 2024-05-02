@@ -70,14 +70,14 @@ public class GetTaskByTeamCommandHandlerTest {
         // Create some TaskItem objects and add them to the list
         TaskItem task1 = new TaskItem();
         task1.setId(1);
-        task1.setName("Task 1");
+        task1.setTaskTitle("Task 1");
         task1.setDescription("Description for Task 1");
         // Set other properties for task1 as needed
         taskItemList.add(task1);
 
         TaskItem task2 = new TaskItem();
         task2.setId(2);
-        task2.setName("Task 2");
+        task2.setTaskTitle("Task 2");
         task2.setDescription("Description for Task 2");
         // Set other properties for task2 as needed
         taskItemList.add(task2);
