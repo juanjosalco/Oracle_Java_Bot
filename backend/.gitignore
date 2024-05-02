@@ -17,6 +17,7 @@ target/
 backend/.log
 backend/.tmp
 backend/.gz
+.properties
 
 ### IntelliJ IDEA ###
 .idea
