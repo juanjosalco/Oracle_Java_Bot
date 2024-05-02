@@ -9,8 +9,8 @@ import {
   export const UserContext = createContext({
     userData: {
         token: '',
-        UID: '',
-        team_id: '',
+        UID: 0,
+        team_id: 0,
         role: '',
     },
     saveUserData: () => {},
@@ -20,8 +20,8 @@ import {
     const initialState = {
       userData: {
         token: '',
-        UID: '',
-        team_id: '',
+        UID: 0,
+        team_id: 0,
         role: '',
       },
       saveUserData: () => {},

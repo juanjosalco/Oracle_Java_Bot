@@ -10,13 +10,14 @@ import { useUser } from "../../../hooks/useUser";
 
 export const ManagerScreen = (props) => {
   const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState("");
 
   const { userData } = useUser();
 
   const getManagerTasks = async () => {
     const tasks = await getTeamTasks(userData.token);
     if (tasks.error) {
-      console.log(tasks.error);
+      setError(tasks.error);
     } else {
       setTasks(tasks);
     } 
@@ -35,9 +36,10 @@ export const ManagerScreen = (props) => {
             </h3>
           </div>
           <Filter isDeveloper={props.isDeveloper} />
-          {props.tasks.map((task, index) => (
-            <Task key={index} task={task} isDeveloper={props.isDeveloper}/>
-          ))}
+          {error && <p className="error">{error}</p>}
+          {tasks.map((task, index) => (
+            <Task key={index} task={task} isDeveloper={props.isDeveloper} />
+        ))}
         </>
       );
 }
