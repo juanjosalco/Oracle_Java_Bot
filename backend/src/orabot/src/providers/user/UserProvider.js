@@ -12,6 +12,8 @@ import {
         UID: 0,
         team_id: 0,
         role: '',
+        filter: '',
+        sort: '',
     },
     saveUserData: () => {},
   });
@@ -23,6 +25,8 @@ import {
         UID: 0,
         team_id: 0,
         role: '',
+        filter: '',
+        sort: '',
       },
       saveUserData: () => {},
     };

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useUser } from "../../../hooks/useUser";
+
 // Styles
 import "../Styles/Filter.css";
 
@@ -10,17 +12,24 @@ const Priority = ["1", "2", "3"];
 export const Filter = (props) => {
   const [priority, setPriority] = useState(null);
   const [status, setStatus] = useState(null);
+  const { userData, saveUserData } = useUser();
 
   const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
   const handlePriority = (index) => {
     console.log(index)
     setPriority(priority === index ? null : index)
+    saveUserData({
+      sort: priority
+    })
   }
 
   const handleStatus = (index) => {
     console.log(index)
     setStatus(status === index ? null : index)
+    saveUserData({
+      sort: status
+    })
   }
 
   return (
