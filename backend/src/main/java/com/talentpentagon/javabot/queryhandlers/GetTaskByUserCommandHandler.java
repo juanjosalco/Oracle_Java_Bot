@@ -17,6 +17,11 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
     @Override
     public ResponseEntity<List<TaskItem>> execute(Integer userId, String sortBy, String status) {
 
