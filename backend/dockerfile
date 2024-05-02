@@ -1,5 +1,5 @@
 FROM openjdk:17
-COPY pom.xml /tmp/
+COPY pom.xml /  /
 COPY src /tmp/src/
 WORKDIR /tmp/
 EXPOSE 8080

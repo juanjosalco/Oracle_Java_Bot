@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.talentpentagon.javabot.Commands.PostCommand;
 import com.talentpentagon.javabot.model.TaskItem;
-import com.talentpentagon.javabot.repository.TaskRepository;
 import com.talentpentagon.javabot.service.TaskService;
 
 import io.micrometer.common.util.StringUtils;
