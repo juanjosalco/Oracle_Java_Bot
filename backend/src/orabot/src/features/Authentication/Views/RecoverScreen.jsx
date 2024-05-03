@@ -40,7 +40,7 @@ export const RecoverScreen = () => {
             <Header back={true}/>
             <div className="container">
                 <div className="options">
-                    <button className={"btnSelector borderSelected"}>Password</button>
+                    <button className={"btnSelector borderSelected"}>Password reset</button>
                 </div>
                 <h1 className="title">Provide your information so we can help you recover your account.</h1>
                 <div className="inputContainer">
