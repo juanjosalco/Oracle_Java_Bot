@@ -11,7 +11,7 @@ export const Filter = (props) => {
   const [priority, setPriority] = useState(null);
   const [status, setStatus] = useState(null);
 
-  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: Date.now(), status: ""}
+  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
   return (
     <div className="filterContainer">

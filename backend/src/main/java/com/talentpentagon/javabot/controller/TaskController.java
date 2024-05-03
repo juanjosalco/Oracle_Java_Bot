@@ -117,7 +117,7 @@ public class TaskController {
     @PutMapping("task/{id}")
     public ResponseEntity<TaskItem> putTask(@PathVariable int id, @RequestBody TaskItem task) {
         TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
-        if(t!=null){
+        if (t != null) {
             t.setDescription(task.getDescription());
             t.setTaskTitle(task.getTitle());
             t.setDueDate(task.getDueDate());
@@ -134,7 +134,7 @@ public class TaskController {
     @PutMapping("task/{id}/status")
     public ResponseEntity<TaskItem> putTaskStatus(@PathVariable int id, @RequestBody TaskItem task) {
         TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
-        if(t != null){
+        if (t != null) {
             t.setStatus(task.getStatus());
             t.setStatusChangeDate(task.getStatusChangeDate());
         }

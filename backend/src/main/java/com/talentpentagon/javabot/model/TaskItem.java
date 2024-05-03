@@ -52,7 +52,8 @@ public class TaskItem {
     public TaskItem() {
     }
 
-    public TaskItem(int assignee, String title, String description, Integer priority, OffsetDateTime dueDate, OffsetDateTime creationDate, OffsetDateTime statusChangeDate) {
+    public TaskItem(int assignee, String title, String description, Integer priority, OffsetDateTime dueDate,
+            OffsetDateTime creationDate, OffsetDateTime statusChangeDate) {
         this.assignee = assignee;
         this.title = title;
         this.description = description;

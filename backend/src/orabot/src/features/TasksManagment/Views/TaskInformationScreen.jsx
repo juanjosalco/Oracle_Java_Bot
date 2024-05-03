@@ -32,8 +32,8 @@ export const TaskInformationScreen = (props) => {
   const [status, setStatus] = useState(statusIdx);
   const [priority, setPriority] = useState(state.task.priority);
   const [dueDate, setDueDate] = useState(state.task.dueDate);
-  const creationDate = Date.now();
-  const statusChangeDate = Date.now();
+  const creationDate = new Date();
+  const statusChangeDate = new Date();
 
   const [error, setError] = useState("");
   const [popUp, setPopUp] = useState(false);
@@ -41,6 +41,8 @@ export const TaskInformationScreen = (props) => {
   const [popUpMessage, setPopUpMessage] = useState("");
   const [popUpConfirm, setPopUpConfirm] = useState("");
 
+  //console.log(state.task.dueDate);
+  //console.log(new Date(1714718474455).toString())
   const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
   const [date, setDate] = useState(dateX);
 
@@ -69,7 +71,6 @@ export const TaskInformationScreen = (props) => {
       creationDate: creationDate,
       statusChangeDate: statusChangeDate
     } 
-    console.log(newTask);
     const response = await updateTask(userData.token, state.task.id, newTask);
     if (response.error) {
       setError(response.error);
@@ -134,9 +135,13 @@ export const TaskInformationScreen = (props) => {
   };
 
   const handleDateChange = (e) => {
-    const newDate = e.target.value; // Get new date
-    setDate(newDate); // Update state with new date
-  };
+    const newDate = e.target.value; // Obtener la nueva fecha seleccionada por el usuario
+    const formattedDate = new Date(newDate).toISOString().split('T')[0]; // Convertir la fecha al formato ISO 8601
+    console.log(formattedDate);
+    setDate(formattedDate); // Actualizar el estado `date` con la nueva fecha
+    console.log(new Date(formattedDate));
+    setDueDate(new Date(formattedDate)); // Asegurarse de que `dueDate` también se actualiza con la nueva fecha
+  };  
 
   return (
     <>
