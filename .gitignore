@@ -21,6 +21,8 @@ backend/*.gz
 /oracle
 /backend/src/main/resources/application.properties
 
+*/*.properties
+
 
 ### IntelliJ IDEA ###
 .idea
