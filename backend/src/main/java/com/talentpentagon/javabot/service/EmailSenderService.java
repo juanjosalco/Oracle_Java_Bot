@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import javax.mail.MessagingException;
 
 @Service
@@ -16,14 +15,12 @@ public class EmailSenderService {
     public void sendEmail(String userEmail)
             throws MessagingException, jakarta.mail.MessagingException {
         jakarta.mail.internet.MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true); // true means the message is multipart
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        // Configura el remitente, destinatario, y asunto
         helper.setFrom("itdepartmentoracle@gmail.com");
         helper.setSubject("Password Reset Request");
+        helper.setTo("itdepartmentoraclebot@hotmail.com");
 
-        helper.setTo("itdepartmentoracle@gmail.com");
-        // Configura el cuerpo del correo con contenido HTML
         String htmlContent = "<html><body>" +
                 "<p>We have received a password reset request from a user who seems to have forgotten their login credentials. Below are the details:</p>"
                 +
@@ -37,9 +34,8 @@ public class EmailSenderService {
                 +
                 "</body></html>";
 
-        helper.setText(htmlContent, true); // true means the email body is HTML
+        helper.setText(htmlContent, true);
 
-        // Envía el correo
         mailSender.send(message);
 
         System.out.println("Mail Sent Successfully...");
