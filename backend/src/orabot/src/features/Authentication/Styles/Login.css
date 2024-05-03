@@ -29,7 +29,7 @@ h1 {
 }
 
 .btnX {
-  background-color: #3a3632;
+  background-color: #100F0E;
   color: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
@@ -44,7 +44,7 @@ h1 {
 .questionBtn {
   all: unset;
   margin-top: 24px;
-  color: #c84431;
+  color: #BB501C;
   cursor: pointer;
   text-align: center;
   width: 100%;

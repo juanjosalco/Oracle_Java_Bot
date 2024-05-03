@@ -6,12 +6,12 @@
 
 .inputsSpe{
     padding: 16px;
-    border: 1px solid #161513;
+    border: 1px solid #100F0E;
 }
 
 .inputArea{
     padding: 16px;
-    border: 1px solid #161513;
+    border: 1px solid #100F0E;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     margin-bottom: 0;
@@ -43,7 +43,7 @@
 }
 
 .black{
-    background-color: #161513;
+    background-color: #100F0E;
 }
 
 .priorityContainer{
@@ -53,12 +53,12 @@
 
 .dueDate{
     flex: 1;
-    border: 1px solid #161513;
+    border: 1px solid #100F0E;
     padding: 8px;
 }
 
 .gray{
-    background-color: #16151350;
+    background-color: #100F0E;
 }
 
 .taskTitle{
