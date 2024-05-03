@@ -1,8 +1,11 @@
 package com.talentpentagon.javabot.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
@@ -49,6 +52,27 @@ public class TeamService {
             });
 
             return tasks;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+    // Get team members by team id
+    public Map<Integer, String> getTeamMembers(int id){
+        Optional<Team> team = teamRepository.findById(id);
+
+        try{
+            Map<Integer, String> members = new HashMap<Integer, String>();
+
+            if(!team.isPresent()) return null;
+
+            team.get().getMembers().forEach(member -> {
+                members.put(member.getId(), member.getFirstName()+ " " + member.getLastName());
+            });
+
+
+            return members;
         }
         catch(Exception e){
             return null;
