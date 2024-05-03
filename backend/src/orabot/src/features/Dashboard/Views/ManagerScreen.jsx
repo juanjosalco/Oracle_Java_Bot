@@ -45,7 +45,8 @@ export const ManagerScreen = (props) => {
   };
 
   const tasksFromTeamMember = (tasks, teamMember) => {
-    return tasks.filter((task) => task.assignee === Number(teamMember));
+    
+    return teamMember === 'select' ? tasks : tasks.filter((task) => task.assignee === Number(teamMember));
   };
 
   useEffect(() => {

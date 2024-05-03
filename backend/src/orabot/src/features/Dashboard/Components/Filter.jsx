@@ -76,7 +76,7 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) =>
             <div className="rightSide smaller">
               <p className="textX sep">Team member: </p>
               <select className="select" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
-                <option value="selectMember">Select</option>
+                <option value="select">Select</option>
                 {teamMembers.map((member, index) => (
                   <option key={index} value={member.id}>{member.name}</option>
                 ))
