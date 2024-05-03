@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useUser } from "../../../hooks/useUser";
+import { getTeamMembers } from "../../../api/AuthAPI";
 
 // Styles
 import "../Styles/Filter.css";
@@ -9,12 +10,39 @@ import "../Styles/Filter.css";
 const Statuses = ["To do", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
-export const Filter = (props) => {
+export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) => {
   const [priority, setPriority] = useState(null);
   const [status, setStatus] = useState(null);
+  const [teamMembers, setTeamMembers] = useState([]);
   const { userData, saveUserData } = useUser();
 
-  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
+  const handleTeamMemberSelection = (selectedMember) => {
+    onTeamMemberSelected(selectedMember);
+  }
+
+  const handleSortBy = (select) => {
+    onSortBySelected(select);
+  }
+  
+
+  useEffect(() => {
+    const getData = async () => {
+      const teamMembersX = await getTeamMembers(userData.token)
+      const keys = Object.keys(teamMembersX)
+      const values = Object.values(teamMembersX)
+      const arrayOfMembers = []
+      keys.forEach((key, index) => {
+        arrayOfMembers.push({id: key, name: values[index]})
+      })
+      setTeamMembers(arrayOfMembers)
+    }
+    getData()
+  }, []);
+
+
+  
+
+  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: Date.now(), status: ""}
 
   const handlePriority = (index) => {
     console.log(index)
@@ -35,20 +63,24 @@ export const Filter = (props) => {
   return (
     <div className="filterContainer">
       <div className="filterOpt">
-        {!props.isDeveloper ? (
+        {!isDeveloper ? (
           <>
             <div className="leftSide smaller">
               <p className="textX">Sort by: </p>
-              <select className="select" name="Priority">
+              <select className="select" name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
+                <option value="selectOrder">Select</option>
                 <option value="priority">Priority</option>
-                <option value="completed">Date</option>
+                <option value="dueDate">Due date</option>
               </select>
             </div>
             <div className="rightSide smaller">
               <p className="textX sep">Team member: </p>
-              <select className="select" name="Priority">
-                <option value="priority">Sydney Sweeney</option>
-                <option value="completed">Chuy</option>
+              <select className="select" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
+                <option value="selectMember">Select</option>
+                {teamMembers.map((member, index) => (
+                  <option key={index} value={member.id}>{member.name}</option>
+                ))
+                }
               </select>
             </div>
           </>
@@ -61,7 +93,7 @@ export const Filter = (props) => {
                 <option value="completed">Date</option>
               </select>
             </div>
-            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: props.isDeveloper, isNewTask : true}}>+</NavLink>
+            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: isDeveloper, isNewTask : true}}>+</NavLink>
           </>
         )}
       </div>
