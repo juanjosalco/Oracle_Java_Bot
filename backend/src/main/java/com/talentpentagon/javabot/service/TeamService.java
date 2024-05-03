@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Map;
-import java.util.HashMap;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
@@ -59,16 +57,15 @@ public class TeamService {
     }
 
     // Get team members by team id
-    public Map<Integer, String> getTeamMembers(int id){
+    public ArrayList<String> getTeamMembers(Integer id){
         Optional<Team> team = teamRepository.findById(id);
 
         try{
-            Map<Integer, String> members = new HashMap<Integer, String>();
+            ArrayList<String> members = new ArrayList<>();
 
             if(!team.isPresent()) return null;
-
-            team.get().getMembers().forEach(member -> {
-                members.put(member.getId(), member.getFirstName()+ " " + member.getLastName());
+                team.get().getMembers().forEach(member -> {
+                    members.add(member.getFirstName() + " " + member.getLastName());
             });
 
 
