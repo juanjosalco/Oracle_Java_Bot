@@ -24,3 +24,15 @@ export const login = async (email, password) => {
     return handleLogin();
 
   }
+
+export const getTeamMembers = async (token) => {
+
+  try {
+    const response = await axios.get(`${url}/team/members`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    return { error: "Error fetching tasks" };
+  }
+}
