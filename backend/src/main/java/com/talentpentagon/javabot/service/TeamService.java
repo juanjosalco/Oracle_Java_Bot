@@ -42,7 +42,10 @@ public class TeamService {
 
             team.get().getMembers().forEach(member -> {
                 List<TaskItem> assignedTasks = member.getAssignedTasks();
-                if(!assignedTasks.isEmpty()) tasks.addAll(assignedTasks);
+                if(!assignedTasks.isEmpty()){
+                    assignedTasks.removeIf(task -> task.getStatus().equals("Cancelled"));
+                    tasks.addAll(assignedTasks);
+                } 
             });
 
             return tasks;

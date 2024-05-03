@@ -44,30 +44,18 @@ public class TaskService {
         }
 
         Sort sort = Sort.by(direction, sortBy);
+        List<TaskItem> tasks = taskRepository.findByAssignee(assignee, sort);
 
-        if (status.equals("ALL")) {
-            List<TaskItem> tasks = taskRepository.findByAssignee(assignee, sort);
+        if (tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+        tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
 
-            // for (TaskItem taskItem : tasks) {
-            //     if (taskItem.getStatus().equals("Cancelled")) {
-            //         tasks.remove(taskItem);
-            //     }
-            // }
-
-            if (tasks.isEmpty())
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
-            else
-                // return ResponseEntity.ok(tasks);
-                return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.NO_CONTENT);
-        } else {
-            List<TaskItem> tasks = taskRepository.findByAssigneeAndStatus(assignee, status, sort);
-
-            if (tasks.isEmpty())
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
-            else
-                // return ResponseEntity.ok(tasks);
-                return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.NO_CONTENT);
-
+        if (status.equals("ALL")) 
+        {
+            return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
+        } 
+        else 
+        {
+            return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
         }
     }
 
