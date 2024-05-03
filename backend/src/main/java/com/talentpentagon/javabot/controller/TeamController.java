@@ -3,8 +3,8 @@ package com.talentpentagon.javabot.controller;
 import com.talentpentagon.javabot.service.TeamService;
 import com.talentpentagon.javabot.security.JWTUtil;
 
-import java.util.ArrayList;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class TeamController {
     public ResponseEntity<?> getTeamMembers(@RequestHeader("Authorization") String token){
         Integer teamId = JWTUtil.extractTeamId(token);
 
-        ArrayList<String> teamMembers = teamService.getTeamMembers(teamId);
+        Map<Integer, String> teamMembers = teamService.getTeamMembers(teamId);
 
         if(teamMembers == null || teamMembers.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No team members found.");
