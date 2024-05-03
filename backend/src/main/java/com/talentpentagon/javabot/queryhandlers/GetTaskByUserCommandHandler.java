@@ -38,7 +38,6 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
         }
 
         // taskService.addTask((TaskItem) tasks);
-        taskService.getTasksForUser(userId, sortBy, status);
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
 }
