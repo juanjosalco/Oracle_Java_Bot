@@ -2,7 +2,7 @@ import axios from "axios";
 import {axiosConfig} from "./config/AxiosConfig";
 
 const url = axiosConfig.baseURL;
-
+let failedAttempts = 0;
 
 export const login = async (email, password) => {
 
@@ -10,6 +10,7 @@ export const login = async (email, password) => {
         email: email,
         password: password
     }
+    
 
     const handleLogin = async () => {
       try{
@@ -17,7 +18,7 @@ export const login = async (email, password) => {
         return response.data;
       }
       catch(err){
-        return {error: 'Invalid credentials'};
+        return {error: err.response.data};
       }
     }
 
