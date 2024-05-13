@@ -53,11 +53,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install liquibase
           liquibase --version
-      - name: Run Liquibase status and update commands
-        env: 
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: |
-          liquibase status --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
-          liquibase update-sql --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
-          liquibase update --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
+      # - name: Run Liquibase status and update commands
+        # env: 
+          # DB_USER: ${{ secrets.DB_USER }}
+          # DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        # run: |
+          # liquibase status --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
+          # liquibase update-sql --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
+          # liquibase update --username=$DB_USER --password=$DB_PASSWORD --url=jdbc:oracle:thin:@oraclebotdb_low?TNS_ADMIN=./oracle --changelog-file=./changelog.json
