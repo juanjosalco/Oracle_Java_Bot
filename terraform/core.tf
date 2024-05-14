@@ -2,8 +2,8 @@
 resource "oci_core_vcn" "okevcn" {
   cidr_block      = "10.0.0.0/16"
   compartment_id  = var.ociCompartmentOcid
-  display_name    = "mtdrworkshop-${var.mtdrKey}"
-  dns_label       = "mtdrworkshop"
+  display_name    = "orabot-${var.mtdrKey}"
+  dns_label       = "orabot"
 }
 resource "oci_core_internet_gateway" "igw" {
   compartment_id  = var.ociCompartmentOcid
@@ -30,7 +30,7 @@ resource "oci_core_service_gateway" "sgw" {
   }
   vcn_id = oci_core_vcn.okevcn.id
   #optional
-  display_name = "mtdr_sgw"
+  display_name = "orabot_sgw"
 }
 
 resource "oci_core_route_table" "private" {

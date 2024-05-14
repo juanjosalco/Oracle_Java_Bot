@@ -311,8 +311,6 @@ while ! state_done MTDR_DB_PASSWORD_SET; do
   state_set_done MTDR_DB_PASSWORD_SET
 done
 
-
-
 # Wait for OKE Setup
 while ! state_done OKE_SETUP; do
   echo "`date`: Waiting for OKE_SETUP"
