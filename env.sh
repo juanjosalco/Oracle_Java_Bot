@@ -27,12 +27,15 @@ echo "TALENT_PENTAGON_LOCATION: $TALENT_PENTAGON_LOCATION"
 # Java Home
 # -d true if file is a directory, so it's testing if this directory exists, if it does
 # we are on Mac doing local dev
-if test -d ~/graalvm-ce-jdk-java17-0-9/Contents/Home/bin; then
+if test -d ~/graalvm-community-openjdk-17.0.9+9.1
+/Contents/Home/bin; then
   # We are on Mac doing local dev
-  export JAVA_HOME=~/graalvm-ce-jdk-java17-0-9/Contents/Home;
+  export JAVA_HOME=~/graalvm-community-openjdk-17.0.9+9.1
+/Contents/Home;
 else
   # Assume linux
-  export JAVA_HOME=~/graalvm-ce-jdk-java17-0-9
+  export JAVA_HOME=~/graalvm-community-openjdk-17.0.9+9.1
+
 fi
 export PATH=$JAVA_HOME/bin:$PATH
 

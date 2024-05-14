@@ -120,8 +120,8 @@ done
 
 
 # Wait for DB Password to be set in Order DB
-while ! state_done MTDR_DB_PASSWORD_SET; do
-  echo "`date`: Waiting for MTDR_DB_PASSWORD_SET"
+while ! state_done ORABOT_DB_PASSWORD_SET; do
+  echo "`date`: Waiting for ORABOT_DB_PASSWORD_SET"
   sleep 2
 done
 
@@ -140,6 +140,9 @@ GRANT CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE MATERIALIZED VIEW TO $U;
 GRANT CONNECT, RESOURCE, pdb_dba, SODA_APP to $U;
 CREATE TABLE APP_DATA.todoitem (id NUMBER GENERATED ALWAYS AS IDENTITY, description VARCHAR2(4000), creation_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, done NUMBER(1,0) , PRIMARY KEY (id));
 insert into APP_DATA.todoitem  (description, done) values ('Manual item insert', 0);
+
+
+
 commit;
 !
   state_set_done APP_DATA
