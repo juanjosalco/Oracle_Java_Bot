@@ -299,7 +299,7 @@ done
 
 
 # Set admin password in order database
-while ! state_done MTDR_DB_PASSWORD_SET; do
+while ! state_done ORABOT_DB_PASSWORD_SET; do
   echo "setting admin password in mtdr_db"
   # get password from vault secret
   DB_PASSWORD=`kubectl get secret dbuser -n talent-pentagon --template={{.data.dbpassword}} | base64 --decode`
@@ -308,7 +308,7 @@ while ! state_done MTDR_DB_PASSWORD_SET; do
   umask 22
   oci db autonomous-database update --autonomous-database-id "$(state_get OB_DB_OCID)" --from-json "file://temp_params" >/dev/null
   rm temp_params
-  state_set_done MTDR_DB_PASSWORD_SET
+  state_set_done ORABOT_DB_PASSWORD_SET
 done
 
 # Wait for OKE Setup
