@@ -101,7 +101,7 @@ cat - >$TNS_ADMIN/sqlnet.ora <<!
 WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="$TNS_ADMIN")))
 SSL_SERVER_DN_MATCH=yes
 !
-MTDR_DB_SVC="$(state_get OB_DB_NAME)_tp"
+ORABOT_DB_SVC="$(state_get OB_DB_NAME)_tp"
 APP_DATA=APP_DATA
 ORDER_LINK=ORDERTOINVENTORYLINK
 ORDER_QUEUE=ORDERQUEUE
@@ -128,9 +128,9 @@ done
 
 # Order DB User, Objects
 while ! state_done APP_DATA; do
-  echo "connecting to mtdr database"
+  echo "connecting to orabot database"
   U=$APP_DATA
-  SVC=$MTDR_DB_SVC
+  SVC=$ORABOT_DB_SVC
   sqlplus /nolog <<!
 WHENEVER SQLERROR EXIT 1
 connect admin/"$DB_PASSWORD"@$SVC
