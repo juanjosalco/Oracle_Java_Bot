@@ -1,7 +1,9 @@
 #!/bin/bash
 
-cd backend && mvn spring-boot::run
-
-sleep 10
-
-cd src/orabot && npm start
+chmod +x *.sh
+cd utils
+chmod +x *.sh
+cd ..
+echo source $(pwd)/env.sh >> ~/.bashrc
+source env.sh
+source setup.sh
