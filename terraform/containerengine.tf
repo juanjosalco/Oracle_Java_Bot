@@ -1,4 +1,4 @@
-resource "oci_containerengine_cluster" "mtdrworkshop_cluster" {
+resource "oci_containerengine_cluster" "orabot_cluster" {
   #Required
   compartment_id      = var.ociCompartmentOcid
   endpoint_config {
@@ -9,7 +9,7 @@ resource "oci_containerengine_cluster" "mtdrworkshop_cluster" {
     subnet_id = oci_core_subnet.endpoint.id
   }
   kubernetes_version  = "v1.29.1"
-  name                = "mtdrworkshopcluster-${var.mtdrKey}"
+  name                = "orabotcluster-${var.mtdrKey}"
   vcn_id              = oci_core_vcn.okevcn.id
   #optional
 
@@ -34,7 +34,7 @@ resource "oci_containerengine_cluster" "mtdrworkshop_cluster" {
 }
 resource "oci_containerengine_node_pool" "oke_node_pool" {
   #Required
-  cluster_id         = oci_containerengine_cluster.mtdrworkshop_cluster.id
+  cluster_id         = oci_containerengine_cluster.orabot_cluster.id
   compartment_id     = var.ociCompartmentOcid
   kubernetes_version = "v1.29.1"
   name               = "Pool"
@@ -75,10 +75,10 @@ resource "oci_containerengine_node_pool" "oke_node_pool" {
 data "oci_containerengine_cluster_option" "mtdrworkshop_cluster_option" {
   cluster_option_id = "all"
 }
-data "oci_containerengine_node_pool_option" "mtdrworkshop_node_pool_option" {
+data "oci_containerengine_node_pool_option" "orabot_node_pool_option" {
   node_pool_option_id = "all"
 }
 locals {
-  all_sources = data.oci_containerengine_node_pool_option.mtdrworkshop_node_pool_option.sources
+  all_sources = data.oci_containerengine_node_pool_option.orabot_node_pool_option.sources
   oracle_linux_images = [for source in local.all_sources : source.image_id if length(regexall("Oracle-Linux-[0-9]*.[0-9]*-aarch64-20[0-9]*",source.source_name)) > 0]
 }
