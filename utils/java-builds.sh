@@ -9,10 +9,10 @@ BUILDS="orabot"
 
 # Install Graal
 while ! state_done GRAAL; do
-  if ! test -d ~/graalvm-ce-java17-22.3.3; then
+  if ! test -d ~/graalvm-ce-jdk-java17-0-9; then
     echo "downloading graalVM"
-    curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.3/graalvm-ce-java17-linux-aarch64-22.3.3.tar.gz | tar xz
-    mv graalvm-ce-java17-22.3.3 ~/
+    curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-aarch64_bin.tar.gz | tar xz
+    mv graalvm-ce-jdk-java17-0-9 ~/
   fi
   state_set_done GRAAL
   echo "finished downloading graalVM"
@@ -21,7 +21,7 @@ done
 
 # Install GraalVM native-image...
 while ! state_done GRAAL_IMAGE; do
-  ~/graalvm-ce-java17-22.3.3/bin/gu install native-image
+  ~/graalvm-ce-jdk-java17-0-9/bin/gu install native-image
   state_set_done GRAAL_IMAGE
 done
 

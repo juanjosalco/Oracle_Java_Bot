@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-apline
+FROM openjdk:17
 COPY pom.xml /  /
 COPY src /tmp/src/
 WORKDIR /tmp/
