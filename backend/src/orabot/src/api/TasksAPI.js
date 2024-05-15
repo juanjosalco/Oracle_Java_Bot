@@ -62,7 +62,7 @@ export const deleteTask = async (token, taskId, task) => {
         dueDate: task.dueDate,
         creationDate: task.creationDate,
         status: "Cancelled", 
-        statusChangeDate: Date.now() 
+        statusChangeDate: new Date() 
       },
       {
         headers: { Authorization: `Bearer ${token}` },
