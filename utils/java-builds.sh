@@ -13,7 +13,7 @@ while ! state_done GRAAL; do
   then
     echo "downloading graalVM"
     curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-aarch64_bin.tar.gz | tar xz
-    mv graalvm-community-openjdk-17.0.9+9.1
+    mv graalvm-community-openjdk-17.0.9+9.1 ~/
  ~/
   fi
   state_set_done GRAAL
