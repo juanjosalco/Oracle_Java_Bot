@@ -2,7 +2,7 @@
 SCRIPT_DIR=$(pwd)
 if [ -z "$ORABOT_PDB_NAME" ]; then
     echo "ORABOT_PDB_NAME not set. Will get it with state_get"
-  export ORABOT_PDB_NAME=$(state_get OB_DB_NAME)
+  export ORABOT_PDB_NAME=$(state_get ORABOT_PDB_NAME)
 fi
 if [ -z "$ORABOT_PDB_NAME" ]; then
     echo "Error: ORABOT_PDB_NAME env variable needs to be set!"

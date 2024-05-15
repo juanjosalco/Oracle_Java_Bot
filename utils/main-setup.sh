@@ -29,7 +29,7 @@ while ! state_done RUN_TYPE; do
     state_set_done PROVISIONING
     state_set_done K8S_PROVISIONING
     state_set RUN_NAME "talent-pentagon$(state_get RESERVATION_ID)"
-    state_set OB_DB_NAME "OracleBot_DB$(state_get RESERVATION_ID)"
+    state_set ORABOT_PDB_NAME "OracleBot_DB$(state_get RESERVATION_ID)"
     #state_set_done OKE_LIMIT_CHECK
     #state_set_done ATP_LIMIT_CHECK
   else
@@ -86,7 +86,7 @@ while ! state_done RUN_NAME; do
   # Validate run name.  Must be between 1 and 13 characters, only letters or numbers, starting with letter
   if [[ "$DN" =~ ^[a-zA-Z][a-zA-Z0-9]{0,64}$ ]]; then
     state_set RUN_NAME `echo "$DN" | awk '{print tolower($0)}'`
-    state_set OB_DB_NAME "$(state_get RUN_NAME)$(state_get OB_KEY)"
+    state_set ORABOT_PDB_NAME "$(state_get RUN_NAME)$(state_get OB_KEY)"
   else
     echo "Error: Invalid directory name $RN.  The directory name must be between 1 and 64 characters,"
     echo "containing only letters or numbers, starting with a letter.  Please restart the workshop with a valid directory name."
