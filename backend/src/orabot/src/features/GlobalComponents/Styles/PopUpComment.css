@@ -1,0 +1,37 @@
+.popUpContainerComment{
+    background-color: whitesmoke;
+    justify-content: center;
+    text-align: center;
+    position:fixed;
+    z-index: 1;
+    padding: 16px;
+    margin-inline: 32px;
+
+    top: 50%; 
+    left: 50%;
+    right: 70%;
+    transform: translate(-50%, -50%); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+
+    width: 400px; 
+    height: 500px; 
+    max-width: 400px;
+    max-height: 500px;
+}
+
+.titleComment{
+    justify-content: center;
+    text-align: center;
+}
+
+.popUpContainerComment button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer; 
+    background-color: #bebcbc;
+    padding: 2px;
+    padding-bottom: 1px;
+    cursor: pointer;
+}
