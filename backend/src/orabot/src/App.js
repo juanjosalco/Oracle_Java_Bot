@@ -13,14 +13,9 @@ import { UserProvider } from "./providers/user/UserProvider";
 const tele = window.Telegram.WebApp;
 
 function App() {
-  const getTest = async () => {
-    const res = await axios.get("https://rickandmortyapi.com/api/character/2");
-    console.log(res.data);
-  };
 
   useEffect(() => {
     tele.ready();
-    getTest();
   }, []);
 
   const router = createBrowserRouter([
