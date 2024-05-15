@@ -2,7 +2,6 @@
 
 # Unset environment variables
 unset TALENT_PENTAGON_LOCATION
-unset JAVA_HOME
 unset TALENT_PENTAGON_STATE_HOME
 unset TALENT_PENTAGON_LOG
 
