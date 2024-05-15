@@ -7,10 +7,16 @@ metadata:
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
+
   ports:
     - port: 80
       protocol: TCP
       targetPort: 8080
+      name: backend
+    - port: 81
+      protocol: TCP
+      targetPort: 3000
+      name: frontend
   selector:
     app: orabot
 ---
@@ -71,6 +77,48 @@ spec:
         - name: creds
           secret:
             secretName: db-wallet-secret
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: orabot
+---
+#this is new stuff for hosting on the load balancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: orabot-frontend-router
+spec:
+  selector:
+    app: orabot
+  ports:
+    - protocol: TCP
+      port: 81
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orabot-front-deployment
+spec:
+  selector:
+    matchLabels:
+      app: orabot
+  template:
+    metadata:
+      labels:
+        app: orabot
+        version: v1
+    spec:
+      containers:
+        - name: orabot-front
+          image: %DOCKER_REGISTRY%/orabot-front:0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      restartPolicy: Always
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
