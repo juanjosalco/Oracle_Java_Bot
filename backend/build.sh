@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export IMAGE_NAME=oracle-java-bot
+export IMAGE_NAME=orabot
 export IMAGE_VERSION=0.1
 
 
