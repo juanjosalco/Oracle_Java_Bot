@@ -42,7 +42,7 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) =>
 
   
 
-  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: Date.now(), status: ""}
+  const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
   const handlePriority = (index) => {
     console.log(index)
