@@ -14,8 +14,17 @@
     background-color: #E18012;
 }
 
+.commentaries {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
 .red{
     background-color: #B3311F;
+}
+
+.gris{
+    background-color: #47423E;
 }
 
 .taskContainer{
