@@ -26,6 +26,17 @@ while ! state_done GRAAL_IMAGE; do
   state_set_done GRAAL_IMAGE
 done
 
+# Download Maven 3.9.6
+while ! state_done MAVEN; do
+  if ! test -d ~/apache-maven-3.9.6; 
+  then
+    echo "downloading maven"
+    curl -sL https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz | tar xz
+    mv apache-maven-3.9.6 ~/
+  fi
+  state_set_done MAVEN
+  echo "finished downloading maven"
+done
 
 # Wait for docker login
 while ! state_done DOCKER_REGISTRY; do
