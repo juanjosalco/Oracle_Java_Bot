@@ -3,8 +3,7 @@
 export IMAGE_NAME=orabot-front
 export IMAGE_VERSION=0.1
 
-
-if [ -z "$DOCKER_REGISTRY_FRONT" ]; then
+if [ -z "$DOCKER_REGISTRY_FRONT_FRONT" ]; then
     echo "DOCKER_REGISTRY_FRONT not set. Will get it with state_get"
   export DOCKER_REGISTRY_FRONT=$(state_get DOCKER_REGISTRY_FRONT)
 fi
@@ -14,6 +13,7 @@ if [ -z "$DOCKER_REGISTRY_FRONT" ]; then
     exit 1
 fi
 export IMAGE=${DOCKER_REGISTRY_FRONT}/${IMAGE_NAME}:${IMAGE_VERSION}
+echo "$IMAGE"
 
 docker build -f DockerfileFront -t $IMAGE .
 

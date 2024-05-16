@@ -38,6 +38,3 @@ else
 fi
 
 echo "Done creating springboot deployment and service"
-
-
-source $SCRIPT_DIR/deployFront.sh
