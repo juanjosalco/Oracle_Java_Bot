@@ -203,7 +203,7 @@ CREATE INDEX task_priority_idx ON APP_DATA.task(priority);
 
 -- INSERT IT TEAM
 INSERT INTO APP_DATA.team (manager, name, description) VALUES (1, 'IT Team', 'Responsible for DB and user management.');
-INSERT INT APP_DATA.staff (team_id, firstname, lastname, phonenumber, role) VALUES (1, 'Duke', 'Java', '5555555555', 'Notch');
+INSERT INTO APP_DATA.staff (team_id, firstname, lastname, phonenumber, role) VALUES (1, 'Duke', 'Java', '5555555555', 'Notch');
 
 commit;
 !
