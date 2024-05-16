@@ -82,7 +82,7 @@ while ! state_done RUN_NAME; do
     echo "ERROR: The workshop is not installed in a separate folder."
     exit
   fi
-  DN=`basename "$PWD"`
+  DN="Orabot"
   # Validate run name.  Must be between 1 and 13 characters, only letters or numbers, starting with letter
   if [[ "$DN" =~ ^[a-zA-Z][a-zA-Z0-9]{0,64}$ ]]; then
     state_set RUN_NAME `echo "$DN" | awk '{print tolower($0)}'`

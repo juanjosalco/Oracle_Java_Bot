@@ -15,8 +15,7 @@ if [ -z "$DOCKER_REGISTRY" ]; then
 fi
 export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
 
-mvn clean package spring-boot:repackage
-docker build -f Dockerfile -t $IMAGE .
+docker build -f DockerfileFront -t $IMAGE .
 
 docker push $IMAGE
 if [  $? -eq 0 ]; then
