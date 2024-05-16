@@ -140,7 +140,6 @@ if ! state_get JAVA_BUILDS; then
   fi
 fi
 
-# TODO: CHECK IF IT DOESN'T PETA
 ## Run the terraform.sh in the background
 if ! state_get PROVISIONING; then
   if ps -ef | grep "$TALENT_PENTAGON_LOCATION/utils/terraform.sh" | grep -v grep; then
