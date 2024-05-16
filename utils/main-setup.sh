@@ -183,7 +183,10 @@ while ! state_done DOCKER_REGISTRY; do
   while test $RETRIES -le 30; do
     if echo "$TOKEN" | docker login -u "$(state_get NAMESPACE)/$(state_get USER_NAME)" --password-stdin "$(state_get REGION).ocir.io" &>/dev/null; then
       echo "Docker login completed"
+      # Set the docker registry for backend
       state_set DOCKER_REGISTRY "$(state_get REGION).ocir.io/$(state_get NAMESPACE)/$(state_get RUN_NAME)/$(state_get OB_KEY)"
+      # Set the docker registry for frontend
+      state_set DOCKER_REGISTRY_FRONT "$(state_get REGION).ocir.io/$(state_get NAMESPACE)/$(state_get RUN_NAME)/$(state_get OB_KEY)-front"
       export OCI_CLI_PROFILE=$(state_get REGION)
       break
     else
