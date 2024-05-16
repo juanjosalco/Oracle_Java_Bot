@@ -17,7 +17,7 @@ if [ -z "$OCI_REGION" ]; then
     exit 1
 fi
 
-echo "Creating springboot deplyoment and service"
+echo "Creating springboot deployment and service"
 export CURRENTTIME=$( date '+%F_%H:%M:%S' )
 echo CURRENTTIME is $CURRENTTIME  ...this will be appended to generated deployment yaml
 cp src/main/resources/orabot-compose.yaml orabot-compose-$CURRENTTIME.yaml
@@ -39,3 +39,5 @@ fi
 
 echo "Done creating springboot deployment and service"
 
+
+source $SCRIPT_DIR/deployFront.sh
