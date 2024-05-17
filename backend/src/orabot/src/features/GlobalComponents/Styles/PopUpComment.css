@@ -1,37 +1,109 @@
-.popUpContainerComment{
+/* Title Section --------------------------------------------------------- */
+
+.popUpContainerComment {
     background-color: whitesmoke;
     justify-content: center;
     text-align: center;
-    position:fixed;
+    position: fixed;
     z-index: 1;
     padding: 16px;
     margin-inline: 32px;
-
-    top: 50%; 
+    overflow: hidden;
+    top: 50%;
     left: 50%;
-    right: 70%;
-    transform: translate(-50%, -50%); 
-    border-radius: 10px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-
-    width: 400px; 
-    height: 500px; 
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 500px;
     max-width: 400px;
     max-height: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
-.titleComment{
+.titleComment {
     justify-content: center;
     text-align: center;
+    margin-bottom: 20px;
+    margin-top: 8px;
 }
 
-.popUpContainerComment button {
+.titleSection {
+    padding: 1px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 2;
+}
+
+.popUpContainerComment button.close-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    cursor: pointer; 
-    background-color: #bebcbc;
-    padding: 2px;
-    padding-bottom: 1px;
     cursor: pointer;
+    background-color: whitesmoke;
+    border: none;
+}
+
+/* Comment Section -------------------------------------------------------- */
+
+.comment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.commentsSection {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.manager-user {
+    color: whitesmoke;
+}
+
+.manager-comment {
+    background-color: #cc523f;
+    color:whitesmoke;
+    margin-left: -20px;
+    margin-right: 20px;
+}
+
+.commentsSection::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    display: none;
+}
+
+/* Input Section ------------------------------------------------------*/
+
+.inputSection {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.inputSection input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.inputSection button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #cc523f;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.inputSection button:hover {
+    background-color: #943324;
 }
