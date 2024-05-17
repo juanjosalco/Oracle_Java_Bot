@@ -85,18 +85,19 @@ public class SecurityController {
         
     }
 
+    // TODO: EITHER FIX THE ROLE CHECK OR REMOVE IT
     @Transactional
     @PostMapping("/signUp")
     public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
         Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
-        Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
+        // Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
 
         if(credentials.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         }
-        if(roleCheck.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Team " + request.getTeamId() + " already has an assigned manager.");
-        }
+        // if(roleCheck.isPresent()){
+        //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Team " + request.getTeamId() + " already has an assigned manager.");
+        // }
 
         CustomUser newUser = new CustomUser();
         newUser.setFirstName(request.getFirstname());
