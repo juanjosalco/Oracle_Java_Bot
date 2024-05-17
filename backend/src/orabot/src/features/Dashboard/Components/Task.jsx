@@ -66,7 +66,7 @@ export const Task = (props) => {
         <PopUpComment
           title={popUpTitle}
           comments={popUpComments}
-          userID={userID}
+          taskID={props.task.id}
           onClose={handleClose}
         />
       )}
