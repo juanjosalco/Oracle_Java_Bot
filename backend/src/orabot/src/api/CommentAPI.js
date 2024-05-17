@@ -21,6 +21,7 @@ export const createComment = async (comment, token) => {
     });
     return response.data;
   } catch (err) {
+    console.error("Error: " + err.message)
     return { error: "Error creating comment" };
   }
 };

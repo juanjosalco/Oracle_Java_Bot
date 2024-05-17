@@ -1,21 +1,34 @@
 import React, { useState } from "react";
 import "./Styles/PopUpComment.css";
 
+//Hooks
+import { useUser } from "../../hooks/useUser";
 
-export const PopUpComment = ({ title, comments, onClose, state }) => {
+//API
+import { createComment } from "../../api/CommentAPI";
+
+export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     const [newComment, setNewComment] = useState("");
     const [allComments, setAllComments] = useState(comments);
+    const { userData } = useUser();
+    const [userID, setUserID] = useState(userData.UID);
 
-    const handleAddComment = () => {
+    const handleAddComment = async () => {
         if (newComment.trim() === "") return;
-        const updatedComments = [
-            ...allComments,
-            { userID: "Developer", message: newComment } //Si el ID es diferente al mío == Es manager
-            // ...(state.isDeveloper? [{ userID: "Developer", message: newComment }] : [{ userID: "Manager", message: newComment }])
-        ];
-        setAllComments(updatedComments);
-        setNewComment("");
-    };
+    
+        const token = userData.token;
+        const comment = { commenterId: userID, message: newComment, taskId: taskID, creationDate: new Date()}; 
+    
+        try {
+          const createdComment = await createComment(comment, token);
+          if (!createdComment.error) {
+            setAllComments([...allComments, createdComment]);
+            setNewComment("");
+          }
+        } catch (error) {
+          console.error("Failed to create comment:", error);
+        }
+      };
 
     const renderComments = () =>
         allComments && allComments.length > 0 ? allComments.map((comment, index) => (
