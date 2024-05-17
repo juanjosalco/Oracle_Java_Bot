@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Styles/PopUpComment.css";
 
 //Hooks
@@ -7,11 +7,17 @@ import { useUser } from "../../hooks/useUser";
 //API
 import { createComment } from "../../api/CommentAPI";
 
+const MAX_CHAR_LIMIT = 280;
+
 export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     const [newComment, setNewComment] = useState("");
     const [allComments, setAllComments] = useState(comments);
     const { userData } = useUser();
-    const [userID, setUserID] = useState(userData.UID);
+    const [userID, setUserID] = useState("");
+
+    useEffect(() => {
+        setUserID(userData.UID); // Assuming userData.UID is the correct property for the user's ID
+    }, [userData]);
 
     const handleAddComment = async () => {
         if (newComment.trim() === "") return;
@@ -30,15 +36,22 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
         }
       };
 
-    const renderComments = () =>
-        allComments && allComments.length > 0 ? allComments.map((comment, index) => (
-            <div key={index} className={`comment ${comment.userID === "Manager" ? "manager-comment" : ""}`}>
-                <strong className={`userID ${comment.userID === "Manager" ? "manager-user" : ""}`}>
-                    {`${comment.userID}: `}   
-                </strong>
+      const renderComments = () => {
+        if (!allComments || allComments.length === 0) return null;
+    
+        return allComments.map((comment, index) => {
+            console.log(`Comment ID: ${comment.commenterId}, User ID: ${userID}`); // Debug log
+            const isDeveloper = comment.commenterId === userID;
+            return (
+                <div key={index} className={`comment ${isDeveloper ? "comment" : "manager-comment"}`}>
+                    <strong className={`userID ${isDeveloper ? "user" : "manager-user"}`}>
+                        {`${isDeveloper ? "You" : "Manager"}: `}
+                    </strong>
                     {comment.message}
-            </div>
-        )) : null;
+                </div>
+            );
+        });
+    };
 
     return (
         <div className="popUpContainerComment">
@@ -64,7 +77,11 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Write a comment..."
+                    maxLength={MAX_CHAR_LIMIT}
                 />
+                <div className={`charCounter ${newComment.length === MAX_CHAR_LIMIT ? 'limit-reached' : ''}`}>
+                    {newComment.length}/{MAX_CHAR_LIMIT}
+                </div>
                 <button type="button" onClick={handleAddComment}>
                     Add Comment
                 </button>

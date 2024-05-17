@@ -52,6 +52,9 @@
     padding: 10px;
     margin-bottom: 20px;
     margin-left: 20px;
+    margin-right: -10px;
+    overflow-wrap:break-word;
+    text-wrap: pretty;
 }
 
 .commentsSection {
@@ -65,10 +68,14 @@
     color: whitesmoke;
 }
 
+.user {
+    color: black;
+}
+
 .manager-comment {
     background-color: #cc523f;
     color:whitesmoke;
-    margin-left: -20px;
+    margin-left: -10px;
     margin-right: 20px;
 }
 
@@ -106,4 +113,16 @@
 
 .inputSection button:hover {
     background-color: #943324;
+}
+
+.charCounter {
+    font-size: 0.9em;
+    color: #555;
+    margin-right:5px;
+    margin-left: -2px;
+    text-align: right;
+}
+
+.charCounter.limit-reached {
+    color: red;
 }
