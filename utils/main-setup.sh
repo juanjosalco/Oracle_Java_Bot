@@ -140,15 +140,16 @@ if ! state_get JAVA_BUILDS; then
   fi
 fi
 
+# WARNING: ALREADY DONE, DO NOT MOVE
 ## Run the terraform.sh in the background
-if ! state_get PROVISIONING; then
-  if ps -ef | grep "$TALENT_PENTAGON_LOCATION/utils/terraform.sh" | grep -v grep; then
-    echo "$TALENT_PENTAGON_LOCATION/utils/terraform.sh is already running"
-  else
-    echo "Executing terraform.sh in the background"
-    nohup $TALENT_PENTAGON_LOCATION/utils/terraform.sh &>> $TALENT_PENTAGON_LOG/terraform.log &
-  fi
-fi
+# if ! state_get PROVISIONING; then
+#   if ps -ef | grep "$TALENT_PENTAGON_LOCATION/utils/terraform.sh" | grep -v grep; then
+#     echo "$TALENT_PENTAGON_LOCATION/utils/terraform.sh is already running"
+#   else
+#     echo "Executing terraform.sh in the background"
+#     nohup $TALENT_PENTAGON_LOCATION/utils/terraform.sh &>> $TALENT_PENTAGON_LOG/terraform.log &
+#   fi
+# fi
 
 # Get Namespace
 while ! state_done NAMESPACE; do
