@@ -12,7 +12,7 @@ if [ -z "$DOCKER_REGISTRY" ]; then
     echo "Error: DOCKER_REGISTRY env variable needs to be set!"
     exit 1
 fi
-export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
+export IMAGE=${DOCKER_REGISTRY}/frontend/${IMAGE_NAME}:${IMAGE_VERSION}
 echo "$IMAGE"
 
 docker build -f DockerfileFront -t $IMAGE .
