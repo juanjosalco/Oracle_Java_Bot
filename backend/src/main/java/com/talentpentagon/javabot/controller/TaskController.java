@@ -83,11 +83,13 @@ public class TaskController {
     @GetMapping("task/team")
     public ResponseEntity<List<TaskItem>> getTasksForTeam(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
-            @RequestParam(name = "status", defaultValue = "ALL") String status) {
+            @RequestParam(name = "status", defaultValue = "ALL") String status,
+            @RequestParam(name = "priority", defaultValue = "0") String priority) {
+        System.out.println("Params: {" + "sortBy," + sortBy + "}, {" + status + "}, {" + priority + "}");
 
         int teamId = JWTUtil.extractTeamId(token);
 
-        return getTaskByTeamHandler.execute(teamId, sortBy, status); // ask Diego
+        return getTaskByTeamHandler.execute(teamId, sortBy, status, Integer.parseInt(priority));
     }
 
     // Get User's tasks
@@ -96,12 +98,16 @@ public class TaskController {
     @GetMapping("task/user")
     public ResponseEntity<List<TaskItem>> getTasksForUser(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
-            @RequestParam(name = "status", defaultValue = "ALL") String status) {
+            @RequestParam(name = "status", defaultValue = "ALL") String status,
+            @RequestParam(name = "priority", defaultValue = "0") String priority) {
+        System.out.println("Params: {" + "sortBy," + sortBy + "}, {status, " + status + "}, {priority, " + priority + "}");
+
 
         int assignee = JWTUtil.extractId(token);
+        System.out.println("Priority: " + Integer.parseInt(priority));
 
         // return taskService.getTasksForUser(assignee, sortBy, status);
-        return getTaskByUserCommandHandler.execute(assignee, sortBy, status);
+        return getTaskByUserCommandHandler.execute(assignee, sortBy, status, Integer.parseInt(priority));
     }
 
     // Add task

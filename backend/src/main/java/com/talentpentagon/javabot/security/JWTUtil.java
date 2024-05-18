@@ -17,8 +17,8 @@ import io.jsonwebtoken.MalformedJwtException;
 
 
 public class JWTUtil {
-   private static Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-   private static final long EXPIRATION = 854_000_000; // Time in ms
+    private static Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS512);   
+    private static final long EXPIRATION = 854_000_000; // Time in ms
 
     private static final Logger logger = LoggerFactory.getLogger(JWTUtil.class);
     
