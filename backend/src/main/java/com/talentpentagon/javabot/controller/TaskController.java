@@ -85,7 +85,6 @@ public class TaskController {
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status,
             @RequestParam(name = "priority", defaultValue = "0") String priority) {
-        System.out.println("Params: {" + "sortBy," + sortBy + "}, {" + status + "}, {" + priority + "}");
 
         int teamId = JWTUtil.extractTeamId(token);
 
@@ -100,8 +99,6 @@ public class TaskController {
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status,
             @RequestParam(name = "priority", defaultValue = "0") String priority) {
-        System.out.println("Params: {" + "sortBy," + sortBy + "}, {status, " + status + "}, {priority, " + priority + "}");
-
 
         int assignee = JWTUtil.extractId(token);
         System.out.println("Priority: " + Integer.parseInt(priority));
