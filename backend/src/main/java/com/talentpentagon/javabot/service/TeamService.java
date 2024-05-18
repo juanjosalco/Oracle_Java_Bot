@@ -1,10 +1,10 @@
 package com.talentpentagon.javabot.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.Optional;
+import java.util.HashMap;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
@@ -34,7 +34,7 @@ public class TeamService {
     }
 
     // Get team tasks by team id
-    public List<TaskItem> getTeamTasks(int id, String sortBy, String status){
+    public List<TaskItem> getTeamTasks(int id, String sortBy, String status, Integer priority){
         Optional<Team> team = teamRepository.findById(id);
 
         try{
