@@ -101,7 +101,6 @@ public class TaskController {
             @RequestParam(name = "priority", defaultValue = "0") String priority) {
 
         int assignee = JWTUtil.extractId(token);
-        System.out.println("Priority: " + Integer.parseInt(priority));
 
         // return taskService.getTasksForUser(assignee, sortBy, status);
         return getTaskByUserCommandHandler.execute(assignee, sortBy, status, Integer.parseInt(priority));
@@ -112,7 +111,6 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer')")
     @PostMapping("task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
-        task.setStatus("To do");
         return newTaskCommandHandler.execute(task);
     }
 

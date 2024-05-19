@@ -79,8 +79,6 @@ public class TaskService {
 
     // Add a new task
     public ResponseEntity<TaskItem> addTask(TaskItem task) {
-        task.setStatus("To do");
-
         TaskItem newTask = taskRepository.save(task);
         return new ResponseEntity<TaskItem>(newTask, HttpStatus.CREATED);
     }

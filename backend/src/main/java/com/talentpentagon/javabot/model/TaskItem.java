@@ -49,6 +49,10 @@ public class TaskItem {
     @NotNull
     private Integer priority;
 
+    @Column(name = "archived")
+    @NotNull
+    private boolean archived;
+
     public TaskItem() {
     }
 
@@ -62,6 +66,7 @@ public class TaskItem {
         this.dueDate = dueDate;
         this.creationDate = creationDate;
         this.statusChangeDate = statusChangeDate;
+        this.archived = false;
     }
 
     public Integer getId() {
@@ -128,6 +133,22 @@ public class TaskItem {
         this.creationDate = creationDate;
     }
 
+    public OffsetDateTime getStatusChangeDate() {
+        return statusChangeDate;
+    }
+
+    public void setStatusChangeDate(OffsetDateTime statusChangeDate) {
+        this.statusChangeDate = statusChangeDate;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
+
     @Override
     public String toString() {
         return "TaskItem{" +
@@ -139,6 +160,8 @@ public class TaskItem {
                 ", priority=" + priority +
                 ", due_date=" + dueDate +
                 ", creation_date=" + creationDate +
+                ", status_change_date=" + statusChangeDate +
+                ", archived=" + archived +
                 '}';
     }
 
