@@ -16,7 +16,7 @@ import com.talentpentagon.javabot.service.TeamService;
 import java.util.List;
 
 @Service
-public class GetTaskByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
+public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
 
     // @Autowired
     // private TaskService taskService;
@@ -24,7 +24,6 @@ public class GetTaskByTeamHandler implements GetCommand<Integer, List<TaskItem>>
     @Autowired
     private TeamService teamService;
 
-    @Autowired
     private TeamRepository teamRepository;
 
     @Override
@@ -38,7 +37,7 @@ public class GetTaskByTeamHandler implements GetCommand<Integer, List<TaskItem>>
         }
 
         // Fetch tasks associated with the team
-        List<TaskItem> tasks = teamService.getTeamTasks(persistedTeam.getId(), sortBy, status); // ask Diego
+        List<TaskItem> tasks = teamService.getTeamTasks(persistedTeam.getId(), sortBy, status);
 
         // If no tasks found, return not found
         if (tasks.isEmpty()) {

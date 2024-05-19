@@ -1,6 +1,6 @@
 package com.talentpentagon.javabot.TaskControllerTest;
 
-import com.talentpentagon.javabot.queryhandlers.GetTaskByTeamHandler;
+import com.talentpentagon.javabot.queryhandlers.GetTasksByTeamHandler;
 import com.talentpentagon.javabot.model.CustomUser;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
@@ -32,7 +32,7 @@ public class GetTaskByTeamCommandHandlerTest {
     private TeamRepository teamRepository;
 
     @InjectMocks
-    private GetTaskByTeamHandler getTaskByTeamHandler;
+    private GetTasksByTeamHandler getTaskByTeamHandler;
 
     @BeforeEach
     public void setup() {

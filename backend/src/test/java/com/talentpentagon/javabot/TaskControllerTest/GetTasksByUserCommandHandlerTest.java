@@ -23,7 +23,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class GetTaskByUserCommandHandlerTest {
+public class GetTasksByUserCommandHandlerTest {
 
     @Mock
     private CustomUserDetailsService customUserDetailsService;

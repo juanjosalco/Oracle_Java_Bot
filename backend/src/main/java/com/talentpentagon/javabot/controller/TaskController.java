@@ -11,7 +11,7 @@ import java.util.List;
 import com.talentpentagon.javabot.commandhandlers.*;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByIdCommandHandler;
-import com.talentpentagon.javabot.queryhandlers.GetTaskByTeamHandler;
+import com.talentpentagon.javabot.queryhandlers.GetTasksByTeamHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByUserCommandHandler;
 import com.talentpentagon.javabot.service.TaskService;
 import com.talentpentagon.javabot.security.JWTUtil;
@@ -56,7 +56,7 @@ public class TaskController {
     private GetTaskByUserCommandHandler getTaskByUserCommandHandler;
 
     @Autowired
-    private GetTaskByTeamHandler getTaskByTeamHandler;
+    private GetTasksByTeamHandler getTaskByTeamHandler;
 
     // TEST ONLY
     @GetMapping("task")
@@ -84,7 +84,7 @@ public class TaskController {
 
         int teamId = JWTUtil.extractTeamId(token);
 
-        return getTaskByTeamHandler.execute(teamId, sortBy, status); // ask Diego
+        return getTaskByTeamHandler.execute(teamId, sortBy, status);
     }
 
     // Get User's tasks
