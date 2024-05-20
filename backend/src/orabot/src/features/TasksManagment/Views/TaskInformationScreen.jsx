@@ -176,9 +176,48 @@ export const TaskInformationScreen = () => {
       ) : null}
       <div className="taskContainerV">
         <div className="titleCharCounter">
-          <h1>
-            Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})
+          <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
+        </div>
+        {state.isDeveloper ? (
+          <input
+            type="text"
+            placeholder="Title"
+            className="inputsSpe"
+            defaultValue={state.task.title}
+            value={title}
+            onChange={handleTitleChange}
+          />
+        ) : (
+          <p className="taskTitle">{state.task.title}</p>
+        )}
+        <div className="titleCharCounter">
+          <h1 style={{ marginTop: 16 }}>
+            Description ({descriptionCharCount}/{MAX_DESCRIPTION_CHAR_LIMIT})
           </h1>
+        </div>
+        {state.isDeveloper ? (
+          <textarea
+            placeholder="Description"
+            className="inputArea"
+            defaultValue={state.task.description}
+            value={description}
+            rows={5}
+            onChange={handleDescriptionChange}
+          />
+        ) : (
+          <p className="taskTitle">{state.task.description}</p>
+        )}
+        <h1 className="statusText" >Status</h1>
+        <div className={state.isDeveloper ? "buttonsContainer" : ''}>
+          {state.isDeveloper ? Statuses.map((st, index) => (
+            <button
+              className={index === status ? "button red" : "button gray"}
+              key={st}
+              onClick={() => setStatus(index)}
+            >
+              {st}
+            </button>
+          )) : <p className="taskTitle">{state.task.status}</p>}
         </div>
         {role === "Developer" ? (
           <input
