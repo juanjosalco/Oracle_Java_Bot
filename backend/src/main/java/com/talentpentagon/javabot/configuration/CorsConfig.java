@@ -16,7 +16,7 @@ public class CorsConfig {
     Logger logger = LoggerFactory.getLogger(CorsConfig.class);
     public CorsFilter corsFilter(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:8080", "http://159.54.139.5:81", "http://159.54.139.5:80"));
+        config.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:8080", "http://159.54.139.5:81", "http://159.54.139.5:80", "https://159.54.139.5:81", "https://159.54.139.5:80"));
         config.setAllowedMethods(List.of("GET","POST","PUT","OPTIONS","DELETE","PATCH"));
         config.setAllowedOrigins(Collections.singletonList("*"));
         config.addAllowedHeader("*");
