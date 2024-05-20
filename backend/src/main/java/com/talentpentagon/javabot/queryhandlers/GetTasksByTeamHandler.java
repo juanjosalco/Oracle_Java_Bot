@@ -24,6 +24,7 @@ public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>
     @Autowired
     private TeamService teamService;
 
+    @Autowired
     private TeamRepository teamRepository;
 
     @Override
