@@ -143,7 +143,6 @@ export const TaskInformationScreen = (props) => {
   return (
     <>
       <Header back={true}/>
-      {error && <p className="error">{error}</p>}
       {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
         <h1>Task title</h1>
@@ -184,6 +183,7 @@ export const TaskInformationScreen = (props) => {
           <button className="button black" onClick={handleClick}>Save</button>
           }
           </div>}
+          {error && <p className="error">{error}</p>}
           {state.isDeveloper ? !state.isNewTask && 
           <div className="buttonsContainer"> 
             <button className="button red" onClick={handleClick}>Delete</button>

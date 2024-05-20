@@ -22,19 +22,14 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
     }
 
     @Override
-    public ResponseEntity<List<TaskItem>> execute(Integer userId, String sortBy, String status) {
+    public ResponseEntity<List<TaskItem>> execute(Integer userId, String sortBy, String status, Integer priority) {
 
         if (userId == null) {
             throw new RuntimeException("User ID cannot be null");
         }
 
         // Invoke the service method to retrieve tasks assigned to the user
-        List<TaskItem> tasks = taskService.getTasksForUser(userId, sortBy, status).getBody();
-
-        // Check if tasks were found for the user
-        if (tasks.isEmpty()) {
-            throw new RuntimeException("No tasks found for the user");
-        }
+        List<TaskItem> tasks = taskService.getTasksForUser(userId, sortBy, status, priority).getBody();
 
         // taskService.addTask((TaskItem) tasks);
         return ResponseEntity.status(HttpStatus.OK).body(tasks);

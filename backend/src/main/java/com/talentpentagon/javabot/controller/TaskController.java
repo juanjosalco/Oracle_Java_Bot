@@ -30,8 +30,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/api/v1/")
 public class TaskController {
 
     @Autowired
@@ -80,11 +82,12 @@ public class TaskController {
     @GetMapping("task/team")
     public ResponseEntity<List<TaskItem>> getTasksForTeam(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
-            @RequestParam(name = "status", defaultValue = "ALL") String status) {
+            @RequestParam(name = "status", defaultValue = "ALL") String status,
+            @RequestParam(name = "priority", defaultValue = "0") String priority) {
 
         int teamId = JWTUtil.extractTeamId(token);
 
-        return getTaskByTeamHandler.execute(teamId, sortBy, status);
+        return getTaskByTeamHandler.execute(teamId, sortBy, status, Integer.parseInt(priority));
     }
 
     // Get User's tasks
@@ -93,12 +96,13 @@ public class TaskController {
     @GetMapping("task/user")
     public ResponseEntity<List<TaskItem>> getTasksForUser(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
-            @RequestParam(name = "status", defaultValue = "ALL") String status) {
+            @RequestParam(name = "status", defaultValue = "ALL") String status,
+            @RequestParam(name = "priority", defaultValue = "0") String priority) {
 
         int assignee = JWTUtil.extractId(token);
 
         // return taskService.getTasksForUser(assignee, sortBy, status);
-        return getTaskByUserCommandHandler.execute(assignee, sortBy, status);
+        return getTaskByUserCommandHandler.execute(assignee, sortBy, status, Integer.parseInt(priority));
     }
 
     // Add task
@@ -106,7 +110,6 @@ public class TaskController {
     @PreAuthorize("hasRole('Developer')")
     @PostMapping("task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
-        task.setStatus("To do");
         return newTaskCommandHandler.execute(task);
     }
 

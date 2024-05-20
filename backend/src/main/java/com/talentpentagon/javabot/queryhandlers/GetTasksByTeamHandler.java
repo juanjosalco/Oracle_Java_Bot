@@ -27,7 +27,7 @@ public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>
     private TeamRepository teamRepository;
 
     @Override
-    public ResponseEntity<List<TaskItem>> execute(Integer teamId, String sortBy, String status) {
+    public ResponseEntity<List<TaskItem>> execute(Integer teamId, String sortBy, String status, Integer priority) {
         // Fetch the team from the repository
         Team persistedTeam = teamRepository.findById(teamId).orElse(null);
 
@@ -37,15 +37,10 @@ public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>
         }
 
         // Fetch tasks associated with the team
-        List<TaskItem> tasks = teamService.getTeamTasks(persistedTeam.getId(), sortBy, status);
-
-        // If no tasks found, return not found
-        if (tasks.isEmpty()) {
-            throw new RuntimeException("No tasks found");
-        }
+        List<TaskItem> tasks = teamService.getTeamTasks(persistedTeam.getId(), sortBy, status, priority);
 
         // Return the tasks associated with the team
-        teamService.getTeamTasks(persistedTeam.getId(), sortBy, status);
+        teamService.getTeamTasks(persistedTeam.getId(), sortBy, status, priority);
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
 }

@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.mail.MessagingException;
 import com.talentpentagon.javabot.service.EmailSenderService;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
 
 @RestController
+@RequestMapping("/api/v1/")
 public class TicketEmailController {
 
     @Autowired

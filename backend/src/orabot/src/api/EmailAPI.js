@@ -10,7 +10,7 @@ const url = axiosConfig.baseURL;
 
     try {
       const response = await axios.post(
-        `${url}/sendEmail`,
+        `${url}/api/v1/sendEmail`,
             body
         ,
         {
@@ -20,6 +20,6 @@ const url = axiosConfig.baseURL;
       return response.data;
     } catch (err) {
       console.error(err.response ? err.response.data : err.message);
-      return { error: "Error sending email" };
+      return { error: err.response.data};
     }
   };
