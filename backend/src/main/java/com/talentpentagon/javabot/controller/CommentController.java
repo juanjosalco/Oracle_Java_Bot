@@ -1,5 +1,7 @@
 package com.talentpentagon.javabot.controller;
 
+import com.talentpentagon.javabot.commandhandlers.NewCommentCommandHandler;
+import com.talentpentagon.javabot.queryhandlers.GetCommentsByTaskIdCommandHandler;
 import com.talentpentagon.javabot.model.Comment;
 import com.talentpentagon.javabot.service.CommentService;
 
@@ -16,13 +18,16 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+    private NewCommentCommandHandler newCommentCommandHandler;
+    private GetCommentsByTaskIdCommandHandler getCommentByTaskIdCommandHandler;
 
     // GET
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
     @GetMapping("/comments/{taskId}")
     public ResponseEntity<List<Comment>> getCommentsByTaskId(@PathVariable int taskId) {
-        return commentService.getCommentsByTaskId(taskId);
+        // return commentService.getCommentsByTaskId(taskId);
+        return getCommentByTaskIdCommandHandler.execute(taskId);
     }
 
     // POST
@@ -30,6 +35,7 @@ public class CommentController {
     @PreAuthorize("hasRole('Developer')")
     @PostMapping("/comments")
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-        return commentService.createComment(comment);
+        // return commentService.createComment(comment);
+        return newCommentCommandHandler.execute(comment);
     }
 }

@@ -16,7 +16,7 @@ import com.talentpentagon.javabot.service.TeamService;
 import java.util.List;
 
 @Service
-public class GetTaskByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
+public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
 
     // @Autowired
     // private TaskService taskService;

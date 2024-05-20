@@ -11,7 +11,7 @@ import java.util.List;
 import com.talentpentagon.javabot.commandhandlers.*;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByIdCommandHandler;
-import com.talentpentagon.javabot.queryhandlers.GetTaskByTeamHandler;
+import com.talentpentagon.javabot.queryhandlers.GetTasksByTeamHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByUserCommandHandler;
 import com.talentpentagon.javabot.service.TaskService;
 import com.talentpentagon.javabot.security.JWTUtil;
@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -59,7 +58,7 @@ public class TaskController {
     private GetTaskByUserCommandHandler getTaskByUserCommandHandler;
 
     @Autowired
-    private GetTaskByTeamHandler getTaskByTeamHandler;
+    private GetTasksByTeamHandler getTaskByTeamHandler;
 
     // TEST ONLY
     @GetMapping("task")

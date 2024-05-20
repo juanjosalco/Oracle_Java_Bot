@@ -1,5 +1,7 @@
 package com.talentpentagon.javabot.commandhandlers;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
     private TaskService taskService;
 
     String specialChars = ".*[^@$%^&*()_+=\\[\\]{}'\"\\\\|<>\\/].*";
+
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
 
@@ -45,15 +48,18 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
             throw new RuntimeException("Task description cannot contain special characters");
         }
 
+        // TODO: Check the Condition
         // due_date
         if (task.getDueDate() == null) {
             throw new RuntimeException("Task due date cannot be empty");
         }
-
-        // TODO: FIX THIS
-        // if (task.getDueDate().isBefore(task.getCreationDate())) {
-        //     throw new RuntimeException("Task due date cannot be before creation date");
-        // }
+        // Check if the due date is before now
+        Date dueDate = Date.from(task.getDueDate().toInstant());
+        Date now = new Date();
+        // Check if the due date is before now
+        if (dueDate.before(now)) {
+            throw new RuntimeException("Task due date cannot be before now");
+        }
 
         // priority
         if (task.getPriority() == null) {
