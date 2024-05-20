@@ -10,7 +10,7 @@ export const getComments = async (taskID, token) => {
     });
     return response.data;
   } catch (err) {
-    return { error: "Error fetching comments" };
+    return { error: err.response.data};
   }
 };
 
@@ -22,6 +22,6 @@ export const createComment = async (comment, token) => {
     return response.data;
   } catch (err) {
     console.error("Error: " + err.message)
-    return { error: "Error creating comment" };
+    return { error: err.response.data};
   }
 };

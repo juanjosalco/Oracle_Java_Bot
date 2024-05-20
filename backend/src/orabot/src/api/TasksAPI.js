@@ -11,7 +11,7 @@ export const getTasks = async (token) => {
     return response.data;
   } catch (err) {
     console.error(err.response ? err.response.data : err.message);
-    return { error: "Error fetching tasks" };
+    return { error: err.response.data};
   }
 };
 
@@ -23,7 +23,7 @@ export const getTeamTasks = async (token) => {
     return response.data;
   } catch (err) {
     console.error(err.response ? err.response.data : err.message);
-    return { error: "Error fetching tasks" };
+    return { error: err.response.data};
   }
 };
 
@@ -48,7 +48,7 @@ export const postTask = async (token, task) => {
     return response.data;
   } catch (err) {
     console.error(err.response ? err.response.data : err.message);
-    return { error: "Error creating task" };
+    return { error: err.response.data};
   }
 };
 
@@ -73,7 +73,7 @@ export const deleteTask = async (token, taskId, task) => {
     return response.data;
   } catch (err) {
     console.error(err.response ? err.response.data : err.message);
-    return { error: "Error deleting task" };
+    return { error: err.response.data};
   }
 };
 
@@ -98,6 +98,6 @@ export const updateTask = async (token, taskId, task) => {
     return response.data;
   } catch (err) {
     console.error(err.response ? err.response.data : err.message);
-    return { error: "Error updating the task task" };
+    return { error: err.response.data};
   }
 };

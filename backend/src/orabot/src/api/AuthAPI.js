@@ -35,6 +35,6 @@ export const getTeamMembers = async (token) => {
     console.log(response.data);
     return response.data;
   } catch (err) {
-    return { error: "Error fetching tasks" };
+    return { error: err.response.data};
   }
 }
