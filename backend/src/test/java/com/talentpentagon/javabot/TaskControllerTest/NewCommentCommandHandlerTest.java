@@ -46,10 +46,6 @@ public class NewCommentCommandHandlerTest {
         comment.setCreationDate(time);
         comment.setMessage("Comment 1");
 
-        // Stub behavior of the comment service
-        Mockito.when(commentService.createComment(Mockito.any(Comment.class)))
-                .thenReturn(new ResponseEntity<>(HttpStatus.CREATED));
-
         // Execute the command handler
         ResponseEntity<Comment> response = newCommentCommandHandler.execute(comment);
 
@@ -57,30 +53,25 @@ public class NewCommentCommandHandlerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
-    // @Test
-    // public void newCommentCommandHandler_InvalidComment_returnFail() {
-    // Comment comment = new Comment();
-    // comment.setId(1);
-    // comment.setTaskId(1);
-    // comment.setCommenterId(1);
-    // var time = Timestamp.valueOf("2024-05-18 00:00:00");
-    // comment.setCreationDate(time);
-    // comment.setMessage(""); // Empty message | Invalid
+    @Test
+    public void newCommentCommandHandler_InvalidComment_returnFail() {
+        Comment comment = new Comment();
+        comment.setId(1);
+        comment.setTaskId(1);
+        comment.setCommenterId(1);
+        var time = Timestamp.valueOf("2024-05-18 00:00:00");
+        comment.setCreationDate(time);
+        comment.setMessage(""); // Empty message | Invalid
 
-    // // Stub behavior of the comment service
-    // Mockito.when(commentService.createComment(Mockito.any(Comment.class)))
-    // .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty
-    // Comment"));
-
-    // try {
-    // // Execute the command handler
-    // ResponseEntity<Comment> response = newCommentCommandHandler.execute(comment);
-    // fail("Expected ResponseStatusException was not thrown");
-    // } catch (ResponseStatusException ex) {
-    // // Assert the response status code
-    // assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
-    // // Optionally, assert the response body or message
-    // assertEquals("Empty Comment", ex.getReason());
-    // }
-    // }
+        // try {
+        // // Execute the command handler
+        // ResponseEntity<Comment> response = newCommentCommandHandler.execute(comment);
+        // fail("Expected ResponseStatusException was not thrown");
+        // } catch (ResponseStatusException ex) {
+        // // Assert the response status code
+        // assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        // // Optionally, assert the response body or message
+        // assertEquals("Empty Comment", ex.getReason());
+        // }
+    }
 }
