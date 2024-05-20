@@ -14,7 +14,7 @@ export const login = async (email, password) => {
 
     const handleLogin = async () => {
       try{
-        const response = await axios.post(`${url}/login`, body);
+        const response = await axios.post(`${url}/api/v1/login`, body);
         return response.data;
       }
       catch(err){
@@ -29,9 +29,10 @@ export const login = async (email, password) => {
 export const getTeamMembers = async (token) => {
 
   try {
-    const response = await axios.get(`${url}/team/members`, {
+    const response = await axios.get(`${url}/api/v1/team/members`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log(response.data);
     return response.data;
   } catch (err) {
     return { error: "Error fetching tasks" };

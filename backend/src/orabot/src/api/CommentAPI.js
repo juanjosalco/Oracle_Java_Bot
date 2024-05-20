@@ -5,7 +5,7 @@ const url = axiosConfig.baseURL;
 
 export const getComments = async (taskID, token) => {
   try {
-    const response = await axios.get(`${url}/comments/${taskID}`, {
+    const response = await axios.get(`${url}/api/v1/comments/${taskID}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -16,7 +16,7 @@ export const getComments = async (taskID, token) => {
 
 export const createComment = async (comment, token) => {
   try {
-    const response = await axios.post(`${url}/comments`, comment, {
+    const response = await axios.post(`${url}/api/v1/comments`, comment, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;

@@ -5,22 +5,24 @@ const url = axiosConfig.baseURL;
 
 export const getTasks = async (token) => {
   try {
-    const response = await axios.get(`${url}/task/user`, {
+    const response = await axios.get(`${url}/api/v1/task/user`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
     return { error: "Error fetching tasks" };
   }
 };
 
 export const getTeamTasks = async (token) => {
   try {
-    const response = await axios.get(`${url}/task/team`, {
+    const response = await axios.get(`${url}/api/v1/task/team`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
     return { error: "Error fetching tasks" };
   }
 };
@@ -28,7 +30,7 @@ export const getTeamTasks = async (token) => {
 export const postTask = async (token, task) => {
   try {
     const response = await axios.post(
-      `${url}/task`,
+      `${url}/api/v1/task`,
       {
         assignee: task.assignee,
         title: task.title,
@@ -53,7 +55,7 @@ export const postTask = async (token, task) => {
 export const deleteTask = async (token, taskId, task) => {
   try {
     const response = await axios.put(
-      `${url}/task/${taskId}/status`,
+      `${url}/api/v1/task/${taskId}/status`,
       { 
         assignee: task.assignee,
         title: task.title,
@@ -78,7 +80,7 @@ export const deleteTask = async (token, taskId, task) => {
 export const updateTask = async (token, taskId, task) => {
   try {
     const response = await axios.put(
-      `${url}/task/${taskId}`,
+      `${url}/api/v1/task/${taskId}`,
       {
         assignee: task.assignee,
         title: task.title,

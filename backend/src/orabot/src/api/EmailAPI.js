@@ -10,7 +10,7 @@ const url = axiosConfig.baseURL;
 
     try {
       const response = await axios.post(
-        `${url}/sendEmail`,
+        `${url}/api/v1/sendEmail`,
             body
         ,
         {
