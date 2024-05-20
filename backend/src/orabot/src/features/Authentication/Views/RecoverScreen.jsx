@@ -16,7 +16,6 @@ export const RecoverScreen = () => {
     const [error, setError] = useState("");
 
     const handleEmail = (e) => {
-        console.log(userEmail)
         setEmail(e.target.value);
       };
 

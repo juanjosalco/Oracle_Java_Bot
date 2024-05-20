@@ -58,8 +58,6 @@ export const LoginScreen = () => {
         role: decodedToken.role,
       });
 
-      console.log("userData.role = " + decodedToken.role);
-
       if(1){
         if (decodedToken.role === "Developer") {
           navigate("/dashboard", { state: { isDeveloper: true } });

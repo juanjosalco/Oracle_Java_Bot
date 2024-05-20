@@ -3,10 +3,11 @@ import { axiosConfig } from "./config/AxiosConfig";
 
 const url = axiosConfig.baseURL;
 
-export const getTasks = async (token) => {
+export const getTasks = async (token, priority, sortBy, status) => {
   try {
     const response = await axios.get(`${url}/api/v1/task/user`, {
       headers: { Authorization: `Bearer ${token}` },
+      params: { priority, sortBy, status},
     });
     return response.data;
   } catch (err) {
@@ -15,10 +16,11 @@ export const getTasks = async (token) => {
   }
 };
 
-export const getTeamTasks = async (token) => {
+export const getTeamTasks = async (token, priority, sortBy, status) => {
   try {
     const response = await axios.get(`${url}/api/v1/task/team`, {
       headers: { Authorization: `Bearer ${token}` },
+      params: { priority, sortBy, status },
     });
     return response.data;
   } catch (err) {

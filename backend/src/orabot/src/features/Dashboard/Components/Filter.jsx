@@ -3,27 +3,38 @@ import { NavLink } from "react-router-dom";
 
 import { useUser } from "../../../hooks/useUser";
 import { getTeamMembers } from "../../../api/AuthAPI";
+import Modal from "../../GlobalComponents/Modal";
 
 // Styles
 import "../Styles/Filter.css";
 
-const Statuses = ["To do", "Ongoing", "Done"];
+const Statuses = ["ToDo", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
-export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) => {
-  const [priority, setPriority] = useState(null);
-  const [status, setStatus] = useState(null);
+export const Filter = ({isDeveloper, onTeamMemberSelected, onFilterBy}) => {
+  const { userData } = useUser();
+
+  const [priority, setPriority] = useState(-1);
+  const [status, setStatus] = useState("ALL");
+  const [sortBy, setSortBy] = useState("creationDate");
+  const [statusName, setStatusName] = useState("ALL");
+
   const [teamMembers, setTeamMembers] = useState([]);
-  const { userData, saveUserData } = useUser();
+
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+    onFilterBy({priority: priority+1, status: statusName, sortBy: sortBy});
+  };
 
   const handleTeamMemberSelection = (selectedMember) => {
     onTeamMemberSelected(selectedMember);
   }
 
   const handleSortBy = (select) => {
-    onSortBySelected(select);
+    setSortBy(select);
   }
-  
 
   useEffect(() => {
     const getData = async () => {
@@ -39,42 +50,61 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) =>
     getData()
   }, []);
 
-
-  
-
   const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
   const handlePriority = (index) => {
-    console.log(index)
-    setPriority(priority === index ? null : index)
-    saveUserData({
-      sort: priority
-    })
-  }
+    // If the current index is already selected, set priority to 0
+    const newIndex = index === priority ? null : index;
+    setPriority(newIndex === null ? -1 : newIndex);
+  };
+  
 
   const handleStatus = (index) => {
-    console.log(index)
-    setStatus(status === index ? null : index)
-    saveUserData({
-      sort: status
-    })
-  }
+    const newIndex = index === status ? null : index;
+    setStatus(newIndex !== status ? newIndex : null);
+    setStatusName(newIndex !== null ? Statuses[newIndex] : "ALL");
+    };
 
   return (
     <div className="filterContainer">
+       <Modal show={showModal} handleClose={toggleModal} title={"Sort by"}>
+        <div>
+          <div >
+            <h3 >Sort by: </h3>
+            <select name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
+              <option value="creationDate">Select</option>
+              <option value="priority">Priority</option>
+              <option value="dueDate">Due Date</option>
+            </select>
+          </div>
+          <div className="priority">
+            <h3 >Priority: </h3>
+            <div className="prioritySelector">
+              {Priority.map((p, index) => (
+                <button key={index} className={`priorityButton ${priority === index ? "prioritySelAct white" : "prioritySel white"}`} onClick={() => handlePriority(index)}>{p}</button>
+              ))}
+            </div>
+            </div>
+          <div className="priority">
+            <h3 >Status: </h3>
+            <div className="statusSelector">
+              {Statuses.map((s, index) => (
+                <button key={index} className={`statusButton ${status === index ? "statusSelAct white" : "statusSel white"}`} onClick={() => handleStatus(index )}>{s}</button>
+              ))}
+            </div>
+            </div>
+        </div>
+      </Modal>
       <div className="filterOpt">
         {!isDeveloper ? (
           <>
             <div className="leftSide smaller">
-              <p className="textX">Sort by: </p>
-              <select className="select" name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
-                <option value="selectOrder">Select</option>
-                <option value="priority">Priority</option>
-                <option value="dueDate">Due date</option>
-              </select>
+              <div className="burguerMenu" onClick={toggleModal}>
+                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" width={'100%'} height={'100%'} className="imageB" />
+              </div>
             </div>
             <div className="rightSide smaller">
-              <p className="textX sep">Team member: </p>
+              <div className="teamM"><p className="textX sep">Team member: </p></div>
               <select className="select" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
                 <option value="select">Select</option>
                 {teamMembers.map((member, index) => (
@@ -86,40 +116,14 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onSortBySelected}) =>
           </>
         ) : (
           <>
-            <div className="leftSide bigger">
-              <p className="textX">Sort by: </p>
-              <select className="select" name="Priority">
-                <option value="priority">Priority</option>
-                <option value="completed">Date</option>
-              </select>
+           <div className="leftSide smaller">
+              <div className="burguerMenu" onClick={toggleModal}>
+                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" width={'100%'} height={'100%'} className="imageB" />
+              </div>
             </div>
             <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: isDeveloper, isNewTask : true}}>+</NavLink>
           </>
         )}
-      </div>
-      <div className="prioritySelector">
-        <div className="status">
-          {Statuses.map((st, index) => (
-            <button
-              className={status === index ? "statusSelAct" : "statusSel"}
-              key={st}
-              onClick={() => handleStatus(index)}
-            >
-              {st}
-            </button>
-          ))}
-        </div>
-        <div className="priority">
-          {Priority.map((pr, index) => (
-            <button
-              className={priority === index ? "prioritySelAct" : "prioritySel"}
-              key={pr}
-              onClick={() => handlePriority(index)}
-            >
-              {pr}
-            </button>
-          ))}
-        </div>
       </div>
     </div>
   );

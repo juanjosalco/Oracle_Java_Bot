@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// Import other necessary components and hooks
 
 // Components
 import { Task } from "../Components/Task";
@@ -14,21 +13,17 @@ export const ManagerScreen = (props) => {
 
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState("");
-  const [selectedTeamMember, setSelectedTeamMember] = useState(null);
-  const [sortBy, setSortBy] = useState(null);
+  const [selectedTeamMember, setSelectedTeamMember] = useState("select");
+  const [filterOptions, setFilterOptions] = useState({ priority: 0, status: "ALL", sortBy: "creationDate" })
 
   const handleTeamMemberSelection = (selectedMember) => {
     setSelectedTeamMember(selectedMember);
   };
 
-  const handleSortBy = (selectedOrder) => {
-    setSortBy(selectedOrder);
-  };
-
   const sortTasks = (tasks) => {
-    if (sortBy === "priority") {
+    if (filterOptions.sortBy === "priority") {
       return tasks.sort((a, b) => a.priority - b.priority);
-    } else if (sortBy === "dueDate") {
+    } else if (filterOptions.sortBy === "dueDate") {
       return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     } else {
       return tasks;
@@ -36,7 +31,7 @@ export const ManagerScreen = (props) => {
   };
 
   const getManagerTasks = async () => {
-    const tasksX = await getTeamTasks(userData.token);
+    const tasksX = await getTeamTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
     if (tasksX.error) {
       setError(tasksX.error);
     } else {
@@ -45,7 +40,6 @@ export const ManagerScreen = (props) => {
   };
 
   const tasksFromTeamMember = (tasks, teamMember) => {
-    
     return teamMember === 'select' ? tasks : tasks.filter((task) => task.assignee === Number(teamMember));
   };
 
@@ -53,12 +47,12 @@ export const ManagerScreen = (props) => {
     const getData = async () => {
       const tasksX = await getManagerTasks();
       let filteredTasks = tasksFromTeamMember(tasksX, selectedTeamMember);
-      filteredTasks = sortTasks(filteredTasks); // Apply sorting here
+      filteredTasks = sortTasks(filteredTasks);
       setTasks(filteredTasks);
     };
 
     getData();
-  }, [selectedTeamMember, sortBy]); // Depend on sortBy to re-sort tasks when it changes
+  }, [selectedTeamMember, filterOptions]);
 
   return (
     <>
@@ -73,7 +67,7 @@ export const ManagerScreen = (props) => {
       <Filter
         isDeveloper={props.isDeveloper}
         onTeamMemberSelected={handleTeamMemberSelection}
-        onSortBySelected={handleSortBy}
+        onFilterBy={setFilterOptions}
       />
       {error && <p className="error">{error}</p>}
       {tasks.map((task, index) => (
