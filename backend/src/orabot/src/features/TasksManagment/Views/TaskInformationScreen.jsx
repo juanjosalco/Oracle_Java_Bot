@@ -11,7 +11,7 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 import {postTask, deleteTask, updateTask} from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
 
-const Statuses = ["To do", "Ongoing", "Done"];
+const Statuses = ["ToDo", "Ongoing", "Done"];
 
 export const TaskInformationScreen = (props) => {
 
@@ -41,8 +41,6 @@ export const TaskInformationScreen = (props) => {
   const [popUpMessage, setPopUpMessage] = useState("");
   const [popUpConfirm, setPopUpConfirm] = useState("");
 
-  //console.log(state.task.dueDate);
-  //console.log(new Date(1714718474455).toString())
   const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
   const [date, setDate] = useState(dateX);
 
@@ -134,9 +132,7 @@ export const TaskInformationScreen = (props) => {
   const handleDateChange = (e) => {
     const newDate = e.target.value; // Obtener la nueva fecha seleccionada por el usuario
     const formattedDate = new Date(newDate).toISOString().split('T')[0]; // Convertir la fecha al formato ISO 8601
-    console.log(formattedDate);
     setDate(formattedDate); // Actualizar el estado `date` con la nueva fecha
-    console.log(new Date(formattedDate));
     setDueDate(new Date(formattedDate)); // Asegurarse de que `dueDate` también se actualiza con la nueva fecha
   };  
 

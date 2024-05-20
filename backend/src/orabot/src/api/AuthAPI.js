@@ -32,7 +32,6 @@ export const getTeamMembers = async (token) => {
     const response = await axios.get(`${url}/api/v1/team/members`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response.data);
     return response.data;
   } catch (err) {
     return { error: "Error fetching tasks" };

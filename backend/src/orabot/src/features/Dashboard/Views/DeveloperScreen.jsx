@@ -9,23 +9,36 @@ import { getTasks } from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
 
 export const DeveloperScreen = (props) => {
-  const [tasks, setTasks] = useState([]);
-  const [error, setError] = useState("");
-
   const { userData } = useUser();
 
-  const getDeveloperTasks = async () => {
-    const tasks = await getTasks(userData.token);
-    if (tasks.error) {
-      setError(tasks.error);
+  const [tasks, setTasks] = useState([]);
+  const [filterOptions, setFilterOptions] = useState({ priority: 0, status: "ALL", sortBy: "creationDate" })
+  const [error, setError] = useState("");
+
+  const sortTasks = (tasks) => {
+    if (filterOptions.sortBy === "priority") {
+      return tasks.sort((a, b) => a.priority - b.priority);
+    } else if (filterOptions.sortBy === "dueDate") {
+      return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     } else {
-      setTasks(tasks);
-    } 
+      return tasks;
+    }
   };
 
+
   useEffect(() => {
-getDeveloperTasks()
-  }, []);
+    const getDeveloperTasks = async () => {
+      const tasks = await getTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
+      if (tasks.error) {
+        setError(tasks.error);
+      } else {
+       let filteredTasks = sortTasks(tasks);
+        setTasks(filteredTasks);
+      } 
+    };
+
+    getDeveloperTasks()
+  }, [filterOptions]);
 
   return (
     <>
@@ -35,7 +48,7 @@ getDeveloperTasks()
           Here you can see and modify your assigned tasks.
         </h3>
       </div>
-      <Filter isDeveloper={props.isDeveloper} />
+      <Filter isDeveloper={props.isDeveloper} onFilterBy={setFilterOptions}  />
       {error && <p className="error">{error}</p>}
       {tasks.map((task, index) => (
         <Task key={index} task={task} isDeveloper={props.isDeveloper} />

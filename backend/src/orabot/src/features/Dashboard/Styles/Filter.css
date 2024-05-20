@@ -9,18 +9,17 @@
 }
 
 .sep {
-  margin-right: 8px;
+  margin-left: 56px;
 }
 
 .textX{
     font-size: .9rem;
     margin-right: 8px;
-    max-width: 56px;
     color: white
 }
 
 select {
-  flex: 2;
+  -webkit-appearance: none;
   padding: 8px 16px;
   margin-block: 16px;
   overflow: hidden;
@@ -35,10 +34,15 @@ select {
 .rightSide {
   display: flex;
   margin-right: 16px;
+  flex: 1;
 }
 
 .bigger{
     flex: 2;
+}
+
+.imageB{
+margin: auto;
 }
 
 .btnAdd{
@@ -77,6 +81,9 @@ p {
 .prioritySelector {
   display: flex;
   justify-content: space-between;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .status {
@@ -94,21 +101,21 @@ p {
   padding: 12px 12px;
   border-radius: 8px;
   color: #f2f2f2;
+  margin-inline: 4px;
 }
 
 .priority {
   display: flex;
-  flex: 1;
+  align-items: center;
   gap: 8px;
-  margin-right: 16px;
-  margin-bottom: 16px;
 }
 
 .prioritySel {
   all: unset;
   font-size: 0.8rem;
   background-color: #161513;
-  padding: 10px 16px;
+  padding: 12px 16px;
+  margin-inline: 8px;
   border-radius: 50%;
   color: #f2f2f2;
 }
@@ -119,14 +126,32 @@ p {
   background-color: #fff;
   padding: 12px 12px;
   border-radius: 8px;
-  color: #000;
+  color: #fff;
+  background-color: #bb501c;
+  margin-inline: 4px;
 }
 
 .prioritySelAct {
   all: unset;
   font-size: 0.8rem;
-  background-color: #fff;
-  padding: 10px 16px;
+  background-color: #bb501c;
+  padding: 12px 16px;
   border-radius: 50%;
   color: #000;
+  margin-inline: 8px;
+}
+
+.burguerMenu{
+  width: 40px;
+  height: 40px;
+  align-self: center;
+  border-radius: 16px;
+}
+
+.teamM{
+  align-self: center;
+}
+
+.white{
+  color: white;
 }
