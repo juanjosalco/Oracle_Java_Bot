@@ -11,7 +11,7 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 import {postTask, deleteTask, updateTask} from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
 
-const Statuses = ["To do", "Ongoing", "Done"];
+const Statuses = ["ToDo", "Ongoing", "Done"];
 
 export const TaskInformationScreen = (props) => {
 
@@ -21,8 +21,10 @@ export const TaskInformationScreen = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-
   const { state } = location;
+
+  const MAX_TITLE_CHAR_LIMIT = 32;
+  const MAX_DESCRIPTION_CHAR_LIMIT = 120;
 
   const statusIdx = Statuses.indexOf(state.task.status);
 
@@ -40,6 +42,8 @@ export const TaskInformationScreen = (props) => {
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpMessage, setPopUpMessage] = useState("");
   const [popUpConfirm, setPopUpConfirm] = useState("");
+  const [titleCharCount, setTitleCharCount] = useState(state.task.title.length);
+  const [descriptionCharCount, setDescriptionCharCount] = useState(state.task.description.length);
 
   //console.log(state.task.dueDate);
   //console.log(new Date(1714718474455).toString())
@@ -140,15 +144,61 @@ export const TaskInformationScreen = (props) => {
     setDueDate(new Date(formattedDate)); // Asegurarse de que `dueDate` también se actualiza con la nueva fecha
   };  
 
+  // Update title character count
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    if (newTitle.length <= MAX_TITLE_CHAR_LIMIT) {
+      setTitle(newTitle);
+      setTitleCharCount(newTitle.length);
+    }
+  };
+  
+  // Update description character count
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    if (newDescription.length <= MAX_DESCRIPTION_CHAR_LIMIT) {
+      setDescription(newDescription);
+      setDescriptionCharCount(newDescription.length);
+    }
+  };
+
   return (
     <>
       <Header back={true}/>
       {popUp ? <PopUp title={popUpTitle} message={popUpMessage} onConfirm={handleConfirm} onCancel={handleCancel}></PopUp> : null}
       <div className="taskContainerV">
-        <h1>Task title</h1>
-        {state.isDeveloper ? <input type="text" placeholder="Title" className="inputsSpe" defaultValue={state.task.title} onChange={(e) => {setTitle(e.target.value)}}/> : <p className="taskTitle">{state.task.title}</p>}
-        <h1 style={{marginTop: 16}}>Description</h1>
-        {state.isDeveloper ? <textarea placeholder="Description" className="inputArea" defaultValue={state.task.description}  rows={5} onChange={(e) => {setDescription(e.target.value)}} /> : <p className="taskTitle">{state.task.description}</p>}
+        <div className="titleCharCounter">
+          <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
+        </div>
+        {state.isDeveloper ? (
+          <input
+            type="text"
+            placeholder="Title"
+            className="inputsSpe"
+            defaultValue={state.task.title}
+            value={title}
+            onChange={handleTitleChange}
+          />
+        ) : (
+          <p className="taskTitle">{state.task.title}</p>
+        )}
+        <div className="titleCharCounter">
+          <h1 style={{ marginTop: 16 }}>
+            Description ({descriptionCharCount}/{MAX_DESCRIPTION_CHAR_LIMIT})
+          </h1>
+        </div>
+        {state.isDeveloper ? (
+          <textarea
+            placeholder="Description"
+            className="inputArea"
+            defaultValue={state.task.description}
+            value={description}
+            rows={5}
+            onChange={handleDescriptionChange}
+          />
+        ) : (
+          <p className="taskTitle">{state.task.description}</p>
+        )}
         <h1 className="statusText" >Status</h1>
         <div className={state.isDeveloper ? "buttonsContainer" : ''}>
           {state.isDeveloper ? Statuses.map((st, index) => (
