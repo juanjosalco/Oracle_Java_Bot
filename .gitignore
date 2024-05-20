@@ -23,6 +23,8 @@ backend/*.gz
 
 */*.properties
 
+*.properties
+
 
 ### IntelliJ IDEA ###
 .idea
