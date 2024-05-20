@@ -7,7 +7,7 @@ import { useUser } from "../../hooks/useUser";
 //API
 import { createComment } from "../../api/CommentAPI";
 
-const MAX_CHAR_LIMIT = 280;
+const MAX_CHAR_LIMIT = 120;
 
 export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     const [newComment, setNewComment] = useState("");

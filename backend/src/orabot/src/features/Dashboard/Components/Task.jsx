@@ -46,18 +46,6 @@ export const Task = (props) => {
       setPopUpTitle("Comments");
     }
   };
-    // const popUpComments = [
-    //   { userID: "Manager", message: "Just a quick note on this feature." },
-    //   { userID: "Developer", message: "Wow, that's a lot of details I'm overwhelmed." },
-    //   { userID: "Developer", message: "Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!" },
-    //   { userID: "Manager", message: "I see what you're saying about the UI design." },
-    //   { userID: "Manager", message: "Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!, Hey Manager, got a juicy piece of gossip to share!" },
-    //   { userID: "Developer", message: "I'm stuck on this bug. Any ideas?" },
-    //   { userID: "Manager", message: "Let's brainstorm solutions together." },
-    //   { userID: "Manager", message: "I have a new idea for improving performance." },
-    //   { userID: "Developer", message: "That sounds promising Can't wait to hear more." },
-    // ];
-    // setPopUpComments(popUpComments);
 
 
   return (
@@ -74,7 +62,7 @@ export const Task = (props) => {
         <div className="task">
           <div
             className={`circle ${
-              props.task.status === "To do"
+              props.task.status === "ToDo"
                 ? "gris"
                 : props.task.status === "Ongoing"
                 ? "orange"
