@@ -213,6 +213,30 @@ export const TaskInformationScreen = () => {
             </button>
           )) : <p className="taskTitle">{state.task.status}</p>}
         </div>
+        {state.isDeveloper ? (
+          <textarea
+            placeholder="Description"
+            className="inputArea"
+            defaultValue={state.task.description}
+            value={description}
+            rows={5}
+            onChange={handleDescriptionChange}
+          />
+        ) : (
+          <p className="taskTitle">{state.task.description}</p>
+        )}
+        <h1 className="statusText" >Status</h1>
+        <div className={state.isDeveloper ? "buttonsContainer" : ''}>
+          {state.isDeveloper ? Statuses.map((st, index) => (
+            <button
+              className={index === status ? "button red" : "button gray"}
+              key={st}
+              onClick={() => setStatus(index)}
+            >
+              {st}
+            </button>
+          )) : <p className="taskTitle">{state.task.status}</p>}
+        </div>
         {role === "Developer" ? (
           <input
             type="text"
