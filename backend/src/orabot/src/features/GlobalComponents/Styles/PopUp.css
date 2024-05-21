@@ -1,11 +1,19 @@
-.popUpContainer{
+.popUpContainer {
     background-color: whitesmoke;
-    justify-content: center;
     text-align: center;
-    position:fixed;
+    position: fixed;
     z-index: 1;
     padding: 16px;
-    margin-inline: 32px;
+    width: 80%;
+    height: auto;
+    max-width: 400px;
+    max-height: 80%;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
 }
 
 .titleZ{
