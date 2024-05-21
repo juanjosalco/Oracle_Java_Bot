@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
-import {
-  emailRegex,
-  passwordRegex,
-} from "../../GlobalComponents/Utils/RegexUtils";
+// import {
+//   emailRegex,
+//   passwordRegex,
+// } from "../../GlobalComponents/Utils/RegexUtils";
 import { useUser } from "../../../hooks/useUser";
 import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
 import { login } from "../../../api/AuthAPI";
 
 export const LoginScreen = () => {
-  const { userData, saveUserData } = useUser();
+  const { saveUserData } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   const handleEmail = (e) => {
@@ -26,20 +25,20 @@ export const LoginScreen = () => {
     setPassword(e.target.value);
   };
 
-  const validateCredentials = () => {
-    if (email.trim() === "" || password.trim() === "") {
-      setError("Please enter both email and password.");
-      return false;
-    } else if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
-      return false;
-    } else if (!passwordRegex.test(password)) {
-      setError("Please enter a valid password.");
-      return false;
-    }
+  // const validateCredentials = () => {
+  //   if (email.trim() === "" || password.trim() === "") {
+  //     setError("Please enter both email and password.");
+  //     return false;
+  //   } else if (!emailRegex.test(email)) {
+  //     setError("Please enter a valid email address.");
+  //     return false;
+  //   } else if (!passwordRegex.test(password)) {
+  //     setError("Please enter a valid password.");
+  //     return false;
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 
   const handleLogin = async () => {
     const response = await login(email, password);
@@ -47,7 +46,6 @@ export const LoginScreen = () => {
       setError(response.error);
     } else {
       const { token } = response;
-      setToken(response.token);
 
       const decodedToken = decodeJwt(token);
 
@@ -60,9 +58,9 @@ export const LoginScreen = () => {
 
       if(1){
         if (decodedToken.role === "Developer") {
-          navigate("/dashboard", { state: { isDeveloper: true } });
+          navigate("/dashboard", { state: {}});
         } else if (decodedToken.role === "Manager") {
-          navigate("/dashboard", { state: { isDeveloper: false } });
+          navigate("/dashboard", { state: {} });
         }
       }
     

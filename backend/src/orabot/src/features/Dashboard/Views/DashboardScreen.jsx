@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 // Components
 import { Header } from "../../GlobalComponents/Header";
 
+import { useUser } from "../../../hooks/useUser";
+
 import toast, { Toaster } from 'react-hot-toast';
 
 // Styles
@@ -15,36 +17,39 @@ import { ManagerScreen } from "./ManagerScreen";
 
 export const DashboardScreen = () => {
 
-    const handleToast = (message) => {
-        if(message === "taskCreated"){
+    const { userData } = useUser();
+
+    const location = useLocation();
+
+    const { state } = location;
+
+    const handleToast = () => {
+        if(state.toast === "taskCreated"){
             toast.success("Task created successfully", {
                 duration: 4000,
             });
         }
-        else if(message === "taskDeleted"){
+        else if(state.toast === "taskDeleted"){
             toast.success("Task deleted successfully", {
                 duration: 4000,
             });
         }
-        else if(message === "taskUpdated"){
+        else if(state.toast === "taskUpdated"){
             toast.success("Task updated successfully", {
                 duration: 4000,
             });
         }
     }
 
-    const location = useLocation();
-
-    const { state } = location;
-
     useEffect(() => {
-        handleToast(state.toast)
-          }, [state.toast]);
+        handleToast()
+          });
 
     return (
         <>
         <Header />
-        {state.isDeveloper ? <DeveloperScreen isDeveloper={state.isDeveloper} /> : <ManagerScreen isDeveloper={state.isDeveloper} />}
+        {userData.role === "Developer" ? <DeveloperScreen /> : <div></div>}
+        {userData.role === "Manager" ? <ManagerScreen /> : <div></div>}
         <Toaster />
         </>
     );
