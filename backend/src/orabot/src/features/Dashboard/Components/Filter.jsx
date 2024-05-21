@@ -100,7 +100,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
           <>
             <div className="leftSide smaller">
               <div className="burguerMenu" onClick={toggleModal}>
-                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" width={'100%'} height={'100%'} className="imageB" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" alt="Burger menu for sorting and filter" width={'100%'} height={'100%'} className="imageB" />
               </div>
             </div>
             <div className="rightSide smaller">
@@ -118,7 +118,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
           <>
            <div className="leftSide smaller">
               <div className="burguerMenu" onClick={toggleModal}>
-                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" width={'100%'} height={'100%'} className="imageB" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" alt="Show Comments Button" width={'100%'} height={'100%'} className="imageB" />
               </div>
             </div>
             <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
