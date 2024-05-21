@@ -11,12 +11,14 @@ const MAX_CHAR_LIMIT = 120;
 
 export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     const [newComment, setNewComment] = useState("");
-    const [allComments, setAllComments] = useState(comments);
+    const [allComments, setAllComments] = useState(Array.isArray(comments) ? comments : []);
     const { userData } = useUser();
     const [userID, setUserID] = useState("");
+    const [userRole, setUserRole] = useState("");
 
     useEffect(() => {
         setUserID(userData.UID); // Assuming userData.UID is the correct property for the user's ID
+        setUserRole(userData.role); // Assuming userData.role is the correct property for the user's role
     }, [userData]);
 
     const handleAddComment = async () => {
@@ -37,15 +39,18 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
       };
 
       const renderComments = () => {
-        if (!allComments || allComments.length === 0) return null;
+        if (!Array.isArray(allComments) || allComments.length === 0) {
+            return null;
+        }
     
         return allComments.map((comment, index) => {
             console.log(`Comment ID: ${comment.commenterId}, User ID: ${userID}`); // Debug log
-            const isDeveloper = comment.commenterId === userID;
+            const isCurrentUser = comment.commenterId === userID;
+            const isYou = userRole === "Developer";
             return (
-                <div key={index} className={`comment ${isDeveloper ? "comment" : "manager-comment"}`}>
-                    <strong className={`userID ${isDeveloper ? "user" : "manager-user"}`}>
-                        {`${isDeveloper ? "You" : "Manager"}: `}
+                <div key={index} className={`comment ${isCurrentUser ? "comment" : "manager-comment"}`}>
+                    <strong className={`userID ${isCurrentUser ? "user" : "manager-user"}`}>
+                        {isCurrentUser ? "You" : (isYou ? "Manager" : "Developer")}:{" "}
                     </strong>
                     {comment.message}
                 </div>
