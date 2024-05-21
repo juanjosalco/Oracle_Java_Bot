@@ -8,7 +8,7 @@ import { getTasks } from "../../../api/TasksAPI";
 
 import { useUser } from "../../../hooks/useUser";
 
-export const DeveloperScreen = (props) => {
+export const DeveloperScreen = () => {
   const { userData } = useUser();
 
   const [tasks, setTasks] = useState([]);
@@ -48,10 +48,10 @@ export const DeveloperScreen = (props) => {
           Here you can see and modify your assigned tasks.
         </h3>
       </div>
-      <Filter isDeveloper={props.isDeveloper} onFilterBy={setFilterOptions}  />
+      <Filter role={userData.role} onFilterBy={setFilterOptions} />
       {error && <p className="error">{error}</p>}
       {tasks.map((task, index) => (
-        <Task key={index} task={task} isDeveloper={props.isDeveloper} />
+        <Task key={index} task={task} role={userData.role} />
       ))}
     </>
   );

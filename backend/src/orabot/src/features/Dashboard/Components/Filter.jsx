@@ -11,7 +11,7 @@ import "../Styles/Filter.css";
 const Statuses = ["ToDo", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
-export const Filter = ({isDeveloper, onTeamMemberSelected, onFilterBy}) => {
+export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
   const { userData } = useUser();
 
   const [priority, setPriority] = useState(-1);
@@ -47,8 +47,8 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onFilterBy}) => {
       })
       setTeamMembers(arrayOfMembers)
     }
-    getData()
-  }, []);
+    if(role === "Manager") getData();
+  }, [userData.token, role]);
 
   const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
@@ -96,7 +96,7 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onFilterBy}) => {
         </div>
       </Modal>
       <div className="filterOpt">
-        {!isDeveloper ? (
+        {role!=="Developer" ? (
           <>
             <div className="leftSide smaller">
               <div className="burguerMenu" onClick={toggleModal}>
@@ -121,7 +121,7 @@ export const Filter = ({isDeveloper, onTeamMemberSelected, onFilterBy}) => {
                 <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" width={'100%'} height={'100%'} className="imageB" />
               </div>
             </div>
-            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, isDeveloper: isDeveloper, isNewTask : true}}>+</NavLink>
+            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
           </>
         )}
       </div>

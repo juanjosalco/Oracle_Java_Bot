@@ -7,7 +7,6 @@ import { DashboardScreen } from "./features/Dashboard/Views/DashboardScreen";
 import { RouterProvider, Route, createBrowserRouter } from "react-router-dom";
 import { TaskInformationScreen } from "./features/TasksManagment/Views/TaskInformationScreen";
 
-import axios from "axios";
 import { UserProvider } from "./providers/user/UserProvider";
 
 const tele = window.Telegram.WebApp;

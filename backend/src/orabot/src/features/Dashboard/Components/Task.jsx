@@ -1,5 +1,5 @@
 import {React, useState} from "react";
-import { NavLink, useNavigate, useLocation} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 
 // Styles
 import "../Styles/Task.css";
@@ -21,8 +21,7 @@ export const Task = (props) => {
   const [activePopup, setActivePopup] = useState(null);
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpComments, setPopUpComments] = useState([]);
-  const [userID, setUserID] = useState("");
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
 
   const { userData } = useUser();
 
@@ -33,7 +32,7 @@ export const Task = (props) => {
   };
 
   const handleCommentClick = async () => {
-    setLoading(true);
+    //setLoading(true);
     try {
       const token = userData.token;
       const comments = await getComments(props.task.id, token);
@@ -42,7 +41,7 @@ export const Task = (props) => {
       console.error("Failed to fetch comments:", error);
       setPopUpComments([]); // Set comments to an empty array on error
     } finally {
-      setLoading(false);
+      //setLoading(false);
       setActivePopup("comments");
       setPopUpTitle("Comments");
     }
@@ -73,26 +72,28 @@ export const Task = (props) => {
           <div className="taskInfo">
             <div className="titleInfo">
               <h1 className="titleX">{props.task.title}</h1>
-              <div className="iconContainer">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b"
-                  alt="Commentary Section"
-                  width={27}
-                  height={27}
-                  className="commentaries"
-                  onClick={handleCommentClick}
-                />
-                {props.isDeveloper && (
-                  <NavLink to={"/task/:" + props.task.id} state={{ task: props.task, isDeveloper: props.isDeveloper }}>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
-                      alt="Edit icon"
-                      width={30}
-                      height={30}
-                    />
+              {props.role==="Developer" && (
+                <div className="iconContainer">
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b" // URL del icono
+                    alt="Commentary Section"
+                    width={27}
+                    height={27}
+                    className="commentaries"
+                    onClick={handleCommentClick}
+                  />
+                  
+                  <NavLink to={"/task/:"+props.task.id} state={{task: props.task, role: props.role}}>
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
+                    alt="Edit icon"
+                    width={30}
+                    height={30}
+                  />
                   </NavLink>
-                )}
+                  
               </div>
+              )}
             </div>
             <div className="priorInfo">
               <div className="prior">

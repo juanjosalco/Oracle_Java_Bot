@@ -44,6 +44,26 @@ export const ManagerScreen = (props) => {
   };
 
   useEffect(() => {
+
+    const sortTasks = (tasks) => {
+      if (sortBy === "priority") {
+        return tasks.sort((a, b) => a.priority - b.priority);
+      } else if (sortBy === "dueDate") {
+        return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      } else {
+        return tasks;
+      }
+    };
+  
+    const getManagerTasks = async () => {
+      const tasksX = await getTeamTasks(userData.token);
+      if (tasksX.error) {
+        setError(tasksX.error);
+      } else {
+        return tasksX;
+      }
+    };
+
     const getData = async () => {
       const tasksX = await getManagerTasks();
       let filteredTasks = tasksFromTeamMember(tasksX, selectedTeamMember);
@@ -65,13 +85,13 @@ export const ManagerScreen = (props) => {
         </h3>
       </div>
       <Filter
-        isDeveloper={props.isDeveloper}
+        role={userData.role}
         onTeamMemberSelected={handleTeamMemberSelection}
         onFilterBy={setFilterOptions}
       />
       {error && <p className="error">{error}</p>}
       {tasks.map((task, index) => (
-        <Task key={index} task={task} isDeveloper={props.isDeveloper} />
+        <Task key={index} task={task} role={userData.role} />
       ))}
     </>
   );

@@ -2,7 +2,6 @@ import axios from "axios";
 import {axiosConfig} from "./config/AxiosConfig";
 
 const url = axiosConfig.baseURL;
-let failedAttempts = 0;
 
 export const login = async (email, password) => {
 
