@@ -8,7 +8,7 @@ import { getTeamTasks } from "../../../api/TasksAPI";
 
 import { useUser } from "../../../hooks/useUser";
 
-export const ManagerScreen = (props) => {
+export const ManagerScreen = () => {
   const { userData } = useUser();
 
   const [tasks, setTasks] = useState([]);
@@ -20,35 +20,15 @@ export const ManagerScreen = (props) => {
     setSelectedTeamMember(selectedMember);
   };
 
-  const sortTasks = (tasks) => {
-    if (filterOptions.sortBy === "priority") {
-      return tasks.sort((a, b) => a.priority - b.priority);
-    } else if (filterOptions.sortBy === "dueDate") {
-      return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    } else {
-      return tasks;
-    }
-  };
-
-  const getManagerTasks = async () => {
-    const tasksX = await getTeamTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
-    if (tasksX.error) {
-      setError(tasksX.error);
-    } else {
-      return tasksX;
-    }
-  };
-
   const tasksFromTeamMember = (tasks, teamMember) => {
     return teamMember === 'select' ? tasks : tasks.filter((task) => task.assignee === Number(teamMember));
   };
 
   useEffect(() => {
-
     const sortTasks = (tasks) => {
-      if (sortBy === "priority") {
+      if (filterOptions.sortBy === "priority") {
         return tasks.sort((a, b) => a.priority - b.priority);
-      } else if (sortBy === "dueDate") {
+      } else if (filterOptions.sortBy === "dueDate") {
         return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
       } else {
         return tasks;
@@ -56,7 +36,7 @@ export const ManagerScreen = (props) => {
     };
   
     const getManagerTasks = async () => {
-      const tasksX = await getTeamTasks(userData.token);
+      const tasksX = await getTeamTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
       if (tasksX.error) {
         setError(tasksX.error);
       } else {
@@ -72,7 +52,7 @@ export const ManagerScreen = (props) => {
     };
 
     getData();
-  }, [selectedTeamMember, filterOptions]);
+  }, [selectedTeamMember, filterOptions, userData.token]);
 
   return (
     <>

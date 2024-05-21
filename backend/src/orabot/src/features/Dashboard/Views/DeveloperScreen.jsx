@@ -25,20 +25,19 @@ export const DeveloperScreen = () => {
     }
   };
 
+  const getDeveloperTasks = async () => {
+    const tasks = await getTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
+    if (tasks.error) {
+      setError(tasks.error);
+    } else {
+     let filteredTasks = sortTasks(tasks);
+      setTasks(filteredTasks);
+    } 
+  };
 
   useEffect(() => {
-    const getDeveloperTasks = async () => {
-      const tasks = await getTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
-      if (tasks.error) {
-        setError(tasks.error);
-      } else {
-       let filteredTasks = sortTasks(tasks);
-        setTasks(filteredTasks);
-      } 
-    };
-
     getDeveloperTasks()
-  }, [filterOptions]);
+  },);
 
   return (
     <>
