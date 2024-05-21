@@ -23,19 +23,19 @@ public class CommentController {
 
     // GET
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize("hasRole('Developer')")
+    @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
     @GetMapping("/comments/{taskId}")
     public ResponseEntity<List<Comment>> getCommentsByTaskId(@PathVariable int taskId) {
-        // return commentService.getCommentsByTaskId(taskId);
-        return getCommentByTaskIdCommandHandler.execute(taskId);
+        return commentService.getCommentsByTaskId(taskId);
+        // return getCommentByTaskIdCommandHandler.execute(taskId);
     }
 
     // POST
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize("hasRole('Developer')")
+    @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
     @PostMapping("/comments")
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-        // return commentService.createComment(comment);
-        return newCommentCommandHandler.execute(comment);
+        return commentService.createComment(comment);
+        // return newCommentCommandHandler.execute(comment);
     }
 }
