@@ -6,4 +6,4 @@ RUN npm install
 RUN npm install -g serve
 RUN npm run build
 EXPOSE 3000
-CMD ["serve", "-s", "--ssl-cert", "/tmp/.cert/certificate.crt", "--ssl-key", "/tmp/.cert/private.key", "build"]
+CMD ["serve", "-s", "--ssl-cert", "/tmp/.cert/certificate.crt", "--ssl-key", "/tmp/.cert/private.key", "build"] 
