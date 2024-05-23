@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
-
 import com.talentpentagon.javabot.model.Team;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,6 @@ public class TeamService {
         } 
     }
 
-    // TODO: MAKE THIS FASTER
     // Get team tasks by team id
     public List<TaskItem> getTeamTasks(int id, String sortBy, String status, Integer priority) {
         Optional<Team> teamOptional = teamRepository.findById(id); // Hypothetical method to fetch team with members and tasks in one query
