@@ -96,4 +96,4 @@ outputArtifacts:
 
   - name: orabot-compose
     type: BINARY
-    location: orabot-compose
+    location: orabot-ar/orabot-compose:0.1
