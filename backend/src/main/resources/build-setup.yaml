@@ -96,4 +96,4 @@ outputArtifacts:
 
   - name: orabot-compose
     type: BINARY
-    location: ${OCI_PRIMARY_SOURCE_DIR}/backend/src/main/resources/orabot-compose.yaml
+    location: orabot-compose:${BUILDRUN_HASH}
