@@ -21,23 +21,23 @@ steps:
   - type: Command
     name: "Define environment"
     command: |
-      export FRONT_IMAGE_NAME='echo orabot-front'
+      export FRONT_IMAGE_NAME=`echo orabot-front`
       echo "FRONT_IMAGE_NAME: " ${FRONT_IMAGE_NAME}
 
-      export BACK_IMAGE_NAME='echo orabot'
+      export BACK_IMAGE_NAME=`echo orabot`
       echo "BACK_IMAGE_NAME: " ${BACK_IMAGE_NAME}
 
-      export IMAGE_VERSION='echo 0.1'
+      export IMAGE_VERSION=`echo 0.1`
       echo "IMAGE_VERSION: " ${IMAGE_VERSION}
 
-      export DOCKER_REGISTRY='echo mx-queretaro-1.ocir.io/axgyv8vo90ix/orabot/ooxbf'
+      export DOCKER_REGISTRY=`echo mx-queretaro-1.ocir.io/axgyv8vo90ix/orabot/ooxbf`
       echo "DOCKER_REGISTRY: " ${DOCKER_REGISTRY}
 
 # Defining our unique "hashed" code from OCI BUILD ID
   - type: Command
     name: "Define unique image tag"
     command: |
-      export BUILDRUN_HASH='echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7'
+      export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       echo "BUILDRUN_HASH: "$BUILDRUN_HASH
 
 # Installing any dependencies
