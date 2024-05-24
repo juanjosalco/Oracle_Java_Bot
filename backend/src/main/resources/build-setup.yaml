@@ -10,11 +10,11 @@ env:
     "JAVA_HOME" : "/usr/lib64/graalvm/graalvm-java17"
 
   exportedVariables:
-    - FRONT_IMAGE_NAME: "orabot-front"
-    - BACK_IMAGE_NAME: "orabot"
-    - IMAGE_VERSION: 0.1
-    - DOCKER_REGISTRY: "mx-queretaro-1.ocir.io/axgyv8vo90ix/orabot/ooxbf"
-    - BUILDRUN_HASH: ""
+    - FRONT_IMAGE_NAME="orabot-front"
+    - BACK_IMAGE_NAME="orabot"
+    - IMAGE_VERSION="0.1"
+    - DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axgyv8vo90ix/orabot/ooxbf"
+    - BUILDRUN_HASH=""
 
 steps:
 # Defining our unique "hashed" code from OCI BUILD ID
