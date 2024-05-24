@@ -1,0 +1,107 @@
+version: 0.1
+component: build
+timeoutInSeconds: 100
+shell: bash
+failImmediatelyOnError: true
+
+#variables
+# env:
+#   exportedvariables:
+#     - BuildServiceDemoVersion
+env:
+  BuildBackend: 0.1
+
+steps:
+  - type: Command
+    name: setup
+    command: yum install -y curl
+
+  - type: Command
+    name: environment check
+    command: |
+      ls -la
+      java -version
+
+  - type: Command
+    name: compile
+    command: mvn compile
+
+  - type: Command
+    name: package
+    command: mvn package
+
+  - type: Command
+    name: check
+    command: ls -la target/
+
+  - type: Command
+    name: Dockerize
+    command: |
+      BuildBackend=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7
+      echo $
+
+
+jobs:
+  build_and_push_orabot:
+    steps:
+      - name: Set environment variables for orabot
+        run: |
+          export IMAGE_NAME=orabot
+          export IMAGE_VERSION=0.1
+          
+          if [ -z "$DOCKER_REGISTRY" ]; then
+              echo "DOCKER_REGISTRY not set. Will get it with state_get"
+              export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
+          fi
+          
+          if [ -z "$DOCKER_REGISTRY" ]; then
+              echo "Error: DOCKER_REGISTRY env variable needs to be set!"
+              exit 1
+          fi
+          export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
+          
+      - name: Maven package
+        run: mvn clean package spring-boot:repackage
+
+      - name: Docker build
+        run: docker build -f Dockerfile -t $IMAGE .
+
+      - name: Docker push
+        run: docker push $IMAGE
+
+      - name: Docker remove image
+        run: |
+          if [ $? -eq 0 ]; then
+              docker rmi "$IMAGE"
+          fi
+
+  build_and_push_orabot_front:
+    steps:
+      - name: Set environment variables for orabot-front
+        run: |
+          export IMAGE_NAME=orabot-front
+          export IMAGE_VERSION=0.1
+          
+          if [ -z "$DOCKER_REGISTRY" ]; then
+              echo "DOCKER_REGISTRY not set. Will get it with state_get"
+              export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
+          fi
+          
+          if [ -z "$DOCKER_REGISTRY" ]; then
+              echo "Error: DOCKER_REGISTRY env variable needs to be set!"
+              exit 1
+          fi
+          export IMAGE=${DOCKER_REGISTRY}/frontend/${IMAGE_NAME}:${IMAGE_VERSION}
+          echo "$IMAGE"
+          
+      - name: Docker build
+        run: docker build -f DockerfileFront -t $IMAGE .
+
+      - name: Docker push
+        run: docker push $IMAGE
+
+      - name: Docker remove image
+        run: |
+          if [ $? -eq 0 ]; then
+              docker rmi "$IMAGE"
+          fi
