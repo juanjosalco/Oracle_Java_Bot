@@ -69,7 +69,7 @@ steps:
     name: "Clean and Package the Spring Boot Application"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
-      mvn clean package spring-boot::repackage
+      mvn --no-transfer-progress clean package spring-boot::repackage
 
   - type: Command
     name: "Build backend image"
