@@ -67,6 +67,7 @@ steps:
 # Backend container building
   - type: Command
     name: "Clean and Package the Spring Boot Application"
+    timeOutInSeconds: 900
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
       mvn --no-transfer-progress clean package spring-boot::repackage
