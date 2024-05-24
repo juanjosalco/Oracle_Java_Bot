@@ -93,7 +93,3 @@ outputArtifacts:
   - name: orabot-front
     type: DOCKER_IMAGE
     location: ${DOCKER_REGISTRY}/frontend/${FRONT_IMAGE_NAME}:${BUILDRUN_HASH}
-
-  - name: orabot-compose
-    type: BINARY
-    location: orabot-ar/orabot-compose:0.1
