@@ -76,14 +76,14 @@ steps:
     name: "Build backend image"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
-      docker build -f Dockerfile -t ${DOCKER_REGISTRY}/${BACK_IMAGE_NAME}:${IMAGE_VERSION}
+      docker build -f Dockerfile -t ${DOCKER_REGISTRY}/${BACK_IMAGE_NAME}:${IMAGE_VERSION} .
 
 # Frontend container building
   - type: Command
     name: "Build frontend image"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
-      docker build -f DockerfileFront -t ${DOCKER_REGISTRY}/frontend/${FRONT_IMAGE_NAME}:${IMAGE_VERSION}
+      docker build -f DockerfileFront -t ${DOCKER_REGISTRY}/frontend/${FRONT_IMAGE_NAME}:${IMAGE_VERSION} .
 
 outputArtifacts:
   - name: orabot
