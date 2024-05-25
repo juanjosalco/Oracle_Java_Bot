@@ -33,17 +33,21 @@ public class OraBot extends TelegramLongPollingBot {
         message.setText("Welcome!");
 
 
+        
+        
         KeyboardButton button = new KeyboardButton("WebApp");
         button.setWebApp(new WebAppInfo("https://team16.kenscourses.com"));
-
         
-        // ReplyKeyboardMarkup markupInline = new ReplyKeyboardMarkup();
-        // markupInline.setKeyboard(null);
-        // @NonNull List<KeyboardRow> rowsInline = new ArrayList<>();
+        
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add(button);
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setOneTimeKeyboard(false);
 
-        // markupInline.setKeyboard(rowsInline);
-
-        // message.setReplyMarkup(markupInline);
+        message.setReplyMarkup(keyboardMarkup);
         
         try {
             execute(message); // Sends the message with the inline keyboard
