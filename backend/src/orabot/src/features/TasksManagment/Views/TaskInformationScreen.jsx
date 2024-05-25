@@ -190,11 +190,6 @@ export const TaskInformationScreen = () => {
         ) : (
           <p className="taskTitle">{state.task.title}</p>
         )}
-        <div className="titleCharCounter">
-          <h1 style={{ marginTop: 16 }}>
-            Description ({descriptionCharCount}/{MAX_DESCRIPTION_CHAR_LIMIT})
-          </h1>
-        </div>
         {state.isDeveloper ? (
           <textarea
             placeholder="Description"
@@ -207,7 +202,6 @@ export const TaskInformationScreen = () => {
         ) : (
           <p className="taskTitle">{state.task.description}</p>
         )}
-        <h1 className="statusText" >Status</h1>
         <div className={state.isDeveloper ? "buttonsContainer" : ''}>
           {state.isDeveloper ? Statuses.map((st, index) => (
             <button

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
 
-import io.jsonwebtoken.lang.Collections;
-
 import com.talentpentagon.javabot.model.Team;
 
 import org.springframework.beans.factory.annotation.Autowired;
