@@ -225,7 +225,6 @@ export const TaskInformationScreen = () => {
         ) : (
           <p className="taskTitle">{state.task.description}</p>
         )}
-        <h1 className="statusText" >Status</h1>
         <div className={state.isDeveloper ? "buttonsContainer" : ''}>
           {state.isDeveloper ? Statuses.map((st, index) => (
             <button
