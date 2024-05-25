@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: orabot
-          image: %DOCKER_REGISTRY%/orabot:0.1
+          image: %DOCKER_REGISTRY%/orabot:%BUILDRUN_HASH%
           imagePullPolicy: Always
           env:
             - name: db_user
