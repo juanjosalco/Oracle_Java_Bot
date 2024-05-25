@@ -68,10 +68,14 @@ public class TaskService {
         } 
 
         // Check if tasks were found for the user
-        if (tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+        if(tasks != null){
+            if (tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+        }
 
-        // Filter the tasks based on the status and priority
-        tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
+        if(tasks != null){
+            // Filter the tasks based on the status and priority
+            tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
+        }
 
         if (status.equals("ALL")) return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
         else return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);

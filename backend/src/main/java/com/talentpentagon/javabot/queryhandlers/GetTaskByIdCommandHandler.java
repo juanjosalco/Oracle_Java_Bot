@@ -19,16 +19,15 @@ public class GetTaskByIdCommandHandler implements GetByIdCommand<Integer, Respon
 
     @Override
     public ResponseEntity<TaskItem> execute(Integer id) {
-        TaskItem task = taskService.getTaskById(id).getBody();
         // Check if tasks were found
         if (id == null) {
             throw new RuntimeException("User ID cannot be null");
         }
+        TaskItem task = taskService.getTaskById(id).getBody();
         if (task == null) {
             throw new RuntimeException("No tasks found for the provided Id");
         }
 
-        // taskService.addTask(task);
         taskService.getTaskById(id);
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }

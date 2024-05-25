@@ -1,10 +1,8 @@
 package com.talentpentagon.javabot.queryhandlers;
 
-import com.talentpentagon.javabot.Commands.GetByIdCommand;
 import com.talentpentagon.javabot.Commands.GetCommentsByTaskIdCommand;
 import com.talentpentagon.javabot.model.Comment;
 import com.talentpentagon.javabot.service.CommentService;
-import com.talentpentagon.javabot.service.TaskService;
 
 import java.util.List;
 
@@ -35,8 +33,10 @@ public class GetCommentsByTaskIdCommandHandler implements GetCommentsByTaskIdCom
         List<Comment> comments = commentService.getCommentsByTaskId(id).getBody();
 
         // Check if comments are found
-        if (comments.isEmpty()) {
-            throw new RuntimeException("No comments found for the provided Task ID");
+        if(comments != null) {
+            if (comments.isEmpty()) {
+                throw new RuntimeException("No comments found for the provided Task ID");
+            }
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(comments);

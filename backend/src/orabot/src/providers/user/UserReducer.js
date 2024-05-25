@@ -1,15 +1,17 @@
-export default (state, action) => {
-    const { type, payload } = action;
-   
-    switch (type) {
-       case 'SAVE_USER_DATA':
-         return {
-           ...state,
-           userData: payload,
-         };
-   
-       default:
-         return state;
-    }
-   };
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+      case 'SAVE_USER_DATA':
+          return {
+             ...state,
+              userData: payload,
+          };
+
+      default:
+          return state;
+  }
+};
+
+export default userReducer;
    

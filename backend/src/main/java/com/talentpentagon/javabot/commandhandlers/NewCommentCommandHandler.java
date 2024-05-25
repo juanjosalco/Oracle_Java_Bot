@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.javabot.Commands.PostPutCommand;
-// import com.talentpentagon.javabot.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Commands.NewComment;
 import com.talentpentagon.javabot.model.Comment;
 import com.talentpentagon.javabot.service.CommentService;
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class NewCommentCommandHandler implements PostPutCommand<Comment, ResponseEntity<Comment>> {
+public class NewCommentCommandHandler implements NewComment<Comment, ResponseEntity<Comment>> {
 
     @Autowired
     private CommentService commentService;
@@ -23,10 +22,10 @@ public class NewCommentCommandHandler implements PostPutCommand<Comment, Respons
     @Override
     public ResponseEntity<Comment> execute(Comment comment) {
 
-        System.out.println("Task: " + comment);
+        System.out.println("Comment: " + comment);
 
         // Commenter Id
-        if (comment.getCommenterId() == 0) {
+        if (comment.getCommenterId() <= 0) {
             throw new RuntimeException("Commenter Id cannot be empty");
         }
 
@@ -40,7 +39,7 @@ public class NewCommentCommandHandler implements PostPutCommand<Comment, Respons
 
         // creation date
         if (comment.getCreationDate() == null) {
-            throw new RuntimeException("Comment due date cannot be empty");
+            throw new RuntimeException("Comment creation date cannot be empty");
         }
 
         commentService.createComment(comment);

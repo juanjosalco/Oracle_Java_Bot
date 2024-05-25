@@ -37,7 +37,6 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
         }
     
         return allComments.map((comment, index) => {
-            console.log(`Comment ID: ${comment.commenterId}, User ID: ${userData.UID}`); // Debug log
             const isCurrentUser = comment.commenterId === userData.UID;
             const isYou = userData.role === "Developer";
             return (
