@@ -85,6 +85,12 @@ steps:
   #     echo JAVA_HOME is
   #     $JAVA_HOME
 
+  - type: Command
+    name: "Install Java 3"
+    command: |
+      yum -y install java-17-openjdk
+  
+
 #   - type: Command
 #     name: "Install GRAAL VM CE JDK 17 version"
 #     command: |
