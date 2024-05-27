@@ -129,7 +129,7 @@ export const TaskInformationScreen = () => {
       setPopUp(true);
       setPopUpConfirm("Cancel");
       setPopUpTitle("Are you sure you want to cancel?");
-      setPopUpMessage("You will lose all changes. Dou you wish to continue?");
+      setPopUpMessage("You will lose all changes. Do you wish to continue?");
     }
   };
 
