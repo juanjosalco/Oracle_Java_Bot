@@ -48,10 +48,10 @@ steps:
       export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       echo "BUILDRUN_HASH: "$BUILDRUN_HASH
 
-# Installing any dependencies
-  - type: Command
-    name: "Install yum"
-    command: yum install -y curl
+# # Installing any dependencies
+#   - type: Command
+#     name: "Install yum"
+#     command: yum install -y curl
 
   - type: Command
     name: "Download Java 17"
@@ -61,7 +61,7 @@ steps:
       then
         echo "downloading graalVM"
         curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz | tar xz
-        mv graalvm-community-openjdk-17.0.9+9.1 /
+        ls
       fi
       echo "finished downloading graalVM"
 
