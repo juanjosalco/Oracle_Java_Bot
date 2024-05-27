@@ -59,6 +59,18 @@ steps:
       cd ~
       mkdir InstalledSoftware
       cd InstalledSoftware
+      wget -q https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
+      tar xf *tar.gz
+      rm *tar.gz
+      export JAVA_HOME=`echo -n InstalledSoftware/jdk-*`
+      export PATH=$JAVA_HOME/bin:$PATH
+
+  - type: Command
+    name: "Install Java 2"
+    command: |
+      cd ~
+      mkdir InstalledSoftware
+      cd InstalledSoftware
       curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz | tar xz
       ~/InstalledSoftware/graalvm-community-openjdk-17.0.9+9.1/bin/gu install native-image
 
