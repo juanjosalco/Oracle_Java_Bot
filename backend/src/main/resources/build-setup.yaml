@@ -16,6 +16,7 @@ env:
     - DOCKER_REGISTRY
     - BUILDRUN_HASH
     - ORABOT_PDB_NAME
+    - OCI_REGION
 
 steps:
 # Defining our environment variables
@@ -36,6 +37,9 @@ steps:
 
       export ORABOT_PDB_NAME=`echo orabotooxbf`
       echo "ORABOT_PDB_NAME: " ${ORABOT_PDB_NAME}
+
+      export OCI_REGION=`echo qro.ocir.io`
+      echo "OCI_REGION: " ${OCI_REGION}
 
 # Defining our unique "hashed" code from OCI BUILD ID
   - type: Command
