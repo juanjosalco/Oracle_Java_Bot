@@ -89,7 +89,7 @@ steps:
     name: "Install Java 3"
     command: |
       yum -y search java
-      yum -y install java-17-openjdk
+      yum -y install jdk-17.x86_64
   
 
 #   - type: Command
