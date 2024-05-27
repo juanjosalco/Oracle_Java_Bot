@@ -15,29 +15,29 @@ export const DeveloperScreen = () => {
   const [filterOptions, setFilterOptions] = useState({ priority: 0, status: "ALL", sortBy: "creationDate" })
   const [error, setError] = useState("");
 
-  const sortTasks = (tasks) => {
-    if (filterOptions.sortBy === "priority") {
-      return tasks.sort((a, b) => a.priority - b.priority);
-    } else if (filterOptions.sortBy === "dueDate") {
-      return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    } else {
-      return tasks;
-    }
-  };
-
-  const getDeveloperTasks = async () => {
-    const tasks = await getTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
-    if (tasks.error) {
-      setError(tasks.error);
-    } else {
-     let filteredTasks = sortTasks(tasks);
-      setTasks(filteredTasks);
-    } 
-  };
-
   useEffect(() => {
+    const sortTasks = (tasks) => {
+      if (filterOptions.sortBy === "priority") {
+        return tasks.sort((a, b) => a.priority - b.priority);
+      } else if (filterOptions.sortBy === "dueDate") {
+        return tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      } else {
+        return tasks;
+      }
+    };
+  
+    const getDeveloperTasks = async () => {
+      const tasks = await getTasks(userData.token, filterOptions.priority, filterOptions.sortBy, filterOptions.status);
+      if (tasks.error) {
+        setError(tasks.error);
+      } else {
+       let filteredTasks = sortTasks(tasks);
+        setTasks(filteredTasks);
+      } 
+    };
+
     getDeveloperTasks()
-  },);
+  },[filterOptions, userData.token]);
 
   return (
     <>
