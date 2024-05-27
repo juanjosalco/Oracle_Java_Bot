@@ -63,7 +63,7 @@ steps:
       tar xf *tar.gz
       rm *tar.gz
       ls -l
-      export JAVA_HOME=`echo ${OCI_PRIMARY_SOURCE_DIR}/InstalledSoftware/jdk-*`
+      export JAVA_HOME=`echo -n ${OCI_PRIMARY_SOURCE_DIR}/InstalledSoftware/jdk-*`
       export PATH=$JAVA_HOME/bin:$PATH
       echo Path is
       $PATH
