@@ -33,11 +33,11 @@ public class GetCommentsByTaskIdCommandHandler implements GetCommentsByTaskIdCom
         List<Comment> comments = commentService.getCommentsByTaskId(id).getBody();
 
         // Check if comments are found
-        if(comments != null) {
-            if (comments.isEmpty()) {
-                throw new RuntimeException("No comments found for the provided Task ID");
-            }
-        }
+        // if(comments != null) {
+        //     if (comments.isEmpty()) {
+        //         throw new RuntimeException("No comments found for the provided Task ID");
+        //     }
+        // }
 
         return ResponseEntity.status(HttpStatus.OK).body(comments);
     }

@@ -178,64 +178,6 @@ export const TaskInformationScreen = () => {
         <div className="titleCharCounter">
           <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
         </div>
-        {state.isDeveloper ? (
-          <input
-            type="text"
-            placeholder="Title"
-            className="inputsSpe"
-            defaultValue={state.task.title}
-            value={title}
-            onChange={handleTitleChange}
-          />
-        ) : (
-          <p className="taskTitle">{state.task.title}</p>
-        )}
-        {state.isDeveloper ? (
-          <textarea
-            placeholder="Description"
-            className="inputArea"
-            defaultValue={state.task.description}
-            value={description}
-            rows={5}
-            onChange={handleDescriptionChange}
-          />
-        ) : (
-          <p className="taskTitle">{state.task.description}</p>
-        )}
-        <div className={state.isDeveloper ? "buttonsContainer" : ''}>
-          {state.isDeveloper ? Statuses.map((st, index) => (
-            <button
-              className={index === status ? "button red" : "button gray"}
-              key={st}
-              onClick={() => setStatus(index)}
-            >
-              {st}
-            </button>
-          )) : <p className="taskTitle">{state.task.status}</p>}
-        </div>
-        {state.isDeveloper ? (
-          <textarea
-            placeholder="Description"
-            className="inputArea"
-            defaultValue={state.task.description}
-            value={description}
-            rows={5}
-            onChange={handleDescriptionChange}
-          />
-        ) : (
-          <p className="taskTitle">{state.task.description}</p>
-        )}
-        <div className={state.isDeveloper ? "buttonsContainer" : ''}>
-          {state.isDeveloper ? Statuses.map((st, index) => (
-            <button
-              className={index === status ? "button red" : "button gray"}
-              key={st}
-              onClick={() => setStatus(index)}
-            >
-              {st}
-            </button>
-          )) : <p className="taskTitle">{state.task.status}</p>}
-        </div>
         {role === "Developer" ? (
           <input
             type="text"
