@@ -64,7 +64,6 @@ steps:
         mv graalvm-community-openjdk-17.0.9+9.1 /
       fi
       echo "finished downloading graalVM"
-    done
 
   - type: Command
     name: "Install Java 17"
