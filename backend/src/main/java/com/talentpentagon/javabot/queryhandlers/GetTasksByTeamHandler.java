@@ -10,16 +10,12 @@ import com.talentpentagon.javabot.Commands.GetCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
 import com.talentpentagon.javabot.repository.TeamRepository;
-// import com.talentpentagon.javabot.service.TaskService;
 import com.talentpentagon.javabot.service.TeamService;
 
 import java.util.List;
 
 @Service
 public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>> {
-
-    // @Autowired
-    // private TaskService taskService;
 
     @Autowired
     private TeamService teamService;

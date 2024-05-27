@@ -14,7 +14,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class OraBot extends TelegramLongPollingBot {
     private String botName;
-    private String botToken;
     
     public OraBot(String botToken, String botName) {
         super(botToken);
