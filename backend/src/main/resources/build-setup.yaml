@@ -53,44 +53,30 @@ steps:
     name: "Install yum"
     command: yum install -y curl
 
-  # - type: Command
-  #   name: "Install Java"
-  #   command: |
-  #     cd ~
-  #     mkdir InstalledSoftware
-  #     cd InstalledSoftware
-  #     wget -q https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
-  #     tar xf *tar.gz
-  #     rm *tar.gz
-  #     export JAVA_HOME=`echo -n ~/InstalledSoftware/jdk-*`
-  #     export PATH=$JAVA_HOME/bin:$PATH
-  #     echo JAVA_HOME is
-  #     $JAVA_HOME
-  #     echo Path is
-  #     $PATH
-
-  # - type: Command
-  #   name: "Install Java 2"
-  #   command: |
-  #     cd ~
-  #     mkdir InstalledSoftware
-  #     cd InstalledSoftware
-  #     curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz | tar xz
-  #     ~/InstalledSoftware/graalvm-community-openjdk-17.0.9+9.1/bin/gu install native-image
-
-  #     export JAVA_HOME=`echo -n ~/InstalledSoftware/jdk-*`
-  #     export PATH=$JAVA_HOME/bin:$PATH
-  #     echo Path is
-  #     $PATH
-  #     echo JAVA_HOME is
-  #     $JAVA_HOME
+  - type: Command
+    name: "Download Java 17"
+    command: |
+      cd ${OCI_PRIMARY_SOURCE_DIR};
+      if ! test -d ${OCI_PRIMARY_SOURCE_DIR}/graalvm-community-openjdk-17.0.9+9.1;
+      then
+        echo "downloading graalVM"
+        curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz | tar xz
+        mv graalvm-community-openjdk-17.0.9+9.1 /
+      fi
+      echo "finished downloading graalVM"
+    done
 
   - type: Command
-    name: "Install Java 3"
+    name: "Install Java 17"
     command: |
-      yum -y search java
-      yum -y install jdk-17.x86_64
+      ${OCI_PRIMARY_SOURCE_DIR}/graalvm-community-openjdk-17.0.9+9.1/bin/gu install native-image
   
+  - type: Command
+    name: "Set the Java path"
+    command: |
+      export JAVA_HOME=${OCI_PRIMARY_SOURCE_DIR}/graalvm-community-openjdk-17.0.9+9.1
+      export PATH=$JAVA_HOME/bin:$PATH
+
 
 #   - type: Command
 #     name: "Install GRAAL VM CE JDK 17 version"
