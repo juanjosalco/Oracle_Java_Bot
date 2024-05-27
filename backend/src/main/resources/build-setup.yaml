@@ -53,33 +53,32 @@ steps:
     name: "Install yum"
     command: yum install -y curl
 
-  # - type: Command
-  #   name: "Install Java"
-  #   command: |
-  #     cd ${OCI_PRIMARY_SOURCE_DIR}
-  #     mkdir InstalledSoftware
-  #     cd InstalledSoftware
-  #     wget -q https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
-  #     tar xf *tar.gz
-  #     rm *tar.gz
-  #     ls -l
-  #     export JAVA_HOME=`echo -n ${OCI_PRIMARY_SOURCE_DIR}/InstalledSoftware/jdk-*`
-  #     export PATH=$JAVA_HOME/bin:$PATH
-  #     echo Path is
-  #     $PATH
-  #     echo JAVA_HOME is
-  #     $JAVA_HOME
-
   - type: Command
-    name: "Install GRAAL VM CE JDK 17 version"
+    name: "Install Java"
     command: |
-      yum -y install graalvm-17-native-image
+      cd ~
+      mkdir InstalledSoftware
+      cd InstalledSoftware
+      curl -sL https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-17.0.9/graalvm-community-jdk-17.0.9_linux-x64_bin.tar.gz | tar xz
 
-# Setting our PATH to our new dependencies
-  - type: Command
-    name: "Set the Java path"
-    command: |
-      export PATH=$JAVA_HOME/bin:$PATH
+    # ~/graalvm-community-openjdk-17.0.9+9.1/bin/gu install native-image
+    # export JAVA_HOME=`echo -n InstalledSoftware/jdk-*`
+    # export PATH=$JAVA_HOME/bin:$PATH
+    # echo Path is
+    # $PATH
+    # echo JAVA_HOME is
+    # $JAVA_HOME
+
+#   - type: Command
+#     name: "Install GRAAL VM CE JDK 17 version"
+#     command: |
+#       yum -y install graalvm-17-native-image
+
+# # Setting our PATH to our new dependencies
+#   - type: Command
+#     name: "Set the Java path"
+#     command: |
+#       export PATH=$JAVA_HOME/bin:$PATH
 
 # Checking everything is alright, mainly for debugging
   - type: Command
