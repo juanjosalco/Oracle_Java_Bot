@@ -50,17 +50,17 @@ spec:
     spec:
       containers:
         - name: orabot
-          image: %DOCKER_REGISTRY%/orabot:%BUILDRUN_HASH%
+          image: ${DOCKER_REGISTRY}/orabot:${BUILDRUN_HASH}
           imagePullPolicy: Always
           env:
             - name: db_user
               value: "APP_DATA"
             - name: db_url
-              value: "jdbc:oracle:thin:@%ORABOT_PDB_NAME%_tp?TNS_ADMIN=/talent-pentagon/creds"
+              value: "jdbc:oracle:thin:@${ORABOT_PDB_NAME}_tp?TNS_ADMIN=/talent-pentagon/creds"
             - name: driver_class_name
               value: "oracle.jdbc.OracleDriver"
             - name: OCI_REGION
-              value: "%OCI_REGION%"
+              value: "${OCI_REGION}"
             - name: dbpassword
               valueFrom:
                 secretKeyRef:
@@ -114,7 +114,7 @@ spec:
     spec:
       containers:
         - name: orabot-front
-          image: %DOCKER_REGISTRY%/orabot-front:0.1
+          image: ${DOCKER_REGISTRY}/orabot-front:0.1
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
