@@ -56,13 +56,14 @@ steps:
   - type: Command
     name: "Install Java"
     command: |
-      cd ~
+      cd ${OCI_PRIMARY_SOURCE_DIR}
       mkdir InstalledSoftware
+      cd InstalledSoftware
       wget -q https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
       tar xf *tar.gz
       rm *tar.gz
       ls -l
-      export JAVA_HOME=`echo ~/InstalledSoftware/jdk-*`
+      export JAVA_HOME=`echo ${OCI_PRIMARY_SOURCE_DIR}/InstalledSoftware/jdk-*`
       export PATH=$JAVA_HOME/bin:$PATH
       echo Path is
       $PATH
