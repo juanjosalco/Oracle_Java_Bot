@@ -7,12 +7,16 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
+    "chai": "^5.1.1",
+    "chromedriver": "^125.0.2",
     "jwt-decode": "^4.0.0",
+    "mocha": "^10.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "selenium-webdriver": "^4.21.0",
     "serve": "^14.2.3",
     "telegraf": "^4.16.3",
     "web-vitals": "^2.1.4"
@@ -20,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha test/",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
