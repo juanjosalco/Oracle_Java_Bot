@@ -76,18 +76,6 @@ steps:
       export JAVA_HOME=${OCI_PRIMARY_SOURCE_DIR}/graalvm-community-openjdk-17.0.9+9.1
       export PATH=$JAVA_HOME/bin:$PATH
 
-
-#   - type: Command
-#     name: "Install GRAAL VM CE JDK 17 version"
-#     command: |
-#       yum -y install graalvm-17-native-image
-
-# # Setting our PATH to our new dependencies
-#   - type: Command
-#     name: "Set the Java path"
-#     command: |
-#       export PATH=$JAVA_HOME/bin:$PATH
-
 # Checking everything is alright, mainly for debugging
   - type: Command
     name: "Environment check"
