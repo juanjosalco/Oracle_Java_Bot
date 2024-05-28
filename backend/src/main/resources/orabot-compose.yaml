@@ -7,7 +7,6 @@ metadata:
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
-  # Specify reserved ip from oracle
   loadBalancerIP: 159.54.140.246
   ports:
     - port: 8483
@@ -21,7 +20,6 @@ spec:
   selector:
     app: orabot
 ---
-#this is new stuff for hosting on the load balancer
 apiVersion: v1
 kind: Service
 metadata:
@@ -86,7 +84,6 @@ spec:
             matchLabels:
               app: orabot
 ---
-#this is new stuff for hosting on the load balancer
 apiVersion: v1
 kind: Service
 metadata:
@@ -115,7 +112,7 @@ spec:
     spec:
       containers:
         - name: orabot-front
-          image: ${DOCKER_REGISTRY}/frontend/orabot-front:0.1
+          image: ${DOCKER_REGISTRY}/frontend/orabot-front:${BUILDRUN_HASH}
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
