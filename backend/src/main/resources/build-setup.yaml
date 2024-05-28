@@ -19,6 +19,16 @@ env:
     - OCI_REGION
 
 steps:
+  - type: Command
+    name: "Patadas de ahogado"
+    command: |
+      docker buildx ls
+
+  - type: Command
+    name: "Patadas de ahogado"
+    command: |
+      docker buildx ls
+
 # Defining our environment variables
   - type: Command
     name: "Define environment"
