@@ -46,7 +46,7 @@ steps:
     name: "Define unique image tag"
     command: |
       export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
-      echo "BUILDRUN_HASH: "$BUILDRUN_HASH
+      echo "BUILDRUN_HASH: "$BUILDRUN_HASH"
 
   - type: Command
     name: "Download Java 17"
@@ -99,7 +99,7 @@ steps:
     name: "Build frontend image"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
-      docker build --platform=linux/aarch64 -f DockerfileFront -t frontend-image .
+      docker build --platform=linux/amd64 -f DockerfileFront -t frontend-image .
 
 outputArtifacts:
   - name: orabot
