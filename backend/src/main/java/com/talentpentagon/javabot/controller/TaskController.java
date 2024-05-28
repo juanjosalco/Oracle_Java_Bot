@@ -113,7 +113,6 @@ public class TaskController {
         return newTaskCommandHandler.execute(task);
     }
 
-    // TODO: BUG - THIS INSERTS A NEW TASK
     // Whole edit
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
