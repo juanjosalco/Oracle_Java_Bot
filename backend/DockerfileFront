@@ -1,4 +1,4 @@
-FROM --platform=linux/aarch64 node:20.5.1
+FROM --platform=linux/amd64 node:20.5.1
 COPY src/orabot /tmp/src
 WORKDIR /tmp/src
 RUN npm install
