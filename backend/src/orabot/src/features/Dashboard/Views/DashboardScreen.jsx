@@ -50,6 +50,7 @@ export const DashboardScreen = () => {
         <Header />
         {userData.role === "Developer" ? <DeveloperScreen /> : <div></div>}
         {userData.role === "Manager" ? <ManagerScreen /> : <div></div>}
+        {userData.role === "Admin" ? <ManagerScreen /> : <div></div>}
         <Toaster />
         </>
     );

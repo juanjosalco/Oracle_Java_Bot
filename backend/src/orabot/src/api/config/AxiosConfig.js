@@ -1,5 +1,5 @@
 export const axiosConfig = {
-    baseURL: "http://159.54.140.246:8483",
+    baseURL: "http://localhost:8080",
     headers: {
         "Content-Type": "application/json",
     }
