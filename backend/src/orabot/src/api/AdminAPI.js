@@ -27,3 +27,36 @@ export const postUser = async (token, request) => {
 
     }
   };
+
+  export const getAllTeams = async (token) => {
+    try {
+      const response = await axios.get(`${url}/api/v1/teams`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      console.error(err.response ? err.response.data : err.message);
+      return { error: err.response.data};
+    }
+  };
+
+  export const postTeam = async (token, team) => {
+    try {
+      const response = await axios.post(
+        `${url}/api/v1/team`,
+        {
+          name: team.name,
+          description: team.description,
+          manager: team.manager,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err.response ? err.response.data : err.message);
+      return { error: err.response.data};
+
+    }
+  };
