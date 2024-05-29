@@ -14,6 +14,7 @@ import "../Styles/Dashboard.css";
 // Screens
 import { DeveloperScreen } from "./DeveloperScreen";
 import { ManagerScreen } from "./ManagerScreen";
+import { AdminScreen } from "./AdminScreen";
 
 export const DashboardScreen = () => {
 
@@ -39,6 +40,11 @@ export const DashboardScreen = () => {
                 duration: 4000,
             });
         }
+        else if(state.toast === "userCreated"){
+            toast.success("User created successfully", {
+                duration: 4000,
+            });
+        }
     }
 
     useEffect(() => {
@@ -50,7 +56,7 @@ export const DashboardScreen = () => {
         <Header />
         {userData.role === "Developer" ? <DeveloperScreen /> : <div></div>}
         {userData.role === "Manager" ? <ManagerScreen /> : <div></div>}
-        {userData.role === "Admin" ? <ManagerScreen /> : <div></div>}
+        {userData.role === "Notch" ? <AdminScreen /> : <div></div>}
         <Toaster />
         </>
     );

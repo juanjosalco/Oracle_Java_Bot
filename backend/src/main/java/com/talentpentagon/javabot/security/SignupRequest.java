@@ -69,4 +69,23 @@ public class SignupRequest {
         this.teamId = teamId;
     }
 
+    public SignupRequest(String email, String password, String role, String firstname, String lastname,
+            String phonenumber, int teamId) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phonenumber = phonenumber;
+        this.teamId = teamId;
+    }
+
+    @Override
+    public String toString() {
+        return "SignupRequest [email=" + email + ", password=" + password + ", role=" + role + ", firstname="
+                + firstname + ", lastname=" + lastname + ", phonenumber=" + phonenumber + ", teamId=" + teamId + "]";
+    }
+
+    
+
 }

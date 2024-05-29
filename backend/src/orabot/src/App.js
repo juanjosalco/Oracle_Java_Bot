@@ -8,6 +8,8 @@ import { RouterProvider, Route, createBrowserRouter } from "react-router-dom";
 import { TaskInformationScreen } from "./features/TasksManagment/Views/TaskInformationScreen";
 
 import { UserProvider } from "./providers/user/UserProvider";
+import { UserAdministration } from "./features/Administration/Views/UserAdministration";
+import { TeamAdministration } from "./features/Administration/Views/TeamAdministration";
 
 const tele = window.Telegram.WebApp;
 
@@ -42,6 +44,14 @@ function App() {
       path: "/task/add",
       element: <TaskInformationScreen isNewTask={true} />,
     },
+    {
+      path: "/user",
+      element: <UserAdministration />,
+    },
+    {
+      path: "/team",
+      element: <TeamAdministration />,
+    }
   ]);
 
   return (
