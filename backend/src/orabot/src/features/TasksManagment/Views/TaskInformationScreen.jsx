@@ -183,8 +183,7 @@ export const TaskInformationScreen = () => {
             type="text"
             placeholder="Title"
             className="inputsSpe"
-            defaultValue={state.task.title}
-            value={title}
+            defaultValue={title}
             onChange={handleTitleChange}
           />
         ) : (
@@ -199,8 +198,7 @@ export const TaskInformationScreen = () => {
           <textarea
             placeholder="Description"
             className="inputArea"
-            defaultValue={state.task.description}
-            value={description}
+            defaultValue={description}
             rows={5}
             onChange={handleDescriptionChange}
           />

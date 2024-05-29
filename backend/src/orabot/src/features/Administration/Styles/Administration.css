@@ -1,0 +1,18 @@
+.formTitles{
+    all: unset;
+    font-size: 1rem;
+}
+
+.formContainer{
+    margin-inline: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputArea{
+    padding: 16px;
+    border: 1px solid #100F0E;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+

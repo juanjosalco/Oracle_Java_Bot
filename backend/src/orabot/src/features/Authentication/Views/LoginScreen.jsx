@@ -57,9 +57,12 @@ export const LoginScreen = () => {
       });
 
       if(1){
+        console.log("decodedToken.role", decodedToken.role);
         if (decodedToken.role === "Developer") {
           navigate("/dashboard", { state: {}});
         } else if (decodedToken.role === "Manager") {
+          navigate("/dashboard", { state: {} });
+        } else if (decodedToken.role === "Notch") {
           navigate("/dashboard", { state: {} });
         }
       }

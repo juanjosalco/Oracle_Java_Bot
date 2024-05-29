@@ -88,9 +88,11 @@ public class SecurityController {
 
     // TODO: EITHER FIX THE ROLE CHECK OR REMOVE IT
     @Transactional
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/signUp")
-    public ResponseEntity<String> createUser(@RequestBody SignupRequest request) {
-        Optional<Auth> credentials = authRepository.findByEmail(request.getEmail());
+    public ResponseEntity<String> createUser(@RequestBody SignupRequest user) {
+        System.out.println("user: " + user.toString());
+        Optional<Auth> credentials = authRepository.findByEmail(user.getEmail());
         // Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
 
         if(credentials.isPresent()){
@@ -101,16 +103,16 @@ public class SecurityController {
         // }
 
         CustomUser newUser = new CustomUser();
-        newUser.setFirstName(request.getFirstname());
-        newUser.setLastName(request.getLastname());
-        newUser.setPhonenumber(request.getPhonenumber());
-        newUser.setRole(request.getRole());
-        newUser.setTeamId(request.getTeamId());
+        newUser.setFirstName(user.getFirstname());
+        newUser.setLastName(user.getLastname());
+        newUser.setPhonenumber(user.getPhonenumber());
+        newUser.setRole(user.getRole());
+        newUser.setTeamId(user.getTeamId());
 
 
         Auth newAuth = new Auth();
-        newAuth.setEmail(request.getEmail());
-        newAuth.setPassword(passwordEncoder.encode(request.getPassword()));
+        newAuth.setEmail(user.getEmail());
+        newAuth.setPassword(passwordEncoder.encode(user.getPassword()));
         newAuth.setUser(newUser);
         newAuth.setAttempts(0);
         newAuth.setEnabled(true);
