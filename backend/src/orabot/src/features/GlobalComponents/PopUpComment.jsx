@@ -80,7 +80,7 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
                     {newComment.length}/{MAX_CHAR_LIMIT}
                 </div>
                 <button type="button" onClick={handleAddComment}>
-                    Add Comment
+                    Add
                 </button>
             </div>
         </div>

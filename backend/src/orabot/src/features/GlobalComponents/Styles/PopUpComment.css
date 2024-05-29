@@ -89,6 +89,8 @@
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .inputSection input {
@@ -97,6 +99,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    max-width: calc(100% - 120px);
 }
 
 .inputSection button {
@@ -106,6 +109,8 @@
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .inputSection button:hover {
@@ -122,4 +127,10 @@
 
 .charCounter.limit-reached {
     color: red;
+}
+
+@media (max-width: 437px) {
+    .inputSection button {
+        width: 100%;
+    }
 }

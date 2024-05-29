@@ -17,13 +17,12 @@ import { useUser } from "../../../hooks/useUser";
 export const Task = (props) => {
 
   const date = new Date(props.task.dueDate).toISOString().split("T")[0];
+  const { userData } = useUser();
 
   const [activePopup, setActivePopup] = useState(null);
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpComments, setPopUpComments] = useState([]);
   //const [loading, setLoading] = useState(false);
-
-  const { userData } = useUser();
 
   const handleClose = () => {
     if (activePopup === "comments") {
@@ -76,18 +75,18 @@ export const Task = (props) => {
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b"
                   alt="Commentary Section"
-                  width={27}
-                  height={27}
+                  width={32}
+                  height={32}
                   className="commentaries"
                   onClick={handleCommentClick}
                 />
-                {props.isDeveloper && (
+                {userData.role==="Developer" && (
                   <NavLink to={"/task/:" + props.task.id} state={{ task: props.task, isDeveloper: props.isDeveloper }}>
                     <img
                       src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
                       alt="Edit icon"
-                      width={30}
-                      height={30}
+                      width={32}
+                      height={32}
                     />
                   </NavLink>
                 )}
