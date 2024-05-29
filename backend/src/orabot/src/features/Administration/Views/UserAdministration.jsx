@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
@@ -73,6 +73,23 @@ export const UserAdministration = () => {
           }
     }
 
+    
+    useEffect(() => {
+        const getAllTeams = async () => {
+            console.log("HOLA")
+            // const response = await getAllTeams(userData.token);
+            // if (response.error) {
+            //     setError(response.error);
+            //   } else {
+            //     console.log(response);
+            //   }
+        }
+        
+        getAllTeams();
+
+    }, [userData.token]);
+
+    
     const AddUserHandler = () => {
         addUser();
     }

@@ -91,7 +91,6 @@ public class SecurityController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/signUp")
     public ResponseEntity<String> createUser(@RequestBody SignupRequest user) {
-        System.out.println("user: " + user.toString());
         Optional<Auth> credentials = authRepository.findByEmail(user.getEmail());
         // Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
 

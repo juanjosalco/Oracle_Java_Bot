@@ -45,6 +45,11 @@ export const DashboardScreen = () => {
                 duration: 4000,
             });
         }
+        else if(state.toast === "teamCreated"){
+            toast.success("Team created successfully", {
+                duration: 4000,
+            });
+        }
     }
 
     useEffect(() => {

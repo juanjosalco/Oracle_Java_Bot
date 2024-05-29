@@ -78,5 +78,9 @@ public class TeamService {
         }
     }
 
+    public ResponseEntity<Team> createTeam(Team team){
+        Team newTeam = teamRepository.save(team);
+        return new ResponseEntity<Team>(newTeam, HttpStatus.CREATED);
+    }
     
 }
