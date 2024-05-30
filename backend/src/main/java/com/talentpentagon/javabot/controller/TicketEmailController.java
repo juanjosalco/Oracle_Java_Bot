@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class TicketEmailController {
 
     @Autowired
     private EmailSenderService senderService;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("sendEmail")
+    @PostMapping("/email")
     public ResponseEntity<String> sendEmail(@RequestBody Map<String, Object> jsonMap) throws MessagingException {
         try {
             String userEmail = (String) jsonMap.get("userEmail");

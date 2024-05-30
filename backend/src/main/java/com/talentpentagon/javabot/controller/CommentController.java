@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class CommentController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class CommentController {
     // GET
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
-    @GetMapping("comments/{taskId}")
+    @GetMapping("/comments/{taskId}")
     public ResponseEntity<List<Comment>> getCommentsByTaskId(@PathVariable int taskId) {
         return getCommentByTaskIdCommandHandler.execute(taskId);
     }
@@ -32,7 +32,7 @@ public class CommentController {
     // POST
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
-    @PostMapping("comments")
+    @PostMapping("/comments")
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
         return newCommentCommandHandler.execute(comment);
     }

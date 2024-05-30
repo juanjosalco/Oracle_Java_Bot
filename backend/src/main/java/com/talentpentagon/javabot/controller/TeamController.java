@@ -5,7 +5,6 @@ import com.talentpentagon.javabot.model.Team;
 import com.talentpentagon.javabot.queryhandlers.GetTeamMembersHandler;
 import com.talentpentagon.javabot.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class TeamController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class TeamController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Manager')")
-    @GetMapping("team/members")
+    @GetMapping("/team/members")
     public ResponseEntity<?> getTeamMembers(@RequestHeader("Authorization") String token){
         Integer teamId = JWTUtil.extractTeamId(token);
 
@@ -40,7 +39,7 @@ public class TeamController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Notch')")
-    @PostMapping("team")
+    @PostMapping("/team")
     public ResponseEntity<?> createTeam(@RequestHeader("Authorization") String token, @RequestBody Team team){
         return newTeamCommandHandler.execute(team);
     }
