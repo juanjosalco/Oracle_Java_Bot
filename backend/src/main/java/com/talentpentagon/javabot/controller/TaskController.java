@@ -2,23 +2,14 @@ package com.talentpentagon.javabot.controller;
 
 import java.util.List;
 
-// import com.talentpentagon.javabot.commandhandlers.EditTaskCommandHandler;
-// import com.talentpentagon.javabot.commandhandlers.EditTaskStatusCommandHandler;
-// import com.talentpentagon.javabot.commandhandlers.GetTaskByIdCommandHandler;
-// import com.talentpentagon.javabot.commandhandlers.GetTaskByUserCommandHandler;
-// import com.talentpentagon.javabot.commandhandlers.NewTaskCommandHandler;
-// import com.talentpentagon.javabot.commandhandlers.GetTaskByTeamHandler;
 import com.talentpentagon.javabot.commandhandlers.*;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByIdCommandHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTasksByTeamHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByUserCommandHandler;
-import com.talentpentagon.javabot.service.TaskService;
 import com.talentpentagon.javabot.security.JWTUtil;
-// import com.talentpentagon.javabot.service.TeamService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,12 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TaskController {
 
     @Autowired
-    private TaskService taskService;
-
-    // @Autowired
-    // private TeamService teamService;
-
-    @Autowired
     private NewTaskCommandHandler newTaskCommandHandler;
 
     @Autowired
@@ -59,13 +44,6 @@ public class TaskController {
 
     @Autowired
     private GetTasksByTeamHandler getTaskByTeamHandler;
-
-    // TEST ONLY
-    @GetMapping("/task")
-    public ResponseEntity<List<TaskItem>> getTasks() {
-        List<TaskItem> tasks = taskService.getTasks();
-        return ResponseEntity.ok(tasks);
-    }
 
     // Get single task
     @CrossOrigin(origins = "*", allowedHeaders = "*")

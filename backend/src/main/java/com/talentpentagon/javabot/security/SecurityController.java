@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.talentpentagon.javabot.repository.AuthRepository;
 import com.talentpentagon.javabot.repository.CustomUserRepository;
 
-import jakarta.transaction.Transactional;
-
 import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.model.CustomUser;
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +34,6 @@ public class SecurityController {
 
     @Autowired
     private AuthRepository authRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
     
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
@@ -84,47 +78,6 @@ public class SecurityController {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         
-    }
-
-    // TODO: EITHER FIX THE ROLE CHECK OR REMOVE IT
-    @Transactional
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/signUp")
-    public ResponseEntity<String> createUser(@RequestBody SignupRequest user) {
-        Optional<Auth> credentials = authRepository.findByEmail(user.getEmail());
-        // Optional<CustomUser> roleCheck = customUserRepository.findByTeamIdAndRole(request.getTeamId(), request.getRole());
-
-        if(credentials.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
-        }
-        // if(roleCheck.isPresent()){
-        //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Team " + request.getTeamId() + " already has an assigned manager.");
-        // }
-
-        CustomUser newUser = new CustomUser();
-        newUser.setFirstName(user.getFirstname());
-        newUser.setLastName(user.getLastname());
-        newUser.setPhonenumber(user.getPhonenumber());
-        newUser.setRole(user.getRole());
-        newUser.setTeamId(user.getTeamId());
-
-
-        Auth newAuth = new Auth();
-        newAuth.setEmail(user.getEmail());
-        newAuth.setPassword(passwordEncoder.encode(user.getPassword()));
-        newAuth.setUser(newUser);
-        newAuth.setAttempts(0);
-        newAuth.setEnabled(true);
-
-        CustomUser savedUser = customUserRepository.save(newUser);
-        newAuth.setUser(newUser);
-        Auth savedAuth = authRepository.save(newAuth);
-
-        if (savedUser == null || savedAuth == null) {
-            throw new RuntimeException("Failed to create user or auth");
-        }
-        
-        return ResponseEntity.ok("User created successfully");
     }
         
 }
