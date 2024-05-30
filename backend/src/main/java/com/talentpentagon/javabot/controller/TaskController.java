@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class TaskController {
 
     @Autowired
@@ -61,7 +61,7 @@ public class TaskController {
     private GetTasksByTeamHandler getTaskByTeamHandler;
 
     // TEST ONLY
-    @GetMapping("task")
+    @GetMapping("/task")
     public ResponseEntity<List<TaskItem>> getTasks() {
         List<TaskItem> tasks = taskService.getTasks();
         return ResponseEntity.ok(tasks);
@@ -70,7 +70,7 @@ public class TaskController {
     // Get single task
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer') || hasRole('Manager')")
-    @GetMapping("task/{id}")
+    @GetMapping("/task/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable("id") int id) {
 
         return getTaskByIdCommandHandler.execute(id);
@@ -79,7 +79,7 @@ public class TaskController {
     // Get all tasks for a team
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Manager')")
-    @GetMapping("task/team")
+    @GetMapping("/task/team")
     public ResponseEntity<List<TaskItem>> getTasksForTeam(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status,
@@ -93,7 +93,7 @@ public class TaskController {
     // Get User's tasks
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
-    @GetMapping("task/user")
+    @GetMapping("/task/user")
     public ResponseEntity<List<TaskItem>> getTasksForUser(@RequestHeader(name = "Authorization") String token,
             @RequestParam(name = "sortBy", defaultValue = "creationDate") String sortBy,
             @RequestParam(name = "status", defaultValue = "ALL") String status,
@@ -108,7 +108,7 @@ public class TaskController {
     // Add task
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
-    @PostMapping("task")
+    @PostMapping("/task")
     public ResponseEntity<TaskItem> postTask(@RequestBody TaskItem task) {
         return newTaskCommandHandler.execute(task);
     }
@@ -116,7 +116,7 @@ public class TaskController {
     // Whole edit
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
-    @PutMapping("task/{id}")
+    @PutMapping("/task/{id}")
     public ResponseEntity<TaskItem> putTask(@PathVariable int id, @RequestBody TaskItem task) {
         TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
         if (t != null) {
@@ -133,7 +133,7 @@ public class TaskController {
     // Use this only to change the status
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Developer')")
-    @PutMapping("task/{id}/status")
+    @PutMapping("/task/{id}/status")
     public ResponseEntity<TaskItem> putTaskStatus(@PathVariable int id, @RequestBody TaskItem task) {
         TaskItem t = getTaskByIdCommandHandler.execute(id).getBody();
         if (t != null) {

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TeamRepository;
 import com.talentpentagon.javabot.model.Team;
+import com.talentpentagon.javabot.model.TeamDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,9 +79,17 @@ public class TeamService {
         }
     }
 
+    // Get team list
+    public List<TeamDTO> getTeams(){
+        List<TeamDTO> teams = teamRepository.findAll()
+                        .stream()
+                        .map(TeamDTO::new)
+                        .toList();
+        return teams;
+    }
+
     public ResponseEntity<Team> createTeam(Team team){
         Team newTeam = teamRepository.save(team);
         return new ResponseEntity<Team>(newTeam, HttpStatus.CREATED);
     }
-    
 }

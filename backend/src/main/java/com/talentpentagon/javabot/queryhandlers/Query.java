@@ -1,7 +1,7 @@
-// package com.talentpentagon.javabot.queryhandlers;
+package com.talentpentagon.javabot.queryhandlers;
 
-// import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 
-// public interface Query<I, O> {
-// ResponseEntity<O> execute(I input);
-// }
+public interface Query<I, O> {
+    ResponseEntity<O> execute(I input);
+}
