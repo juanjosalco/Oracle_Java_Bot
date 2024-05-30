@@ -59,6 +59,7 @@ public class TeamService {
             return tasks;
         
     }
+
     // Get team members by team id
     public Map<Integer, String> getTeamMembers(Integer id){
         Optional<Team> team = teamRepository.findById(id);
@@ -88,8 +89,25 @@ public class TeamService {
         return teams;
     }
 
+    // Create team
     public ResponseEntity<Team> createTeam(Team team){
         Team newTeam = teamRepository.save(team);
         return new ResponseEntity<Team>(newTeam, HttpStatus.CREATED);
+    }
+
+    // Edit team
+    public ResponseEntity<Team> editTeam(Integer id, Team team){
+        Optional<Team> teamOptional = teamRepository.findById(id);
+
+        if(!teamOptional.isPresent()){
+            return new ResponseEntity<Team>(HttpStatus.NOT_FOUND);
+        }
+
+        
+
+        Team editedTeam = teamRepository.save(team);
+        return new ResponseEntity<Team>(editedTeam, HttpStatus.CREATED);
+
+        
     }
 }
