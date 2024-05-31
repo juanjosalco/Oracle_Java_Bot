@@ -28,7 +28,9 @@ describe('search', async function () {
         // Wait until the result page is loaded
         await driver.wait(5000);
 
-        return 1;
+        const text = await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/h1')).getText();
+
+        return text;
     };
 
     // Make sure the BROWSER env variable is set
@@ -74,9 +76,9 @@ describe('search', async function () {
 
     // Our test definitions
     it('should login to the service as a developer', function (done) {
-        return login('a00227255@tec.mx', '123456').then(content => {
-            console.log(content);
-            assert.isTrue(content != null);
+        return login('a00227255@tec.mx', '123456').then(text => {
+            console.log(text);
+            assert.isTrue(text === 'Welcome to the OraBot!');
             done();
         });
     });
