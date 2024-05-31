@@ -13,7 +13,7 @@ describe('search', async function () {
     // A helper function to start a web search
     const login = async (email, password) => {
         // Automate DuckDuckGo search
-        await driver.get('http://159.54.140.246:443/');
+        await driver.get('https://team16.kenscourses.com/');
         const emailInput = await driver.findElement(
              By.xpath('//*[@id="root"]/div/div[2]/div/input[1]'));
         const passInput = await driver.findElement(
