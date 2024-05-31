@@ -1,3 +1,5 @@
+# Selenium workflow: Runs all tests on a browser of your choice
+
 name: Test (single)
 
 on:
@@ -18,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: node:19
+      image: node:20
 
     services:
       selenium:
@@ -29,8 +31,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '20'
           cache: 'npm'
+      - run: cd backend/src/orabot
       - run: npm ci
       - run: npm run test
         env:
