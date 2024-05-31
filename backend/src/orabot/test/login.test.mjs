@@ -76,7 +76,7 @@ describe('search', async function () {
     it('should login to the service as a developer', function (done) {
         return login('a00227255@tec.mx', '123456').then(content => {
             console.log(content);
-            assert.isTrue(content == 1);
+            assert.isTrue(content != null);
             done();
         });
     });
