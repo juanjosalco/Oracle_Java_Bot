@@ -29,11 +29,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: cd backend/src/orabot
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: backend/src/orabot/package-lock.json
+      - run: cd backend/src/orabot
       - run: npm ci
       - run: npm run test
         env:
