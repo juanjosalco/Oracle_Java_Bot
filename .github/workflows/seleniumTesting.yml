@@ -34,13 +34,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: backend/src/orabot/package-lock.json
-      - run: cd backend/src/orabot
-      - run: npm ci
-      - run: npm run test
+      - name: Install dependencies and run tests
+        run: | 
+          cd backend/src/orabot
+          npm ci
+          npm run test
         env:
           BROWSER: ${{ github.event.inputs.browser }}
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: screenshots
-          path: screenshots/
+          path: backend/src/orabot/test/screenshots/
