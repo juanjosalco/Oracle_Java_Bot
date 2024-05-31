@@ -19,7 +19,7 @@ public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEnti
     String specialChars = ".*[^@$%^&*()_+=\\[\\]{}'\"\\\\|<>\\/].*";
 
     @Override
-    public ResponseEntity<Team> execute(Integer id, Team team) {
+    public ResponseEntity<Team> execute(Team team) {
         // name
         if (StringUtils.isBlank(team.getName())) {
             throw new RuntimeException("Team name cannot be empty");
@@ -36,8 +36,7 @@ public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEnti
             throw new RuntimeException("Team description cannot contain special characters");
         }
 
-
-        teamService.editTeam(id, team);
+        teamService.editTeam(team.getId() ,team);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(team);
     }

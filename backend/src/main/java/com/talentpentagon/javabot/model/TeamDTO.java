@@ -13,6 +13,7 @@ public class TeamDTO {
 
     // Getters and setters
     public TeamDTO(Team team) {
+        this.id = team.getId();
         this.manager = team.getManager();
         this.name = team.getName();
         this.description = team.getDescription();
