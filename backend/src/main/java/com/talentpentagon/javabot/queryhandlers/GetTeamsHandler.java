@@ -10,13 +10,13 @@ import com.talentpentagon.javabot.model.TeamDTO;
 import com.talentpentagon.javabot.service.TeamService;
 
 @Service
-public class GetTeamsHandler implements Query<Void, List<TeamDTO>>{
+public class GetTeamsHandler implements Query<List<TeamDTO>>{
     
     @Autowired
     private TeamService teamService;
 
     @Override
-    public ResponseEntity<List<TeamDTO>> execute(Void input) {
+    public ResponseEntity<List<TeamDTO>> execute() {
 
         List<TeamDTO> teams = teamService.getTeams();
 

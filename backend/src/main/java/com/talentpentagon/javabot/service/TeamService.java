@@ -102,10 +102,10 @@ public class TeamService {
         if(!teamOptional.isPresent()){
             return new ResponseEntity<Team>(HttpStatus.NOT_FOUND);
         }
-
-        
-
         Team editedTeam = teamRepository.save(team);
+        editedTeam.setId(id);
+        editedTeam.setName(team.getName());
+        editedTeam.setDescription(team.getDescription());
         return new ResponseEntity<Team>(editedTeam, HttpStatus.CREATED);
 
         
