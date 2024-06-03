@@ -13,7 +13,7 @@ describe('search', async function () {
     // A helper function to start a web search
     const login = async (email, password) => {
         // Automate DuckDuckGo search
-        await driver.get('https://team16.kenscourses.com/');
+        await driver.get('https://team16.kenscourses.com');
         const emailInput = await driver.findElement(
              By.xpath('//*[@id="root"]/div/div[2]/div/input[1]'));
         const passInput = await driver.findElement(
@@ -28,9 +28,9 @@ describe('search', async function () {
         // Wait until the result page is loaded
         await driver.wait(5000);
 
-        const text = await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/h1')).getText();
+        const text = await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/h1'));
 
-        return text;
+        return await text.getText();
     };
 
     // Make sure the BROWSER env variable is set
@@ -81,7 +81,7 @@ describe('search', async function () {
     it('should login to the service as a developer', function (done) {
         return login('a00227255@tec.mx', '123456').then(text => {
             console.log("this test", text);
-            assert.isTrue(text === 'Welcome to the OraBot!');
+            assert.isTrue(text === 'Welcome to OraBot!');
             done();
         });
     });
