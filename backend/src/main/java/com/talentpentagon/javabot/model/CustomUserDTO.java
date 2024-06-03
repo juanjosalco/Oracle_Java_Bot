@@ -10,11 +10,13 @@ public class CustomUserDTO {
     private String role;
     private String firstname;
     private String lastname;
+    private boolean isEnabled;
 
     public CustomUserDTO(CustomUser customUser) {
         this.teamId = customUser.getTeamId();
         this.role = customUser.getRole();
         this.firstname = customUser.getFirstName();
         this.lastname = customUser.getLastName();
+        this.isEnabled = customUser.isEnabled();
     }
 }

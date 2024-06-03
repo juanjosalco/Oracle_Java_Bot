@@ -1,9 +1,10 @@
 package com.talentpentagon.javabot.controller;
 
 import com.talentpentagon.javabot.commandhandlers.NewTeamCommandHandler;
-
+import com.talentpentagon.javabot.model.CustomUserDTO;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
+import com.talentpentagon.javabot.queryhandlers.GetBlockedUsersHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTeamsHandler;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -32,6 +33,8 @@ public class AdminController {
     private GetTeamsHandler getTeamsHandler;
     @Autowired
     private NewTeamCommandHandler newTeamCommandHandler;
+    @Autowired
+    private GetBlockedUsersHandler getBlockedUsersHandler;
     @Autowired
     private TaskService taskService;
 
@@ -71,6 +74,11 @@ public class AdminController {
     }
 
     // USER CONTROLLER
-    
-    
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Notch')")
+    @GetMapping("/user/blocked")
+    public ResponseEntity<List<CustomUserDTO>> getBlockedUsers() {
+        return getBlockedUsersHandler.execute();
+    }
+
 }

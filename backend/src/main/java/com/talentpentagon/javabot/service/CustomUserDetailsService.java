@@ -10,12 +10,18 @@ import org.springframework.stereotype.Service;
 
 import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.repository.AuthRepository;
+import com.talentpentagon.javabot.repository.CustomUserRepository;
+import com.talentpentagon.javabot.model.CustomUserDTO;
+
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     
     @Autowired
     private AuthRepository authRepository;
+    @Autowired
+    private CustomUserRepository customUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -37,5 +43,14 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .build();
     }
 
+    // Get Blocked Users
+    public List<CustomUserDTO> getBlockedUsers() {
+        List<CustomUserDTO> blockedUsers = customUserRepository.findAll()
+                        .stream()
+                        .map(CustomUserDTO::new)
+                        .filter(user -> !user.isEnabled())
+                        .toList();
+        return blockedUsers;
+    }
 }
     

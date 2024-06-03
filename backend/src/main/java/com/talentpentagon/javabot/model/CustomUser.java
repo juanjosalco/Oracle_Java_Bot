@@ -64,6 +64,7 @@ public class CustomUser {
         return role;
     }
 
+
     public void setRole(String role) {
         this.role = role;
     }
@@ -94,6 +95,10 @@ public class CustomUser {
 
     public List<TaskItem> getAssignedTasks() {
         return assignedTasks;
+    }
+
+    public boolean isEnabled() {
+        return auth.isEnabled();
     }
 
     public CustomUser() {
