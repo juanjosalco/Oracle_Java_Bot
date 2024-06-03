@@ -1,6 +1,7 @@
 package com.talentpentagon.javabot.controller;
 
 import com.talentpentagon.javabot.commandhandlers.NewTeamCommandHandler;
+import com.talentpentagon.javabot.commandhandlers.UnblockUserCommandHandler;
 import com.talentpentagon.javabot.model.CustomUserDTO;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
@@ -35,6 +36,8 @@ public class AdminController {
     private NewTeamCommandHandler newTeamCommandHandler;
     @Autowired
     private GetBlockedUsersHandler getBlockedUsersHandler;
+    @Autowired
+    private UnblockUserCommandHandler UnblockUserCommandHandler;
     @Autowired
     private TaskService taskService;
 
@@ -74,6 +77,7 @@ public class AdminController {
     }
 
     // USER CONTROLLER
+    // Gets all blocked users
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Notch')")
     @GetMapping("/user/blocked")
@@ -81,4 +85,11 @@ public class AdminController {
         return getBlockedUsersHandler.execute();
     }
 
+    // Unlocks a user
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Notch')")
+    @PutMapping("/user/unblock")
+    public ResponseEntity<?> unblockUser(@RequestBody Integer userID) {
+        return UnblockUserCommandHandler.execute(userID);
+    }
 }

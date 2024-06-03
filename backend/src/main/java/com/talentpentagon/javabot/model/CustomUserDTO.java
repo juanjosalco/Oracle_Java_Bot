@@ -13,6 +13,7 @@ public class CustomUserDTO {
     private boolean isEnabled;
 
     public CustomUserDTO(CustomUser customUser) {
+        this.id = customUser.getId();
         this.teamId = customUser.getTeamId();
         this.role = customUser.getRole();
         this.firstname = customUser.getFirstName();

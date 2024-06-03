@@ -101,6 +101,10 @@ public class CustomUser {
         return auth.isEnabled();
     }
 
+    public void setEnabled(boolean enabled) {
+        auth.setEnabled(enabled);
+    }
+
     public CustomUser() {
     }
 

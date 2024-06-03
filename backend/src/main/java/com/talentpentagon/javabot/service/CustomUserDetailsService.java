@@ -12,8 +12,10 @@ import com.talentpentagon.javabot.model.Auth;
 import com.talentpentagon.javabot.repository.AuthRepository;
 import com.talentpentagon.javabot.repository.CustomUserRepository;
 import com.talentpentagon.javabot.model.CustomUserDTO;
+import com.talentpentagon.javabot.model.CustomUser;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -51,6 +53,15 @@ public class CustomUserDetailsService implements UserDetailsService {
                         .filter(user -> !user.isEnabled())
                         .toList();
         return blockedUsers;
+    }
+
+    // Unblock User
+    public void unblockUser(Integer id) {
+        Optional<CustomUser> user = customUserRepository.findById(id);
+        if (user.isPresent()) {
+            user.get().setEnabled(true);
+            customUserRepository.save(user.get());
+        }
     }
 }
     
