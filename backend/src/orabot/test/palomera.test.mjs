@@ -15,7 +15,7 @@ describe('search', async function () {
         // Automate DuckDuckGo search
         await driver.get('https://duckduckgo.com/');
         const searchBox = await driver.findElement(
-            By.xpath('//*[@id="searchbox_input"]'));
+             By.xpath('//*[@id="searchbox_input"]'));
         await searchBox.sendKeys(term, Key.ENTER);
 
         // Wait until the result page is loaded
@@ -68,28 +68,38 @@ describe('search', async function () {
     });
 
     // Our test definitions
-    it('should search for "Selenium dev"', async function () {
-        const content = await search('Selenium dev');
-        assert.isTrue(content.includes('www.selenium.dev'));
+    it('should search for "Selenium dev"', function (done) {
+        return search('Selenium dev').then(content => {
+            assert.isTrue(content.includes('www.selenium.dev'));
+            done();
+        });
     });
 
-    it('should search for "Appium"', async function () {
-        const content = await search('Appium');
-        assert.isTrue(content.includes('appium.io'));
+    it('should search for "Appium"', function (done) {
+        return search('Appium').then(content => {
+            assert.isTrue(content.includes('appium.io'));
+            done();
+        });
     });
 
-    it('should search for "Mozilla"', async function () {
-        const content = await search('Mozilla');
-        assert.isTrue(content.includes('mozilla.org'));
+    it('should search for "Mozilla"', function (done) {
+        return search('Mozilla').then(content => {
+            assert.isTrue(content.includes('mozilla.org'));
+            done();
+        });
     });
 
-    it('should search for "GitHub"', async function () {
-        const content = await search('GitHub');
-        assert.isTrue(content.includes('github.com'));
+    it('should search for "GitHub"', function (done) {
+        return search('GitHub').then(content => {
+            assert.isTrue(content.includes('github.com'));
+            done();
+        });
     });
 
-    it('should search for "GitLab"', async function () {
-        const content = await search('GitLab');
-        assert.isTrue(content.includes('gitlab.com'));
+    it('should search for "GitLab"', function (done) {
+        return search('GitLab').then(content => {
+            assert.isTrue(content.includes('gitlab.com'));
+            done();
+        });
     });
 });
