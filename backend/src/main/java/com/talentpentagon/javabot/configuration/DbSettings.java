@@ -38,9 +38,9 @@ this.password = password;
 
 public String getDriver_class_name() {
 return driver_class_name;
-// }
+}
 
-// public void setDriver_class_name(String driver_class_name) {
-// this.driver_class_name = driver_class_name;
-// }
-// }
+public void setDriver_class_name(String driver_class_name) {
+this.driver_class_name = driver_class_name;
+}
+}
