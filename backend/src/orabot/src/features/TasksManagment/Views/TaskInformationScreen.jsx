@@ -184,6 +184,7 @@ export const TaskInformationScreen = () => {
             placeholder="Title"
             className="inputsSpe"
             defaultValue={title}
+            maxLength={MAX_TITLE_CHAR_LIMIT}
             onChange={handleTitleChange}
           />
         ) : (
@@ -199,6 +200,7 @@ export const TaskInformationScreen = () => {
             placeholder="Description"
             className="inputArea"
             defaultValue={description}
+            maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
             rows={5}
             onChange={handleDescriptionChange}
           />

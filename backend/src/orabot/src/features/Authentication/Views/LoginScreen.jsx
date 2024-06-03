@@ -78,26 +78,29 @@ export const LoginScreen = () => {
       <Header back={false} />
       <div className="container">
         <h1>Welcome to OraBot!</h1>
+        <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
+
         <div className="inputContainer">
-          <input
-            type="text"
-            placeholder="Email"
-            className="inputs"
-            value={email}
-            onChange={handleEmail}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="inputs"
-            value={password}
-            onChange={handlePassword}
-          />
-        </div>
-        {error && <p className="error">{error}</p>}
-        <button className="btnX" onClick={handleLogin}>
-          Log in
-        </button>
+            <input
+              type="text"
+              placeholder="Email"
+              className="inputs"
+              value={email}
+              onChange={handleEmail}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="inputs"
+              value={password}
+              onChange={handlePassword}
+            />
+          </div>
+          {error && <p className="error">{error}</p>}
+          <button className="btnX" onClick={handleLogin}>
+            Log in
+          </button>
+          </form>
         <button className="questionBtn" onClick={handleRecover}>
           Forgot password?
         </button>
