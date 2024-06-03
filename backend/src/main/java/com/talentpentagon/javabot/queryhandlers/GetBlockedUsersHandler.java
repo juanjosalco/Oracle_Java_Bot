@@ -22,7 +22,7 @@ public class GetBlockedUsersHandler implements Query<List<CustomUserDTO>>{
         List<CustomUserDTO> blockedUsers = customUserService.getBlockedUsers();
 
         if(blockedUsers == null || blockedUsers.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(blockedUsers);
