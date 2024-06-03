@@ -47,6 +47,9 @@ describe('search', async function () {
         if (browser == 'edge') {
             browser = 'MicrosoftEdge';
         }
+        if (browser == 'chrome') {
+            browser = 'Chrome';
+        }
 
         // Connect to service specified in env variable or default to 'selenium'
         const host = process.env.SELENIUM || 'selenium';
@@ -77,7 +80,7 @@ describe('search', async function () {
     // Our test definitions
     it('should login to the service as a developer', function (done) {
         return login('a00227255@tec.mx', '123456').then(text => {
-            console.log(text);
+            console.log("this test", text);
             assert.isTrue(text === 'Welcome to the OraBot!');
             done();
         });
