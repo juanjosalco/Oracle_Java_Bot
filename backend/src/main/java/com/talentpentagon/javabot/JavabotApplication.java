@@ -21,12 +21,12 @@ public class JavabotApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// try {
-		// 	TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-		// 	telegramBotsApi.registerBot(new OraBot(telegramBotToken, botName));
-		// } catch (TelegramApiException e) {
-		// 	e.printStackTrace();
-		// }
+		try {
+			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+			telegramBotsApi.registerBot(new OraBot(telegramBotToken, botName));
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
