@@ -30,7 +30,7 @@ export const postUser = async (token, request) => {
 
   export const getAllTeams = async (token) => {
     try {
-      const response = await axios.get(`${url}/api/v1/teams`, {
+      const response = await axios.get(`${url}/api/v1/team`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       return response.data;
@@ -60,3 +60,31 @@ export const postUser = async (token, request) => {
 
     }
   };
+
+  export const getBlockedUsers = async (token) => {
+    try {
+      const response = await axios.get(`${url}/api/v1/user/blocked`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      console.error(err.response ? err.response.data : err.message);
+      return { error: err.response.data};
+    }
+  };
+
+  export const unblockUser = async (token, userID) => {
+    try {
+      const response = await axios.put(`${url}/api/v1/user/unblock`, userID, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json' // Ensure this matches the server's expected content type
+        }
+      });
+      return response.data;
+    } catch (err) {
+      console.error(err.response? err.response.data : err.message);
+      return { error: err.response.data };
+    }
+  };
+  
