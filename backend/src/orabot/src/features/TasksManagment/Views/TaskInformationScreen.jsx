@@ -22,8 +22,8 @@ export const TaskInformationScreen = () => {
 
   const { state } = location;
 
-  const MAX_TITLE_CHAR_LIMIT = 32;
-  const MAX_DESCRIPTION_CHAR_LIMIT = 120;
+  const MAX_TITLE_CHAR_LIMIT = 64;
+  const MAX_DESCRIPTION_CHAR_LIMIT = 320;
 
   const statusIdx = Statuses.indexOf(state.task.status);
 

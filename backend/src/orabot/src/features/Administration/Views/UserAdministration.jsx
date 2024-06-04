@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../GlobalComponents/Header";
 
 import "../Styles/Administration.css";
-import { postUser } from "../../../api/AdminAPI";
+import { postUser, getAllTeams } from "../../../api/AdminAPI";
 
 import { useUser } from "../../../hooks/useUser";
 
@@ -24,6 +24,7 @@ export const UserAdministration = () => {
     const [team, setTeam] = useState(1);
     const [phonenumber, setPhone] = useState("");
     const [error, setError] = useState("");
+    const [teams, setTeams] = useState([]);
 
     const handleEmailChange = (e) => {
           setEmail(e.target.value);
@@ -75,19 +76,17 @@ export const UserAdministration = () => {
 
     
     useEffect(() => {
-        const getAllTeams = async () => {
-            const response = await getAllTeams(userData.token);
-            if (response.error) {
-                setError(response.error);
-              } else {
-                console.log(response);
-              }
-        }
-        
-        getAllTeams();
-
-    }, []);
-
+        const fetchData = async () => {
+            try {
+                const data = await getAllTeams(userData.token);
+                if(!data) setTeams(null);
+                setTeams(data); 
+            } catch (error) {
+                console.error("Failed to fetch Teams:", error);
+            }
+        };
+        fetchData();
+    }, [userData]);
     
     const AddUserHandler = () => {
         addUser();
@@ -136,10 +135,10 @@ export const UserAdministration = () => {
                     <option value="3">Admin</option>
                 </select>
                 <p className="formTitles"> Team </p>
-                <select value={team}>
-                    <option value="1">Team1</option>
-                    <option value="2">Team2</option>
-                    <option value="3">Team3</option>
+                <select value={team} onChange={handleTeamChange}>
+                    {teams.map((team) => (
+                        <option key={team.id} value={team.id}>{team.name}</option>
+                    ))}
                 </select>
                 <p className="formTitles"> Phone number </p>
                 <textarea
