@@ -6,11 +6,25 @@ describe('login', function() {
     it('should login as developer', async function () {
         let driver = await new Builder().forBrowser(Browser.CHROME).build();
         await driver.get('https://team16.kenscourses.com/');
-        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/div/input[1]')).sendKeys('a00227255@tec.mx');
-        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/div/input[2]')).sendKeys('123456');
-        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/button[1]')).click();
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/div/input[1]')).sendKeys('test@test.com');
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/div/input[2]')).sendKeys('test123');
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/button')).click();
+        await driver.sleep(5000);
         const text = await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/h1')).getText();
-        assert.isTrue(text === 'Welcome to OraBot!');
+        assert.isTrue(text.includes('these are your tasks'));
+        await driver.quit();
+        return Promise.resolve();
+    });
+
+    it('should login as manager', async function () {
+        let driver = await new Builder().forBrowser(Browser.CHROME).build();
+        await driver.get('https://team16.kenscourses.com/');
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/div/input[1]')).sendKeys('juanjosalco@gmail.com');
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/div/input[2]')).sendKeys('Jj123');
+        await driver.findElement(By.xpath('//*[@id="root"]/div/div[2]/form/button')).click();
+        await driver.sleep(5000);
+        const text = await driver.findElement(By.xpath('//*[@id="root"]/div/div[3]/h1')).getText();
+        assert.isTrue(text.includes('team'));
         await driver.quit();
         return Promise.resolve();
     });
