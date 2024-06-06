@@ -19,6 +19,7 @@
     "selenium-webdriver": "^4.21.0",
     "serve": "^14.2.3",
     "telegraf": "^4.16.3",
+    "text-encoding": "^0.7.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

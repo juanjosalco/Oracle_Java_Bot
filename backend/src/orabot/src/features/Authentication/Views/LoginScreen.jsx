@@ -16,7 +16,6 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleEmail = (e) => {
@@ -83,13 +82,13 @@ export const LoginScreen = () => {
         <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
           <div className="inputContainer">
               <MyTextInput
-                type="text"
+                type="email"
                 value={email}
                 onChange={handleEmail}
                 placeholder={"Email"}
               />
               <MyTextInput
-                type={isVisible ? "text" : "password"}
+                type={"password"}
                 value={password}
                 onChange={handlePassword}
                 placeholder={"Password"}
