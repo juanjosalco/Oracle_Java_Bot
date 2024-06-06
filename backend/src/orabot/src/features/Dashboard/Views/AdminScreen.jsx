@@ -10,7 +10,9 @@ export const AdminScreen = () => {
 
     const unlockHandler = async (userID) => {
         try {
-            await unblockUser(userData.token, userID);
+            await unblockUser(userData.token, userID).then(() => {
+                setBlockedUsers(blockedUsers.filter(user => user.id !== userID));
+            });
         } catch (error) {
             console.error("Failed to unblock user:", error);
         }
@@ -39,7 +41,6 @@ export const AdminScreen = () => {
                 <div>
                     <NavLink to="/team" className="btnDash">Create Team</NavLink>
                     <NavLink to="/user" className="btnDash">Add User</NavLink>
-                    <NavLink className="btnDash">Modify</NavLink>
                 </div>
 
                 <h1 className="title left bold">Blocked Users</h1>
