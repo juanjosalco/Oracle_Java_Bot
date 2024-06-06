@@ -20,6 +20,9 @@ export const TaskInformationScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  if (!location.state) navigate("/dashboard");
+  if (!userData) navigate("/");
+
   const { state } = location;
 
   const MAX_TITLE_CHAR_LIMIT = 64;

@@ -81,7 +81,7 @@ export const Task = (props) => {
                   onClick={handleCommentClick}
                 />
                 {userData.role==="Developer" && (
-                  <NavLink to={"/task/:" + props.task.id} state={{ task: props.task, isDeveloper: props.isDeveloper }}>
+                  <NavLink to={"/task/:" + props.task.id} state={{ task: props.task }}>
                     <img
                       src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
                       alt="Edit icon"
