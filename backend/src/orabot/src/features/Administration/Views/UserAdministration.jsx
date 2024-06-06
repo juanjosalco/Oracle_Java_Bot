@@ -55,8 +55,6 @@ export const UserAdministration = () => {
     }
 
     const addUser = async () => {
-        // GET TEAM ID
-        setTeam(1);
         const newUser = {
           email: email,
           firstname: firstname,
