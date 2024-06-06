@@ -26,6 +26,7 @@ h1 {
   border-bottom: 2px solid #c84431;
   padding: 16px;
   text-align: left;
+
 }
 
 .btnX {
@@ -47,7 +48,6 @@ h1 {
   color: #BB501C;
   cursor: pointer;
   text-align: center;
-  width: 100%;
 }
 
 .error{
@@ -56,4 +56,15 @@ h1 {
   font-size: 1rem;
   text-align: center;
   margin-top: 16px;
+}
+
+.link {
+  color: #BB501C;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.link:hover {
+  text-decoration: underline;
 }

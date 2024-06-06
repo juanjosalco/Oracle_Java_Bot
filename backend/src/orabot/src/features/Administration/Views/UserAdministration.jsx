@@ -21,7 +21,7 @@ export const UserAdministration = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("Developer");
-    const [team, setTeam] = useState(1);
+    const [team, setTeam] = useState(null);
     const [phonenumber, setPhone] = useState("");
     const [error, setError] = useState("");
     const [teams, setTeams] = useState([]);
@@ -101,6 +101,7 @@ export const UserAdministration = () => {
                     defaultValue={firstname}
                     onChange={handleNameChange}
                     rows={1}
+                    style={{resize: "none"}}
                 />
                 <p className="formTitles"> Lastname </p>
                 <textarea
@@ -109,6 +110,7 @@ export const UserAdministration = () => {
                     defaultValue={lastname}
                     onChange={handleLastNameChange}
                     rows={1}
+                    style={{resize: "none"}}
                 />
                 <p className="formTitles"> Email </p>
                 <textarea
@@ -117,6 +119,7 @@ export const UserAdministration = () => {
                     defaultValue={email}
                     onChange={handleEmailChange}
                     rows={1}
+                    style={{resize: "none"}}
                 />
                 <p className="formTitles"> Password </p>
                 <textarea
@@ -125,15 +128,17 @@ export const UserAdministration = () => {
                     defaultValue={password}
                     onChange={handlePasswordChange}
                     rows={1}
+                    style={{resize: "none"}}
                 />
                 <p className="formTitles"> Role </p>
                 <select value={role} onChange={handleRoleChange}>
+                    <option key={null} value={null}>Seleccione un rol: </option>
                     <option value="1">Developer</option>
                     <option value="2">Manager</option>
-                    <option value="3">Admin</option>
                 </select>
                 <p className="formTitles"> Team </p>
                 <select value={team} onChange={handleTeamChange}>
+                    <option key={null} value={null}>Seleccione un equipo: </option>
                     {teams.map((team) => (
                         <option key={team.id} value={team.id}>{team.name}</option>
                     ))}
@@ -145,6 +150,7 @@ export const UserAdministration = () => {
                     defaultValue={phonenumber}
                     onChange={handlePhoneChange}
                     rows={1}
+                    style={{resize: "none"}}
                 />
             </div>
             <button className="btn" onClick={AddUserHandler}>Add User</button>

@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
-
 import { useUser } from "../../../hooks/useUser";
-
 import toast, { Toaster } from 'react-hot-toast';
+
 
 // Styles
 import "../Styles/Dashboard.css";
@@ -21,10 +20,12 @@ export const DashboardScreen = () => {
     const { userData } = useUser();
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const { state } = location;
 
     const handleToast = () => {
+        if(!state) return;
         if(state.toast === "taskCreated"){
             toast.success("Task created successfully", {
                 duration: 4000,
@@ -53,8 +54,9 @@ export const DashboardScreen = () => {
     }
 
     useEffect(() => {
-        handleToast()
-          });
+        if (!userData.token) navigate("/");
+        else handleToast()
+    });
 
     return (
         <>

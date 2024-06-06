@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
 // import {
 //   emailRegex,
 //   passwordRegex,
@@ -15,6 +16,7 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleEmail = (e) => {
@@ -79,31 +81,33 @@ export const LoginScreen = () => {
       <div className="container">
         <h1>Welcome to OraBot!</h1>
         <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
-
-        <div className="inputContainer">
-            <input
-              type="text"
-              placeholder="Email"
-              className="inputs"
-              value={email}
-              onChange={handleEmail}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="inputs"
-              value={password}
-              onChange={handlePassword}
-            />
-          </div>
-          {error && <p className="error">{error}</p>}
-          <button className="btnX" onClick={handleLogin}>
-            Log in
-          </button>
+          <div className="inputContainer">
+              <MyTextInput
+                type="text"
+                value={email}
+                onChange={handleEmail}
+                placeholder={"Email"}
+              />
+              <MyTextInput
+                type={isVisible ? "text" : "password"}
+                value={password}
+                onChange={handlePassword}
+                placeholder={"Password"}
+              />
+            </div>
+            {error && <p className="error">{error}</p>}
+            <button className="btnX" onClick={handleLogin}>
+              Log in
+            </button>
           </form>
-        <button className="questionBtn" onClick={handleRecover}>
-          Forgot password?
-        </button>
+        <div style={{display: "flex", flexDirection: "column",alignSelf: "center", marginTop: "8px"}}>
+         <p className="termsOfUse">
+            By logging in, you agree to our <a href="#" className="link">Terms of Use and Privacy Policy</a>.
+          </p>
+          <p className="questionBtn" onClick={handleRecover}>
+            Forgot password?
+          </p>
+        </div>
       </div>
     </>
   );
