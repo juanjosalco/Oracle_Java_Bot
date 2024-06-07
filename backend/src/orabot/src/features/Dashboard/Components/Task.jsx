@@ -62,7 +62,7 @@ export const Task = (props) => {
           <div
             className={`circle ${
               props.task.status === "ToDo"
-                ? "gris"
+                ? "grey"
                 : props.task.status === "Ongoing"
                 ? "orange"
                 : "green"

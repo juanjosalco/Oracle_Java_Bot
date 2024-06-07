@@ -41,7 +41,7 @@ export const DeveloperScreen = () => {
 
   return (
     <>
-      <div className="containerDashboard">
+      <div className="dashboard-hero">
         <h1 className="title left bold">Hi, these are your tasks</h1>
         <h3 className="subtitle">
           Here you can see and modify your assigned tasks.
