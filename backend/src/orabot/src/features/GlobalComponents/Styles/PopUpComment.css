@@ -1,9 +1,19 @@
 /* Title Section --------------------------------------------------------- */
 
+.modal-blur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(4px); 
+    z-index: 1000;  
+}
+
 .popUpContainerComment {
     background-color: whitesmoke;
     justify-content: center;
-    text-align: center;
     position: fixed;
     padding: 16px;
     overflow: hidden;
@@ -89,17 +99,12 @@
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
-.inputSection input {
-    flex: 1;
-    padding: 10px;
+.comment-input{
+    padding: 16px 8px 24px 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-    max-width: calc(100% - 120px);
+    border-radius: 4px;
 }
 
 .inputSection button {
@@ -107,26 +112,12 @@
     border: none;
     background-color: #cc523f;
     color: white;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .inputSection button:hover {
     background-color: #943324;
-}
-
-.charCounter {
-    font-size: 0.9em;
-    color: #555;
-    margin-right:5px;
-    margin-left: -2px;
-    text-align: right;
-}
-
-.charCounter.limit-reached {
-    color: red;
 }
 
 @media (max-width: 437px) {

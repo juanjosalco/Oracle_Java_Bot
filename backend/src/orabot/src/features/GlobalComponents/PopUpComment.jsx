@@ -7,6 +7,9 @@ import { useUser } from "../../hooks/useUser";
 //API
 import { createComment } from "../../api/CommentAPI";
 
+// COMPONENTS
+import { MyTextInput } from "../GlobalComponents/TextInput";
+
 const MAX_CHAR_LIMIT = 120;
 
 export const PopUpComment = ({ title, comments, onClose, taskID}) => {
@@ -27,7 +30,7 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
             setNewComment("");
           }
         } catch (error) {
-          console.error("Failed to create comment:", error);
+          console.error("Failed to create comment:", error.message);
         }
       };
 
@@ -51,37 +54,35 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     };
 
     return (
-        <div className="popUpContainerComment">
-            <div className="titleSection">
-                <button type="button" onClick={onClose} className="close-button">
-                    <img
-                        src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcross.png?alt=media&token=8a61e868-ce6b-4e0f-b8a6-1f3705e11c5e"
-                        alt="Close"
-                        width="20"
-                        height="20"
-                    />
-                </button>
-                <h1 className="titleComment">{title}</h1>
-            </div>
-            
-            <div className="commentsSection">
-                {renderComments()}
-            </div>
-
-            <div className="inputSection">
-                <input
-                    type="text"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Write a comment..."
-                    maxLength={MAX_CHAR_LIMIT}
-                />
-                <div className={`charCounter ${newComment.length === MAX_CHAR_LIMIT ? 'limit-reached' : ''}`}>
-                    {newComment.length}/{MAX_CHAR_LIMIT}
+        <div className="modal-blur">
+            <div className="popUpContainerComment">
+                <div className="titleSection">
+                    <button type="button" onClick={onClose} className="close-button">
+                        <img
+                            src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcross.png?alt=media&token=8a61e868-ce6b-4e0f-b8a6-1f3705e11c5e"
+                            alt="Close"
+                            width="20"
+                            height="20"
+                        />
+                    </button>
+                    <h1 className="titleComment">{title}</h1>
                 </div>
-                <button type="button" onClick={handleAddComment}>
-                    Add
-                </button>
+                
+                <div className="commentsSection">
+                    {renderComments()}
+                </div>
+
+                <div className="inputSection">
+                    <MyTextInput
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        type="text"
+                        placeholder="Write a comment..."
+                        className="comment-input"
+                        maxLength={MAX_CHAR_LIMIT}
+                    />
+                    <button type="button" onClick={handleAddComment}> Add </button>
+                </div>
             </div>
         </div>
     );

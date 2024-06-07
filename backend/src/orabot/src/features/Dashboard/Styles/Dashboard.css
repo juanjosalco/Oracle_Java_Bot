@@ -2,22 +2,29 @@
     font-weight: bold;
 }
 
-h3{
-    all: unset;
+h1 {
+    font-size: calc(32px + 2vmin);
+    font-weight: 700;
+    color: #3a3632;
+    margin: 0;
 }
 
-.containerDashboard{
-    margin-inline: 16px;
-    margin-bottom: 36px;
-}
+h3 {
+    font-size: calc(24px + 2vmin);
+    font-weight: 700;
+    color: #3a3632;
+    margin: 0;
+}   
 
-.containerHero{
+.dashboard-hero{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    padding: 16px;
     align-items: left;
-    margin-bottom: 36px;
-
+    background-image: url('https://axgyv8vo90ix.objectstorage.mx-queretaro-1.oci.customer-oci.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-beige-pattern');
+    background-size: repeat;
+    background-color: #F9F9F9;
+    height: 16vh;
 }
 
 .subtitle {

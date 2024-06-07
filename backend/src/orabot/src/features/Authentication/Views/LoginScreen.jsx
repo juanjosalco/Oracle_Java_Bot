@@ -26,20 +26,6 @@ export const LoginScreen = () => {
     setPassword(e.target.value);
   };
 
-  // const validateCredentials = () => {
-  //   if (email.trim() === "" || password.trim() === "") {
-  //     setError("Please enter both email and password.");
-  //     return false;
-  //   } else if (!emailRegex.test(email)) {
-  //     setError("Please enter a valid email address.");
-  //     return false;
-  //   } else if (!passwordRegex.test(password)) {
-  //     setError("Please enter a valid password.");
-  //     return false;
-  //   }
-
-  //   return true;
-  // };
 
   const handleLogin = async () => {
     const response = await login(email, password);
@@ -77,8 +63,8 @@ export const LoginScreen = () => {
   return (
     <>
       <Header back={false} />
-      <div className="container">
-        <h1>Welcome to OraBot!</h1>
+      <div className="containerBackground">
+        <h1 className="title" >Welcome to OraBot!</h1>
         <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
           <div className="inputContainer">
               <MyTextInput
@@ -99,11 +85,11 @@ export const LoginScreen = () => {
               Log in
             </button>
           </form>
-        <div style={{display: "flex", flexDirection: "column",alignSelf: "center", marginTop: "8px"}}>
+        <div className="footer">
          <p className="termsOfUse">
             By logging in, you agree to our <a href="#" className="link">Terms of Use and Privacy Policy</a>.
           </p>
-          <p className="questionBtn" onClick={handleRecover}>
+          <p className="link" onClick={handleRecover}>
             Forgot password?
           </p>
         </div>

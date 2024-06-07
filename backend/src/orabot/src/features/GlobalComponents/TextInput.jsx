@@ -37,7 +37,7 @@ export const MyTextInput = ({ label, value, onChange, type, placeholder, classNa
                     <img className="eyeButton" src={isVisible? "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-closed" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-open"} onClick={() => setIsVisible(!isVisible)} alt="fjapof">
                     </img>
                 )}
-                {maxLength? <span className="character-counter">{calculateBytes(inputValue)}/{maxLength}</span> : null}
+                {maxLength ? <span className={calculateBytes(inputValue) === maxLength ?  "character-counter-overflow" : "character-counter"} >{calculateBytes(inputValue)}/{maxLength}</span> : null}
             </div>
         </div>
     );
