@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 
 import com.talentpentagon.javabot.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Exceptions.TaskNotValidException;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -29,52 +30,51 @@ public class NewTaskCommandHandler implements GetByIdCommand<TaskItem, ResponseE
 
         // assignee
         if (task.getAssignee() == 0) {
-            throw new RuntimeException("Task assignee cannot be empty");
+            throw new TaskNotValidException("Task assignee cannot be empty");
         }
 
         // title
         if (StringUtils.isBlank(task.getTaskTitle())) {
-            throw new RuntimeException("Task title cannot be empty");
+            throw new TaskNotValidException("Task title cannot be empty");
         }
         if (!task.getTaskTitle().matches(specialChars)) {
-            throw new RuntimeException("Task title cannot contain special characters");
+            throw new TaskNotValidException("Task title cannot contain special characters");
         }
 
         // description
         if (StringUtils.isBlank(task.getDescription())) {
-            throw new RuntimeException("Task description cannot be empty");
+            throw new TaskNotValidException("Task description cannot be empty");
         }
         if (!task.getDescription().matches(specialChars)) {
-            throw new RuntimeException("Task description cannot contain special characters");
+            throw new TaskNotValidException("Task description cannot contain special characters");
         }
 
-        // TODO: Check the Condition
         // due_date
         if (task.getDueDate() == null) {
-            throw new RuntimeException("Task due date cannot be empty");
+            throw new TaskNotValidException("Task due date cannot be empty");
         }
         // Check if the due date is before now
         Date dueDate = Date.from(task.getDueDate().toInstant());
         Date now = new Date();
         // Check if the due date is before now
         if (dueDate.before(now)) {
-            throw new RuntimeException("Task due date cannot be before now");
+            throw new TaskNotValidException("Task due date cannot be before now");
         }
 
         // priority
         if (task.getPriority() == null) {
-            throw new RuntimeException("Task priority cannot be empty");
+            throw new TaskNotValidException("Task priority cannot be empty");
         }
         if (task.getPriority() < 1 || task.getPriority() > 3) {
-            throw new RuntimeException("Task priority must be between 1 and 3");
+            throw new TaskNotValidException("Task priority must be between 1 and 3");
         }
 
         // status
         if (StringUtils.isBlank(task.getStatus())) {
-            throw new RuntimeException("Task status cannot be empty");
+            throw new TaskNotValidException("Task status cannot be empty");
         }
         if ((!task.getStatus().matches("^(?i) *(ToDo|Ongoing|Done|Cancelled)$"))) {
-            throw new RuntimeException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
+            throw new TaskNotValidException("Task status must be one of 'ToDo', 'Ongoing', 'Done', 'Cancelled'");
         }
 
         taskService.addTask(task);
