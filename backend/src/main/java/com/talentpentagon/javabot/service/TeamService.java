@@ -47,6 +47,8 @@ public class TeamService {
                 .filter(task -> priority == 0 || task.getPriority().equals(priority)) // Filter by priority
                 .collect(Collectors.toList()); // Collect filtered tasks
 
+            if(!status.equals("Cancelled")) tasks.removeIf(task -> task.getStatus().equals("Cancelled") || task.isArchived());
+
             // Sort by
             if (sortBy.equals("creationDate")) {
                 tasks.sort((t1, t2) -> t1.getCreationDate().compareTo(t2.getCreationDate()));
