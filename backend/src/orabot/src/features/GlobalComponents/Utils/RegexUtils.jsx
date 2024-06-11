@@ -1,48 +1,67 @@
-// Email Regex to ensure:
-// There are no spaces (^\s).
-// The local part and domain can have any character except spaces and @.
-// There is at least one . in the domain part.
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Regex patterns for validation
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/;
+const nameRegex = /^[A-Za-z0-9\s._%\-!@#\$&\*\(\)]{1,64}$/;
+const taskDescriptionRegex = /^[A-Za-z0-9\s._%\-!@#\$&\*\(\)]{1,300}$/;
+const priorityRegex = /^[123]$/;
+const dueDateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/;
+const statusRegex = /^(ToDo|Ongoing|Done|Cancelled)$/;
+const commentsRegex = /^[A-Za-z0-9\s._%\-!@#\$&\*\(\)]{1,120}$/;
+const creationDateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/;
+const userRoleRegex = /^(Developer|Manager)$/;
 
-// Password Regex to ensure:
-// Ensure at least one letter.
-// Ensure at least one digit.
-// Ensure at least one special character from the set @$!%*#?&.
-// Ensure the password length is at least 8 characters.
-export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+// Sanitization for HTML injection patterns
+const sanitizeHTML = (input) =>
+  input.replace(/[<>&'"]/g, (match) =>
+    ({
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      "'": '&apos;',
+      '"': '&quot;'
+    }[match])
+  );
 
-// Task Title Regex to ensure:
-// Allow letters, numbers, dots, underscores, percent signs, and hyphens.
-// Ensure a minimum length of 3 characters.
-export const taskTitleRegex = /^[A-Za-z0-9._%-]{3,}$/;
-export const taskNameRegex = /^[A-Za-z0-9\s._%-]{3,}$/;
-export const taskDescriptionRegex = /^[A-Za-z0-9\s._%\-!@#\$&\*\(\)]+$/;
-export const commentsRegex = /^[A-Za-z0-9\s._%\-!@#\$&\*\(\)]+$/;
-export const priorityRegex = /^[123]$/;
-export const dueDateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/;
-export const statusRegex = /^(ToDo|Ongoing|Done|Cancelled)$/;
+// Sanitization for SQL injection patterns
+const sanitizeSQL = (input) => {
+  const sqlInjectionPatterns = [
+    /--/g,       // SQL comment
+    /\/\*/g,     // SQL multi-line comment start
+    /\*\//g,     // SQL multi-line comment end
+    /\\'/g,      // SQL escape single quote
+    /\\\x1a/g,   // ASCII 26 (EOF character)
+    /OR\s+\d+\s*=\s*\d+/gi,  // OR 1=1, OR 1=2, etc.
+    /UNION\s+SELECT/gi,  // UNION SELECT
+  ];
 
-// Most critical characters for preventing HTML injection: <, >, &, ', and ".
-export const sanitizeInput = (input) =>
-  input.replace(
-    /[<>&'"]/g,
-    (match) =>
-      ({
-        "<": "&lt;",
-        ">": "&gt;",
-        "&": "&amp;",
-        "'": "&apos;",
-        '"': "&quot;",
-      }[match])
-    );
+  let sanitized = input;
+  sqlInjectionPatterns.forEach((pattern) => {
+    sanitized = sanitized.replace(pattern, '');
+  });
 
-// Uncomment these if you need validation functions
-export const validateEmail = (_email) => emailRegex.test(_email);
-export const validatePassword = (_password) => passwordRegex.test(_password);
-export const validateTaskTitle = (_taskTitle) => taskTitleRegex.test(_taskTitle);
-export const validateTaskName = (_taskName) => taskNameRegex.test(_taskName);
-export const validateTaskDescription = (_taskDescription) => taskDescriptionRegex.test(_taskDescription);
-export const validateComments = (_comments) => commentsRegex.test(_comments);
-export const validatePriority = (_priority) => priorityRegex.test(_priority);
-export const validateDueDate = (_dueDate) => dueDateRegex.test(_dueDate);
-export const validateStatus = (_status) => statusRegex.test(_status);
+  return sanitized;
+};
+
+const sanitizeInput = (input) => {
+  let sanitized = sanitizeHTML(input);
+  sanitized = sanitizeSQL(sanitized);
+  return sanitized;
+};
+
+module.exports = {
+  emailRegex,
+  passwordRegex,
+  nameRegex,
+  taskDescriptionRegex,
+  priorityRegex,
+  dueDateRegex,
+  statusRegex,
+  commentsRegex,
+  creationDateRegex,
+  userRoleRegex,
+  sanitizeInput
+};
+
+
+
+
