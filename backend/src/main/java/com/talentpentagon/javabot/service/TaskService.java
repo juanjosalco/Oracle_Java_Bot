@@ -98,6 +98,10 @@ public class TaskService {
             updatedTask.setCreationDate(task.getCreationDate());
             updatedTask.setDescription(task.getDescription());
             updatedTask.setStatus(task.getStatus());
+
+            if(task.getStatus().equals("Cancelled")) updatedTask.setArchived(true);
+            else updatedTask.setArchived(false);
+            
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
@@ -116,7 +120,7 @@ public class TaskService {
         } 
         
         else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
-           
+
     }
 
     // Get user archived tasks
@@ -127,7 +131,6 @@ public class TaskService {
         tasks.removeIf(task -> !task.isArchived());
         tasks.removeIf(task -> !task.getStatus().equals("Cancelled"));
         return tasks;
-
     }
 
 }
