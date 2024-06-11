@@ -74,7 +74,7 @@ public class TaskService {
 
         if(tasks != null){
             if(status != "Cancelled") tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
-            else tasks.removeIf(task -> !task.getStatus().equals("Cancelled"));
+            else tasks.removeIf(task -> !task.getStatus().equals("Cancelled") || task.isArchived());
         }
 
         tasks.removeIf(task -> task.isArchived());
@@ -116,7 +116,18 @@ public class TaskService {
         } 
         
         else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
-        
+           
+    }
+
+    // Get user archived tasks
+    public List<TaskItem> getUserArchivedTasks(Integer assignee) {
+        List<TaskItem> tasks = taskRepository.findByAssignee(assignee, Sort.by(Sort.Direction.ASC, "creationDate"));
+        tasks.stream().filter(task -> task.isArchived() || task.getStatus().equals("Cancelled"));
+
+        tasks.removeIf(task -> !task.isArchived());
+        tasks.removeIf(task -> !task.getStatus().equals("Cancelled"));
+        return tasks;
+
     }
 
 }

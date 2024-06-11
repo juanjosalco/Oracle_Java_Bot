@@ -8,6 +8,8 @@ import com.talentpentagon.javabot.queryhandlers.GetTaskByIdCommandHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTasksByTeamHandler;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByUserCommandHandler;
 import com.talentpentagon.javabot.security.JWTUtil;
+import com.talentpentagon.javabot.service.TaskService;
+import com.talentpentagon.javabot.service.TeamService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,12 @@ public class TaskController {
 
     @Autowired
     private GetTasksByTeamHandler getTaskByTeamHandler;
+
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private TeamService teamService;
 
     // Get single task
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -119,6 +127,24 @@ public class TaskController {
             t.setStatusChangeDate(task.getStatusChangeDate());
         }
         return editTaskStatusCommandHandler.execute(t);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Developer')")
+    @GetMapping("/task/team/archived")
+    public ResponseEntity<List<TaskItem>> getTeamArchivedTasks(@RequestHeader(name = "Authorization") String token){
+        int teamId = JWTUtil.extractTeamId(token);
+        List<TaskItem> tasks = teamService.getTeamArchivedTasks(teamId);
+        return ResponseEntity.ok(tasks);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Developer')")
+    @GetMapping("/task/user/archived")
+    public ResponseEntity<List<TaskItem>> getUserArchivedTasks(@RequestHeader(name = "Authorization") String token){
+        int assignee = JWTUtil.extractId(token);
+        List<TaskItem> tasks = taskService.getUserArchivedTasks(assignee);
+        return ResponseEntity.ok(tasks);
     }
 
 }

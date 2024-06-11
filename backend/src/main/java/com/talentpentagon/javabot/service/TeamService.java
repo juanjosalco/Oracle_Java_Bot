@@ -47,7 +47,7 @@ public class TeamService {
                 .filter(task -> priority == 0 || task.getPriority().equals(priority)) // Filter by priority
                 .collect(Collectors.toList()); // Collect filtered tasks
 
-            if(!status.equals("Cancelled")) tasks.removeIf(task -> task.getStatus().equals("Cancelled") || task.isArchived());
+           tasks.removeIf(task -> task.getStatus().equals("Cancelled") || task.isArchived());
 
             // Sort by
             if (sortBy.equals("creationDate")) {
@@ -62,6 +62,20 @@ public class TeamService {
         
     }
 
+    // Get team archived tasks by team id
+    public List<TaskItem> getTeamArchivedTasks(int id){
+        Optional<Team> teamOptional = teamRepository.findById(id);
+
+        if (!teamOptional.isPresent()) return new ArrayList<>();
+            Team team = teamOptional.get();
+            List<TaskItem> tasks = team.getMembers().stream()
+                .flatMap(member -> member.getAssignedTasks().stream())
+                .filter(task -> task.isArchived() || task.getStatus().equals("Cancelled"))
+                .collect(Collectors.toList());
+
+            return tasks;
+    }
+
     // Get team members by team id
     public Map<Integer, String> getTeamMembers(Integer id){
         Optional<Team> team = teamRepository.findById(id);
@@ -71,9 +85,9 @@ public class TeamService {
 
             if(!team.isPresent()) return null;
                 team.get().getMembers().forEach(member -> {
+                    if(!member.getRole().equals("Manager")) return;
                     members.put(member.getId(), member.getFirstName() + " " + member.getLastName());
             });
-
 
             return members;
         }
