@@ -1,5 +1,7 @@
 package com.talentpentagon.javabot.commandhandlers;
 
+import java.util.Optional;
+
 // import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.talentpentagon.javabot.Commands.PostPutCommand;
+import com.talentpentagon.javabot.Exceptions.TaskNotFoundException;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -23,6 +26,13 @@ public class EditTaskCommandHandler implements PostPutCommand<TaskItem, Response
 
     @Override
     public ResponseEntity<TaskItem> execute(TaskItem task) {
+
+        Optional<TaskItem> optionalTask = taskService.findTaskById(task.getId());
+
+        if (optionalTask.isEmpty()) {
+            throw new TaskNotFoundException();
+        }
+
         // title
         if (StringUtils.isBlank(task.getTaskTitle())) {
             throw new RuntimeException("Task title cannot be empty");
@@ -58,7 +68,8 @@ public class EditTaskCommandHandler implements PostPutCommand<TaskItem, Response
         }
 
         taskService.updateTask(task.getId(), task);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
+        // return ResponseEntity.status(HttpStatus.NO_CONTENT).body(task);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
 
     }
 

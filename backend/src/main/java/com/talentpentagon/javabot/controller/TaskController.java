@@ -2,6 +2,7 @@ package com.talentpentagon.javabot.controller;
 
 import java.util.List;
 
+import com.talentpentagon.javabot.Exceptions.TaskNotFoundException;
 import com.talentpentagon.javabot.commandhandlers.*;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.queryhandlers.GetTaskByIdCommandHandler;
@@ -10,9 +11,12 @@ import com.talentpentagon.javabot.queryhandlers.GetTaskByUserCommandHandler;
 import com.talentpentagon.javabot.security.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,6 +123,11 @@ public class TaskController {
             t.setStatusChangeDate(task.getStatusChangeDate());
         }
         return editTaskStatusCommandHandler.execute(t);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<String> handleTaskNotFoundException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
     }
 
 }

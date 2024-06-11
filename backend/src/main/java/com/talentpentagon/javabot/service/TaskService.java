@@ -35,50 +35,62 @@ public class TaskService {
         }
     }
 
+    // Get individual task data by id and return Optional
+    public Optional<TaskItem> findTaskById(int id) {
+        return taskRepository.findById(id);
+    }
+
     // Returns the tasks assigned to an user
-    public ResponseEntity<List<TaskItem>> getTasksForUser(Integer assignee, String sortBy, String status, Integer priority) {
-        
+    public ResponseEntity<List<TaskItem>> getTasksForUser(Integer assignee, String sortBy, String status,
+            Integer priority) {
+
         // Return a Bad Request if the assignee is null
-        if (assignee == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        
+        if (assignee == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
         // Sorter "attributes" to give our sort object
         Sort.Direction direction = Sort.Direction.ASC;
         if (sortBy.startsWith("-")) {
             direction = Sort.Direction.DESC;
             sortBy = sortBy.substring(1);
-        }
-        else direction = Sort.Direction.ASC;
+        } else
+            direction = Sort.Direction.ASC;
 
         // Assign the parameters to the sort object
         Sort sort = Sort.by(direction, sortBy);
 
-        // Get the tasks assigned to the user. Here we'll get all tasks assigned to the user depending on the filters.
+        // Get the tasks assigned to the user. Here we'll get all tasks assigned to the
+        // user depending on the filters.
         List<TaskItem> tasks = null;
-        if(status.equals("ALL") && priority == 0){
-            tasks = taskRepository.findByAssignee(assignee, sort); System.out.println("Only assignee");
-        } 
-        else if(status.equals("ALL") && !(priority == 0)){
-            tasks = taskRepository.findByAssigneeAndPriority(assignee, priority, sort); System.out.println("Assignee and priority");
-        } 
-        else if(!status.equals("ALL") && priority == 0){
-            tasks = taskRepository.findByAssigneeAndStatus(assignee, status, sort); System.out.println("Assignee and status");
-        } 
-        else if(!status.equals("ALL") && !(priority == 0)){
-            tasks = taskRepository.findByAssigneeAndStatusAndPriority(assignee, status, priority, sort); System.out.println("Assignee, status and priority");
-        } 
-
-        // Check if tasks were found for the user
-        if(tasks != null){
-            if (tasks.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+        if (status.equals("ALL") && priority == 0) {
+            tasks = taskRepository.findByAssignee(assignee, sort);
+            System.out.println("Only assignee");
+        } else if (status.equals("ALL") && !(priority == 0)) {
+            tasks = taskRepository.findByAssigneeAndPriority(assignee, priority, sort);
+            System.out.println("Assignee and priority");
+        } else if (!status.equals("ALL") && priority == 0) {
+            tasks = taskRepository.findByAssigneeAndStatus(assignee, status, sort);
+            System.out.println("Assignee and status");
+        } else if (!status.equals("ALL") && !(priority == 0)) {
+            tasks = taskRepository.findByAssigneeAndStatusAndPriority(assignee, status, priority, sort);
+            System.out.println("Assignee, status and priority");
         }
 
-        if(tasks != null){
+        // Check if tasks were found for the user
+        if (tasks != null) {
+            if (tasks.isEmpty())
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tasks);
+        }
+
+        if (tasks != null) {
             // Filter the tasks based on the status and priority
             tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
         }
 
-        if (status.equals("ALL")) return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
-        else return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
+        if (status.equals("ALL"))
+            return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
+        else
+            return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
     }
 
     // Add a new task
@@ -111,14 +123,16 @@ public class TaskService {
             task.get().setStatusChangeDate(OffsetDateTime.now().plusDays(0));
             taskRepository.save(task.get());
             return new ResponseEntity<TaskItem>(HttpStatus.NO_CONTENT);
-        } 
-        
-        else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
-        
+        }
+
+        else
+            return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
+
     }
 
     // Sort and filter data
-    public ResponseEntity<List<TaskItem>> sortAndFilter(List<TaskItem> tasks, String sortBy, String status, Integer priority) {
+    public ResponseEntity<List<TaskItem>> sortAndFilter(List<TaskItem> tasks, String sortBy, String status,
+            Integer priority) {
 
         // Sort
         if (sortBy.equals("dueDate")) {
@@ -132,9 +146,11 @@ public class TaskService {
         }
 
         // Filter
-        if (!status.equals("ALL")) tasks.removeIf(task -> !task.getStatus().equals(status));
-        if (!(priority == 0)) tasks.removeIf(task -> !task.getPriority().equals(priority));
-        
+        if (!status.equals("ALL"))
+            tasks.removeIf(task -> !task.getStatus().equals(status));
+        if (!(priority == 0))
+            tasks.removeIf(task -> !task.getPriority().equals(priority));
+
         return ResponseEntity.ok(tasks);
     }
 

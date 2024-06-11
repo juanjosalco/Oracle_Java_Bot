@@ -1,6 +1,7 @@
 package com.talentpentagon.javabot.queryhandlers;
 
 import com.talentpentagon.javabot.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Exceptions.TaskNotFoundException;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -22,10 +23,12 @@ public class GetTaskByIdCommandHandler implements GetByIdCommand<Integer, Respon
         // Check if tasks were found
         if (id == null) {
             throw new RuntimeException("User ID cannot be null");
+            // throw new TaskNotFoundException();
         }
         TaskItem task = taskService.getTaskById(id).getBody();
         if (task == null) {
-            throw new RuntimeException("No tasks found for the provided Id");
+            // throw new RuntimeException("No tasks found for the provided Id");
+            throw new TaskNotFoundException();
         }
 
         taskService.getTaskById(id);
