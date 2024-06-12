@@ -10,6 +10,7 @@ import { MyTextInput } from "../../GlobalComponents/TextInput";
 import { useUser } from "../../../hooks/useUser";
 import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
 import { login } from "../../../api/AuthAPI";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const LoginScreen = () => {
   const { saveUserData } = useUser();
@@ -81,13 +82,11 @@ export const LoginScreen = () => {
               />
             </div>
             {error && <p className="error">{error}</p>}
-            <button className="btnX" onClick={handleLogin}>
-              Log in
-            </button>
+            <MyButton text={"Log in"} onClick={handleLogin}></MyButton>
           </form>
         <div className="footer">
          <p className="termsOfUse">
-            By logging in, you agree to our <a href="#" className="link">Terms of Use and Privacy Policy</a>.
+            By logging in, you agree to our <a href="https://www.google.com/" className="link">Terms of Use and Privacy Policy</a>.
           </p>
           <p className="link" onClick={handleRecover}>
             Forgot password?

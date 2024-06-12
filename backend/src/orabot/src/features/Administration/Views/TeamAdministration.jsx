@@ -8,6 +8,8 @@ import { Header } from "../../GlobalComponents/Header";
 import { useUser } from "../../../hooks/useUser";
 
 import { postTeam } from "../../../api/AdminAPI";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 
 export const TeamAdministration = () => {
@@ -56,33 +58,34 @@ export const TeamAdministration = () => {
         <>
             <Header back={true} />
             <div className="formContainer">
-                <p className="formTitles"> Name </p>
-                <textarea
+                <h1 className="formTitles"> Name </h1>
+                <MyTextInput
                     placeholder="Name"
-                    className="inputArea"
-                    defaultValue={name}
+                    value={name}
                     onChange={handleNameChange}
-                    rows={1}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
                 <p className="formTitles"> Description </p>
-                <textarea
+                <MyTextInput
                     placeholder="Description"
-                    className="inputArea"
-                    defaultValue={description}
+                    value={description}
                     onChange={handleDescriptionChange}
-                    rows={1}
-                />
+                    className={"inputArea"}
+                >
+                </MyTextInput>
                 <p className="formTitles"> Manager </p>
-                <textarea
-                    placeholder="Description"
-                    className="inputArea"
-                    defaultValue={manager}
+                <MyTextInput
+                    placeholder="Manager"
+                    value={manager}
                     onChange={handleManagerChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Members </p>
+                    className={"inputArea"}
+                >
+                </MyTextInput>
             </div>
-            <button className="btn" onClick={AddTeamHandler}>Create Team</button>
+            <div className="buttonsContainer">
+                <MyButton text={"Cancel"} onClick={() => navigate("/dashboard")}></MyButton>
+                <MyButton text={"Create Team"} onClick={AddTeamHandler} className={"button red"}></MyButton>
+            </div>
             {error && <p className="error">{error}</p>}
         </>
     );

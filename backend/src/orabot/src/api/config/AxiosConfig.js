@@ -1,5 +1,5 @@
 export const axiosConfig = {
-    baseURL: "http://localhost:8080",
+    baseURL: "https://team16.kenscourses.com:8483",
     headers: {
         "Content-Type": "application/json",
     }

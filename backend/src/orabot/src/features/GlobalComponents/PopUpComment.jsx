@@ -9,29 +9,32 @@ import { createComment } from "../../api/CommentAPI";
 
 // COMPONENTS
 import { MyTextInput } from "../GlobalComponents/TextInput";
+import { MyButton } from "./Button";
 
 const MAX_CHAR_LIMIT = 120;
 
 export const PopUpComment = ({ title, comments, onClose, taskID}) => {
     const [newComment, setNewComment] = useState("");
     const [allComments, setAllComments] = useState(Array.isArray(comments) ? comments : []);
+    const [error, setError] = useState("");
     const { userData } = useUser();
 
     const handleAddComment = async () => {
-        if (newComment.trim() === "") return;
+        if (newComment.trim() === ""){
+            setError("Comment cannot be empty");
+            return;
+        };
     
         const token = userData.token;
         const comment = { commenterId: userData.UID, message: newComment, taskId: taskID, creationDate: new Date()}; 
     
-        try {
-          const createdComment = await createComment(comment, token);
-          if (!createdComment.error) {
-            setAllComments([...allComments, createdComment]);
+        const response = await createComment(comment, token);
+        if (response.error) {
+            setError(response.error);
+        } else {
+            setAllComments([...allComments, response]);
             setNewComment("");
           }
-        } catch (error) {
-          console.error("Failed to create comment:", error.message);
-        }
       };
 
       const renderComments = () => {
@@ -71,7 +74,7 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
                 <div className="commentsSection">
                     {renderComments()}
                 </div>
-
+                {/* TODO BUG this input is not erased after sending the comment */}
                 <div className="inputSection">
                     <MyTextInput
                         value={newComment}
@@ -81,8 +84,9 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
                         className="comment-input"
                         maxLength={MAX_CHAR_LIMIT}
                     />
-                    <button type="button" onClick={handleAddComment}> Add </button>
+                    <MyButton text="Add" onClick={handleAddComment} type="button"/>
                 </div>
+                {error && <p className="error">{error}</p>}
             </div>
         </div>
     );

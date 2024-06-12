@@ -10,6 +10,8 @@ import { PopUp } from "../../GlobalComponents/PopUp";
 
 import { postTask, deleteTask, updateTask } from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 const Statuses = ["ToDo", "Ongoing", "Done"];
 
@@ -182,14 +184,16 @@ export const TaskInformationScreen = () => {
           <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
         </div>
         {role === "Developer" ? (
-          <input
-            type="text"
-            placeholder="Title"
-            className="inputsSpe"
-            defaultValue={title}
-            maxLength={MAX_TITLE_CHAR_LIMIT}
+          <MyTextInput 
+            type={"text"}
+            value={title}
             onChange={handleTitleChange}
-          />
+            placeholder={"Title"}
+            maxLength={MAX_TITLE_CHAR_LIMIT}
+            className={"inputsSpe"}
+            >
+          </MyTextInput>
+
         ) : (
           <p className="taskTitle">{state.task.title}</p>
         )}
@@ -206,6 +210,7 @@ export const TaskInformationScreen = () => {
             maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
             rows={5}
             onChange={handleDescriptionChange}
+            style={{ resize: "none" }}
           />
         ) : (
           <p className="taskTitle">{state.task.description}</p>
@@ -270,17 +275,11 @@ export const TaskInformationScreen = () => {
         <div style={{ marginBottom: 16, marginTop: 8 }}>
           {role === "Developer" && (
             <div className="buttonsContainer">
-              <button className="button black" onClick={handleClick}>
-                Cancel
-              </button>
+              <MyButton text={"Cancel"} onClick={handleClick}></MyButton>
               {state.isNewTask ? (
-                <button className="button black" onClick={handleCreate}>
-                  Create
-                </button>
+                <MyButton text={"Create"} onClick={handleCreate} className={"button red"}></MyButton>
               ) : (
-                <button className="button black" onClick={handleClick}>
-                  Save
-                </button>
+                <MyButton text={"Delete"} onClick={handleClick}></MyButton>
               )}
             </div>
           )}
@@ -288,16 +287,13 @@ export const TaskInformationScreen = () => {
           {role === "Developer" ? (
             !state.isNewTask && (
               <div className="buttonsContainer">
-                <button className="button red" onClick={handleClick}>
-                  Delete
-                </button>
+                <MyButton text={"Save"} onClick={handleClick} className={"button red"}></MyButton>
+
               </div>
             )
           ) : (
             <div className="buttonsContainer">
-              <button className="button black" onClick={handleConfirm}>
-                Return to Dashboard
-              </button>
+              <MyButton text={"Return to Dashboard"} onClick={handleConfirm} ></MyButton>
             </div>
           )}
         </div>

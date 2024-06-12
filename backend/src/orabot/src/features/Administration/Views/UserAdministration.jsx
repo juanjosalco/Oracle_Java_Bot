@@ -8,6 +8,8 @@ import "../Styles/Administration.css";
 import { postUser, getAllTeams } from "../../../api/AdminAPI";
 
 import { useUser } from "../../../hooks/useUser";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const UserAdministration = () => {
     const { userData } = useUser();
@@ -95,65 +97,58 @@ export const UserAdministration = () => {
             <Header back={true} />
             <div className="formContainer">
                 <p className="formTitles"> Name </p>
-                <textarea
+                <MyTextInput
                     placeholder="Name"
-                    className="inputArea"
-                    defaultValue={firstname}
+                    value={firstname}
                     onChange={handleNameChange}
-                    rows={1}
-                    style={{resize: "none"}}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
                 <p className="formTitles"> Lastname </p>
-                <textarea
+                <MyTextInput
                     placeholder="Lastname"
-                    className="inputArea"
-                    defaultValue={lastname}
+                    value={lastname}
                     onChange={handleLastNameChange}
-                    rows={1}
-                    style={{resize: "none"}}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
                 <p className="formTitles"> Email </p>
-                <textarea
+                <MyTextInput
                     placeholder="Email"
-                    className="inputArea"
-                    defaultValue={email}
+                    value={email}
                     onChange={handleEmailChange}
-                    rows={1}
-                    style={{resize: "none"}}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
                 <p className="formTitles"> Password </p>
-                <textarea
+                <MyTextInput
                     placeholder="Password"
-                    className="inputArea"
-                    defaultValue={password}
+                    value={password}
                     onChange={handlePasswordChange}
-                    rows={1}
-                    style={{resize: "none"}}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
                 <p className="formTitles"> Role </p>
                 <select value={role} onChange={handleRoleChange}>
-                    <option key={null} value={null}>Seleccione un rol: </option>
+                    <option key={null} value={null}>Select a rol: </option>
                     <option value="1">Developer</option>
                     <option value="2">Manager</option>
                 </select>
                 <p className="formTitles"> Team </p>
                 <select value={team} onChange={handleTeamChange}>
-                    <option key={null} value={null}>Seleccione un equipo: </option>
+                    <option key={null} value={null}>Select a team: </option>
                     {teams.map((team) => (
                         <option key={team.id} value={team.id}>{team.name}</option>
                     ))}
                 </select>
                 <p className="formTitles"> Phone number </p>
-                <textarea
+                <MyTextInput
                     placeholder="Phone number"
-                    className="inputArea"
-                    defaultValue={phonenumber}
+                    value={phonenumber}
                     onChange={handlePhoneChange}
-                    rows={1}
-                    style={{resize: "none"}}
-                />
+                    className={"inputArea"}
+                ></MyTextInput>
             </div>
-            <button className="btn" onClick={AddUserHandler}>Add User</button>
+            <div className="buttonsContainer">
+                <MyButton text="Cancel" onClick={() => navigate("/dashboard")}></MyButton>
+                <MyButton text="Add User" onClick={AddUserHandler} className="button red"></MyButton>
+            </div>
             {error && <p className="error">{error}</p>}
         </>
     );

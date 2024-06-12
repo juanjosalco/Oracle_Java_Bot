@@ -9,6 +9,8 @@ import { emailSend } from "../../../api/EmailAPI";
 
 // Styles
 import "../Styles/Recover.css";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const RecoverScreen = () => {
     const navigate = useNavigate();
@@ -41,17 +43,18 @@ export const RecoverScreen = () => {
                 <div className="options">
                     <button className={"btnSelector borderSelected"}>Password reset</button>
                 </div>
-                <h1 className="title">Provide your information so we can help you recover your account.</h1>
+                <h1 className="titleRecover">Provide your information so we can help you recover your account.</h1>
                 <div className="inputContainer">
-                    <input 
-                        type="text" 
-                        placeholder="Email" 
-                        className="inputs" 
-                        value={userEmail} 
-                        onChange={handleEmail} />
+                    <MyTextInput 
+                        type={"text"}
+                        placeholder={"Email"}
+                        value={userEmail}
+                        onChange={handleEmail}>
+
+                    </MyTextInput>
                 </div>
                 {error && <p className="error">{error}</p>}
-                <button className="btnX" onClick={handleEmailSend}>Send</button>
+                <MyButton text={"Send"} onClick={handleEmailSend} className={"btnGlobal"}/>
             </div>
         </>
     );
