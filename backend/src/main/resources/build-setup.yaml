@@ -99,7 +99,7 @@ steps:
     name: "Build frontend image"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
-      docker build --platform=linux/arm64 -f DockerfileFront -t frontend-image .
+      docker build -f DockerfileFront -t frontend-image .
 
 outputArtifacts:
   - name: orabot
