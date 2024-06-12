@@ -101,7 +101,7 @@ public class TaskService {
 
             if(task.getStatus().equals("Cancelled")) updatedTask.setArchived(true);
             else updatedTask.setArchived(false);
-            
+
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
@@ -131,6 +131,20 @@ public class TaskService {
         tasks.removeIf(task -> !task.isArchived());
         tasks.removeIf(task -> !task.getStatus().equals("Cancelled"));
         return tasks;
+    }
+
+    // Archive a task
+    public ResponseEntity<TaskItem> archiveTask(int id) {
+        Optional<TaskItem> optionalTask = taskRepository.findById(id);
+
+        if (optionalTask.isPresent()) {
+            TaskItem updatedTask = taskRepository.save(optionalTask.get());
+            updatedTask.setArchived(!optionalTask.get().isArchived());
+            updatedTask.setId(id);
+            return new ResponseEntity<TaskItem>(HttpStatus.NO_CONTENT);
+        } 
+        
+        else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
     }
 
 }

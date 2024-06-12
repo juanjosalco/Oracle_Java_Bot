@@ -130,7 +130,7 @@ public class TaskController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PreAuthorize("hasRole('Developer')")
+    @PreAuthorize("hasRole('Manager')")
     @GetMapping("/task/team/archived")
     public ResponseEntity<List<TaskItem>> getTeamArchivedTasks(@RequestHeader(name = "Authorization") String token){
         int teamId = JWTUtil.extractTeamId(token);
@@ -145,6 +145,15 @@ public class TaskController {
         int assignee = JWTUtil.extractId(token);
         List<TaskItem> tasks = taskService.getUserArchivedTasks(assignee);
         return ResponseEntity.ok(tasks);
+    }
+    
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Developer')")
+    @PutMapping("/task/{id}/archive")
+    public ResponseEntity<TaskItem> archiveTask(@PathVariable int id){
+        taskService.archiveTask(id);
+        TaskItem task = getTaskByIdCommandHandler.execute(id).getBody();
+        return ResponseEntity.ok(task);
     }
 
 }
