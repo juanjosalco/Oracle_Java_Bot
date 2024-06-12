@@ -46,7 +46,7 @@ steps:
     name: "Define unique image tag"
     command: |
       export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
-      echo "BUILDRUN_HASH: "$BUILDRUN_HASH"
+      echo "BUILDRUN_HASH: "$BUILDRUN_HASH
 
   - type: Command
     name: "Download Java 17"
