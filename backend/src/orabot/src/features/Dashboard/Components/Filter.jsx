@@ -19,12 +19,23 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
   const [sortBy, setSortBy] = useState("creationDate");
   const [statusName, setStatusName] = useState("ALL");
 
+  // const priorityOriginal = priority;
+  // const statusOriginal = status;
+  // const sortByOriginal = sortBy;
+
   const [teamMembers, setTeamMembers] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
+    // setPriority(-1);
+    // setStatus(statusOriginal);
+    // setSortBy(sortByOriginal);
+  };
+
+  const applyFilter = () => {
+    setShowModal(false);
     onFilterBy({priority: priority+1, status: statusName, sortBy: sortBy});
   };
 
@@ -67,7 +78,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
 
   return (
     <div className="filterContainer">
-       <Modal show={showModal} handleClose={toggleModal} title={"Sort by"}>
+       <Modal show={showModal} handleClose={toggleModal} applyFilter={applyFilter} title={"Sort by"}>
         <div>
           <div >
             <h3 >Sort by: </h3>

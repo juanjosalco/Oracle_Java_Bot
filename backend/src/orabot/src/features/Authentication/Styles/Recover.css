@@ -4,6 +4,16 @@
     text-align: center;
 }
 
+.titleRecover{
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    color: #100F0E;
+}
+
 .options{
     display: flex;
     justify-content: space-between;

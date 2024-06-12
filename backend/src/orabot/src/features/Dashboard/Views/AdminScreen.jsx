@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { NavLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom"; 
 import { useUser } from "../../../hooks/useUser";
 import { getBlockedUsers, unblockUser } from "../../../api/AdminAPI";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const AdminScreen = () => {
 
     const { userData } = useUser();
     const [blockedUsers, setBlockedUsers] = useState([]);
+    const navigate = useNavigate();
 
     const unlockHandler = async (userID) => {
         try {
@@ -35,15 +37,15 @@ export const AdminScreen = () => {
         <>
             <div className="containerDashboard">
                 <div className="containerHero">
-                    <h1 className="title left bold">Hi, this is the administrator view</h1>
-                    <h3 className="subtitle">Here you can administrate teams, and unblock users</h3>
+                    <h1>Hi, this is the administrator view</h1>
+                    <h3>Here you can administrate teams, and unblock users</h3>
                 </div>
-                <div>
-                    <NavLink to="/team" className="btnDash">Create Team</NavLink>
-                    <NavLink to="/user" className="btnDash">Add User</NavLink>
+                <div className="buttonsContainer">
+                    <MyButton onClick={() => {navigate("/team")}} text={"Create Team"}></MyButton>
+                    <MyButton onClick={() => {navigate("/user")}} text={"Add User"}></MyButton>
                 </div>
 
-                <h1 className="title left bold">Blocked Users</h1>
+                <h1>Blocked Users</h1>
                 {
                     blockedUsers ? blockedUsers.map((user, index) => (
                     <div key={index} className="blockedUser">

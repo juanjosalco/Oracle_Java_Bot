@@ -146,6 +146,7 @@ p {
   height: 40px;
   align-self: center;
   border-radius: 16px;
+  cursor: pointer;
 }
 
 .teamM{
