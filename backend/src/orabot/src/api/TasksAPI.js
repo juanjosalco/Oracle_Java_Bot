@@ -29,6 +29,33 @@ export const getTeamTasks = async (token, priority, sortBy, status) => {
   }
 };
 
+
+// Archived
+export const getTeamArchivedTasks = async (token) => {
+  try {
+    const response = await axios.get(`${url}/api/v1/task/team/archived`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
+    return { error: err.response.data};
+  }
+};
+
+export const getUserArchivedTasks = async (token) => {
+  try {
+    const response = await axios.get(`${url}/api/v1/task/user/archived`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
+    return { error: err.response.data};
+  }
+}
+
+
 export const postTask = async (token, task) => {
   try {
     const response = await axios.post(
