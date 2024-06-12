@@ -106,6 +106,20 @@ export const deleteTask = async (token, taskId, task) => {
   }
 };
 
+export const archiveTask = async(token, taskId) => {
+  try {
+    const response = await axios.put(
+      `${url}/api/v1/task/${taskId}/archive`,
+      {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
+    return { error: err.response.data};
+  }
+
+}
+
 export const updateTask = async (token, taskId, task) => {
   try {
     const response = await axios.put(

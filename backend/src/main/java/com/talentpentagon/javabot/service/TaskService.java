@@ -3,6 +3,7 @@ package com.talentpentagon.javabot.service;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TaskRepository;
@@ -99,7 +100,7 @@ public class TaskService {
             updatedTask.setDescription(task.getDescription());
             updatedTask.setStatus(task.getStatus());
 
-            if(task.getStatus().equals("Cancelled")) updatedTask.setArchived(true);
+            if(updatedTask.getStatus().equals("Cancelled")) updatedTask.setArchived(true);
             else updatedTask.setArchived(false);
 
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.NO_CONTENT);
@@ -126,11 +127,9 @@ public class TaskService {
     // Get user archived tasks
     public List<TaskItem> getUserArchivedTasks(Integer assignee) {
         List<TaskItem> tasks = taskRepository.findByAssignee(assignee, Sort.by(Sort.Direction.ASC, "creationDate"));
-        tasks.stream().filter(task -> task.isArchived() || task.getStatus().equals("Cancelled"));
+        List<TaskItem> archivedTasks = tasks.stream().filter(task -> task.isArchived() || task.getStatus().equals("Cancelled")).collect(Collectors.toList());;
 
-        tasks.removeIf(task -> !task.isArchived());
-        tasks.removeIf(task -> !task.getStatus().equals("Cancelled"));
-        return tasks;
+        return archivedTasks;
     }
 
     // Archive a task
@@ -138,10 +137,11 @@ public class TaskService {
         Optional<TaskItem> optionalTask = taskRepository.findById(id);
 
         if (optionalTask.isPresent()) {
-            TaskItem updatedTask = taskRepository.save(optionalTask.get());
-            updatedTask.setArchived(!optionalTask.get().isArchived());
+            TaskItem task = optionalTask.get();
+            TaskItem updatedTask = taskRepository.save(task);
             updatedTask.setId(id);
-            return new ResponseEntity<TaskItem>(HttpStatus.NO_CONTENT);
+            updatedTask.setArchived(true);
+            return new ResponseEntity<TaskItem>(HttpStatus.OK);
         } 
         
         else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
