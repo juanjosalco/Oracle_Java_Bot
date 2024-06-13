@@ -60,9 +60,11 @@ export const ArchiveScreen = () => {
                 const taskDate = new Date(task.dueDate).toISOString().split("T")[0];
                 return taskDate >= startDate && taskDate <= endDate;
             });
-            setFilteredTasks(tasksBetweenRanges);
+            const sortedTasks = tasksBetweenRanges.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+            setFilteredTasks(sortedTasks);
         } else {
-            setFilteredTasks(tasks);
+            const sortedTasks = tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+            setFilteredTasks(sortedTasks);
         }
     }
 
