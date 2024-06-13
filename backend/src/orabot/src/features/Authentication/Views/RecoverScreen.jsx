@@ -14,7 +14,7 @@ import { MyButton } from "../../GlobalComponents/Button";
 
 export const RecoverScreen = () => {
     const navigate = useNavigate();
-    const [userEmail, setEmail] = useState(""); // Inicializa el estado email
+    const [userEmail, setEmail] = useState("");
     const [error, setError] = useState("");
 
     const handleEmail = (e) => {
@@ -22,10 +22,9 @@ export const RecoverScreen = () => {
       };
 
     const handleEmailSend = async () => {
-        // Valida el correo electrónico usando emailRegex
         if (!emailRegex.test(userEmail)) {
             setError("Please enter a valid email address.");
-            return; // Detiene la ejecución si el correo electrónico no es válido
+            return; 
         }
 
         const response = await emailSend(userEmail);

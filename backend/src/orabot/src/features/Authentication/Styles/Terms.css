@@ -1,0 +1,98 @@
+.base-container{
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px;
+  background-color: #f5f5f5;
+  background-image: url('https://apexapplab.dev/wp-content/uploads/2021/05/redwood_blog_banner_1600x600.jpg');
+  background-size: cover;
+  height: 100%;
+  overflow:hidden;
+  justify-content: center;
+}
+
+.terms-container{
+  display: flex;
+  flex-direction: column;
+  padding: 32px 64px;
+  background-color: rgb(37, 32, 32);
+  overflow: hidden;
+  margin: 64px;
+}
+
+.contract{
+  overflow-y: auto;
+  border-radius: 4px;
+  padding: 16px;
+  color: #f9f9f9f9;
+  max-height: 640px;
+}
+
+.contract::-webkit-scrollbar{
+  width: 4px;
+  border-radius: 4px;
+  background-color: #47423E;
+}
+
+.contract::-webkit-scrollbar-thumb{
+  height: 2px;
+  border-radius: 4px;
+  background-color: #B3311F;
+}
+
+.contract h1{
+  font-size: 32px;
+  font-weight: 700;
+  color: #f9f9f9f9;
+  margin-bottom: 16px;
+  margin-top: 0px;
+  
+}
+
+.contract h2{
+  font-size: 24px;
+  font-weight: 700;
+  color: #f9f9f9f9;
+}
+
+.contract h3{
+  font-size: 20px;
+  font-weight: 700;
+  color: #f9f9f9f9;
+}
+
+.contract h4{
+  font-size: 16px;
+  font-weight: 700;
+  color: #f9f9f9f9;
+  margin: 8px 0px;
+}
+
+.contract p{
+  font-size: 12px;
+  font-weight: 400;
+  color: #f9f9f9f9;
+  padding: 0px 16px;
+  margin: 8px 0px;
+}
+
+.contract li{
+  font-size: 12px;
+  font-weight: 400;
+  color: #f9f9f9f9;
+  margin: 8px 0px;
+}
+
+.contract strong{
+  font-size: 12px;
+  font-weight: 700;
+  color: #f9f9f9f9;
+}
+
+.button-container{
+  display: block;
+  width: 30%;
+}
+
+.section{
+  margin: 16px 0;
+}

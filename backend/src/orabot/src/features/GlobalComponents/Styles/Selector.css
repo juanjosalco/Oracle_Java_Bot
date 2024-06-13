@@ -1,0 +1,20 @@
+.select-container {
+    display: inline-block;
+    width: 150px; 
+    height: 40px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    padding: 5px; 
+    font-size: 16px; 
+  }
+
+.select-container option {
+    background-color: white; 
+    color: black;
+    border-radius: 0px;
+  }
+  
+.select-container:focus {
+outline: none; 
+}
+

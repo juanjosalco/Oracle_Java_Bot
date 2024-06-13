@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Header } from "../../GlobalComponents/Header";
 import { useUser } from "../../../hooks/useUser";
 import toast, { Toaster } from 'react-hot-toast';
+import { Hero } from "../Components/Hero";
 
 
 // Styles
@@ -61,6 +62,15 @@ export const DashboardScreen = () => {
     return (
         <>
         <Header />
+        {/* <div className="dashboard-hero">
+            <h1 className="title left bold">Hi, these are your tasks</h1>
+            <h3 className="subtitle">
+            Here you can see and modify your assigned tasks.
+            </h3>
+        </div> */}
+
+        <Hero />
+
         {userData.role === "Developer" ? <DeveloperScreen /> : <div></div>}
         {userData.role === "Manager" ? <ManagerScreen /> : <div></div>}
         {userData.role === "Notch" ? <AdminScreen /> : <div></div>}

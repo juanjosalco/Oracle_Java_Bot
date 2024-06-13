@@ -73,7 +73,8 @@ export const Task = (props) => {
               <h1 className="titleX">{props.task.title}</h1>
               <div className="iconContainer">
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b"
+                  // src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b"
+                  src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-comment-filled-icon"
                   alt="Commentary Section"
                   width={32}
                   height={32}
@@ -83,8 +84,8 @@ export const Task = (props) => {
                 {userData.role==="Developer" && (
                   <NavLink to={"/task/:" + props.task.id} state={{ task: props.task }}>
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fediting.png?alt=media&token=4a4f5588-1d15-450c-9e7b-ec2c7e6ecd68"
-                      alt="Edit icon"
+                    src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-edit-icon"
+                    alt="Edit icon"
                       width={32}
                       height={32}
                     />
@@ -100,10 +101,10 @@ export const Task = (props) => {
                 >
                   <p className={`xd ${
                     props.task.priority === 1
-                      ? "red"
+                      ? "high"
                       : props.task.priority === 2
-                      ? "orange"
-                      : "green"
+                      ? "mid"
+                      : "low"
                   }`}>{`${props.task.priority}`}</p>
                 </div>
               </div>

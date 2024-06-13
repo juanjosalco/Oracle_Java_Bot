@@ -37,13 +37,14 @@ export const Header = (props) => {
                 width={40} height={20} />
 
             {showLogoutButton && (
-                <img 
-                    className="logout"
+                <p
+                    className="logout link"
                     onClick={handleLogout}
-                    src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Flogout.png?alt=media&token=7c239655-25b8-4cf2-b2e3-b09e75f2a56e" 
-                    alt="Log Out" 
-                    width={20} height={20}
-                />
+                    // src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Flogout.png?alt=media&token=7c239655-25b8-4cf2-b2e3-b09e75f2a56e" 
+                    // alt="Log Out" 
+                >
+                    Log out
+                </p>
             )}
         </div>
     );

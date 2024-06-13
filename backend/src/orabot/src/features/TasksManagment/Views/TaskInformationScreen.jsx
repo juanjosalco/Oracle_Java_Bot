@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 // Styles
 import "../Styles/TaskInformation.css";
-
+import "../../GlobalComponents/Styles/Selector.css";
 // Components
 import { Header } from "../../GlobalComponents/Header";
 import { PopUp } from "../../GlobalComponents/PopUp";
@@ -179,10 +179,7 @@ export const TaskInformationScreen = () => {
           onCancel={handleCancel}
         ></PopUp>
       ) : null}
-      <div className="taskContainerV">
-        <div className="titleCharCounter">
-          <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
-        </div>
+      <div className="task-container">
         {role === "Developer" ? (
           <MyTextInput 
             type={"text"}
@@ -190,28 +187,24 @@ export const TaskInformationScreen = () => {
             onChange={handleTitleChange}
             placeholder={"Title"}
             maxLength={MAX_TITLE_CHAR_LIMIT}
-            className={"inputsSpe"}
+            label={"Title"}
             >
           </MyTextInput>
 
         ) : (
           <p className="taskTitle">{state.task.title}</p>
         )}
-        <div className="titleCharCounter">
-          <h1 style={{ marginTop: 16 }}>
-            Description ({descriptionCharCount}/{MAX_DESCRIPTION_CHAR_LIMIT})
-          </h1>
-        </div>
+
         {role === "Developer" ? (
-          <textarea
-            placeholder="Description"
-            className="inputArea"
-            defaultValue={description}
-            maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
-            rows={5}
+          <MyTextInput
+            placeholder={"Description"}
+            value={description}
             onChange={handleDescriptionChange}
-            style={{ resize: "none" }}
+            type={"TextArea"}
+            maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
+            label={"Description"}
           />
+          
         ) : (
           <p className="taskTitle">{state.task.description}</p>
         )}
@@ -242,7 +235,7 @@ export const TaskInformationScreen = () => {
               <h1 style={{ marginTop: 16 }}>Priority:</h1>
             )}
             {role === "Developer" ? (
-              <select value={priority} onChange={handlePriorityChange}>
+              <select className="select-container" value={priority} onChange={handlePriorityChange}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -261,9 +254,9 @@ export const TaskInformationScreen = () => {
               <h1 style={{ marginTop: 16 }}>Due date:</h1>
             )}
             {role === "Developer" ? (
-              <input
+
+              <MyTextInput
                 type="date"
-                className="dueDate"
                 value={date}
                 onChange={handleDateChange}
               />
@@ -288,7 +281,6 @@ export const TaskInformationScreen = () => {
             !state.isNewTask && (
               <div className="buttonsContainer">
                 <MyButton text={"Save"} onClick={handleClick} className={"button red"}></MyButton>
-
               </div>
             )
           ) : (
