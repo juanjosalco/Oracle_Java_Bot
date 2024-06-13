@@ -10,6 +10,7 @@ import { postUser, getAllTeams } from "../../../api/AdminAPI";
 import { useUser } from "../../../hooks/useUser";
 import { MyTextInput } from "../../GlobalComponents/TextInput";
 import { MyButton } from "../../GlobalComponents/Button";
+import "../../GlobalComponents/Styles/Selector.css";
 
 export const UserAdministration = () => {
     const { userData } = useUser();
@@ -91,6 +92,10 @@ export const UserAdministration = () => {
     const AddUserHandler = () => {
         addUser();
     }
+
+    useEffect(() => {
+        if (!userData.token) navigate("/");
+    }, []);
     
     return(
         <>
@@ -125,31 +130,30 @@ export const UserAdministration = () => {
                     
                 ></MyTextInput>
                 <p className="formTitles"> Role </p>
-                <select value={role} onChange={handleRoleChange}>
-                    <option key={null} value={null}>Select a rol: </option>
+                <select className="select-container" value={role} onChange={handleRoleChange}>
+                    <option key={null} value={null}>Select a role: </option>
                     <option value="1">Developer</option>
                     <option value="2">Manager</option>
                 </select>
                 <p className="formTitles"> Team </p>
-                <select value={team} onChange={handleTeamChange}>
+                <select className="select-container" value={team} onChange={handleTeamChange}>
                     <option key={null} value={null}>Select a team: </option>
                     {teams.map((team) => (
                         <option key={team.id} value={team.id}>{team.name}</option>
                     ))}
                 </select>
-                <p className="formTitles"> Phone number </p>
                 <MyTextInput
                     placeholder="Phone number"
                     value={phonenumber}
                     onChange={handlePhoneChange}
-                    
+                    label="Phone number"
                 ></MyTextInput>
-            </div>
+            {error && <p className="error">{error}</p>}
             <div className="buttonsContainer">
                 <MyButton text="Cancel" onClick={() => navigate("/dashboard")}></MyButton>
                 <MyButton text="Add User" onClick={AddUserHandler} className="button red"></MyButton>
             </div>
-            {error && <p className="error">{error}</p>}
+            </div>
         </>
     );
 }

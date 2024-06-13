@@ -77,12 +77,10 @@ p {
   border-radius: 8px;
 }
 
-.prioritySelector {
+.filter-selector-container {
   display: flex;
-  justify-content: space-between;
-  align-self: center;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  margin: 8px 16px;
 }
 
 .status {

@@ -53,7 +53,7 @@ export const TaskInformationScreen = () => {
   );
 
   const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
-  const [date, setDate] = useState(dateX);
+  const [date, setDate] = useState("");
 
   const handleCancel = () => {
     setPopUp(false);
@@ -139,15 +139,15 @@ export const TaskInformationScreen = () => {
   };
 
   const handlePriorityChange = (e) => {
-    const newPriority = parseInt(e.target.value); // Convert value to integer
-    setPriority(newPriority); // Update state with new priority
+    const newPriority = parseInt(e.target.value);
+    setPriority(newPriority); 
   };
 
   const handleDateChange = (e) => {
-    const newDate = e.target.value; // Obtener la nueva fecha seleccionada por el usuario
-    const formattedDate = new Date(newDate).toISOString().split("T")[0]; // Convertir la fecha al formato ISO 8601
-    setDate(formattedDate); // Actualizar el estado `date` con la nueva fecha
-    setDueDate(new Date(formattedDate)); // Asegurarse de que `dueDate` también se actualiza con la nueva fecha
+    const newDate = e.target.value; 
+    const formattedDate = new Date(newDate).toISOString().split("T")[0];
+    setDate(formattedDate); 
+    setDueDate(new Date(formattedDate));
   };
 
   // Update title character count

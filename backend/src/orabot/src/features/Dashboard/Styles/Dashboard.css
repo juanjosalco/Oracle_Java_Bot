@@ -24,20 +24,6 @@ h3 {
     text-align: left;
 }
 
-.unblockBtn {
-    background-color: #3a3632;
-    color: #f2f2f2;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 16px;
-    margin: auto;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 32px;
-    width: 50%;
-}
-
 .btnDash {
     background-color: #cc523f;
     color: #f2f2f2;
@@ -50,4 +36,72 @@ h3 {
     cursor: pointer;
     margin-top: 32px;
     width: 50%;
+}
+
+.blocked-users-container{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    background-color: #f5f5f5;
+    overflow-y: auto;
+}
+
+.blocked-user{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #100F0E;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+
+}
+
+.blocked-user-container::-webkit-scrollbar-track {
+    background-color: #ebebebeb;
+}
+
+.blocked-user-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #ebebebeb;
+}
+
+.blocked-user-container::-webkit-scrollbar-thumb {
+    background-color: #414141;
+    border-radius: 8px;
+}
+
+.task-list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid #100F0E;
+    background-color: #f5f5f5;
+    overflow-y: auto;
+}
+
+.task-list-container::-webkit-scrollbar-track {
+    background-color: #ebebebeb;
+}
+.task-list-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #ebebebeb;
+}
+
+.task-list-container::-webkit-scrollbar-thumb {
+    background-color: #414141;
+    border-radius: 10px;
+}
+
+.orange-button{
+    background-color: #BB501C;
+    color: #f9f9f9;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 700;
 }

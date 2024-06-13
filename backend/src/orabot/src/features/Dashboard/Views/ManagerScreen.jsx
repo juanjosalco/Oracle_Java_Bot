@@ -56,17 +56,17 @@ export const ManagerScreen = () => {
 
   return (
     <>
-    <div className="containerDashboard">
       <Filter
         role={userData.role}
         onTeamMemberSelected={handleTeamMemberSelection}
         onFilterBy={setFilterOptions}
       />
-      {error && <p className="error">{error}</p>}
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} role={userData.role} />
-      ))}
-    </div>
+      <div className="task-list-container">
+        {error && <p className="error">{error}</p>}
+        {tasks.map((task, index) => (
+          <Task key={index} task={task} role={userData.role} />
+        ))}
+      </div>
     </>
   );
 };

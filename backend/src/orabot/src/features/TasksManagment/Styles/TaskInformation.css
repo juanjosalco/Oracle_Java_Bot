@@ -7,40 +7,6 @@
     justify-content: flex-start;
 }
 
-.task-list-container{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    border: 1px solid #100F0E;
-    background-color: #f5f5f5;
-    overflow-y: auto;
-}
-
-.task-list-container::-webkit-scrollbar-track {
-    background-color: #ebebebeb;
-}
-.task-list-container::-webkit-scrollbar {
-    width: 6px;
-    background-color: #ebebebeb;
-}
-
-.task-list-container::-webkit-scrollbar-thumb {
-    background-color: #414141;
-    border-radius: 10px;
-}
-
-.inputsSpe{
-    padding: 16px;
-    border: 1px solid #100F0E;
-}
-
-.inputArea{
-    padding: 16px;
-    border: 1px solid #100F0E;
-    font-size: 1rem;
-    margin-bottom: 0;
-}
-
 .statusText{
     all: unset;
     margin-block: 24px;

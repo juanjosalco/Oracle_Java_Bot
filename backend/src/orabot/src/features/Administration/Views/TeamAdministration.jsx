@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -23,6 +23,7 @@ export const TeamAdministration = () => {
   const [manager, setManager] = useState("");
   const [description, setDescription] = useState(null);
   const [error, setError] = useState("");
+  const [userDate] = useState(userData.user);
 
   const handleNameChange = (e) => {
         setName(e.target.value);
@@ -53,6 +54,10 @@ export const TeamAdministration = () => {
     const AddTeamHandler = () => {
         CreateTeam();
     }
+
+    useEffect(() => {
+        if (!userData.token) navigate("/");
+    });
 
     return(
         <>

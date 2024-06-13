@@ -1,12 +1,16 @@
 .formTitles{
     all: unset;
-    font-size: 1rem;
+    font-size: calc(16px + 0.5vw);
+    font-weight: 600;
+    margin: 8px 0px;
 }
 
 .formContainer{
-    margin-inline: 16px;
     display: flex;
     flex-direction: column;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 16px;
 }
 
 .inputArea{

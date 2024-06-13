@@ -12,7 +12,7 @@ export const PopUp = ({ title, message, onConfirm, onCancel}) => {
                     <p>{message}</p>
                     <div className="popUpButtons">
                         <MyButton onClick={onCancel} text="Cancel" />
-                        <MyButton onClick={onConfirm} text="Confirm" />
+                        <MyButton className="orange-button" onClick={onConfirm} text="Confirm" />
                     </div>
             </div>
         </div>

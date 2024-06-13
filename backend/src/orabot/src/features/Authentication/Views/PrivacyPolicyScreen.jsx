@@ -148,7 +148,7 @@ export const PrivacyPolicyScreen = () => {
           </div>
 
           <div className="button-container">
-            <MyButton text="Volver" onClick={() => navigate("/")}/>
+            <MyButton text="Return" onClick={() => navigate("/")}/>
           </div>
 
 
