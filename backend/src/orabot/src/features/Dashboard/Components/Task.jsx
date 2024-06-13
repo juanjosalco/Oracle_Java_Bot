@@ -74,7 +74,7 @@ export const Task = (props) => {
             }`}
           >
             <div className="status-image">
-              <img src={statusImages[props.task.status]}/>
+              <img src={statusImages[props.task.status]} alt="Status of task"/>
             </div>
           </div>
                   {/* div className="status-image">

@@ -23,7 +23,6 @@ export const TeamAdministration = () => {
   const [manager, setManager] = useState("");
   const [description, setDescription] = useState(null);
   const [error, setError] = useState("");
-  const [userDate] = useState(userData.user);
 
   const handleNameChange = (e) => {
         setName(e.target.value);

@@ -52,7 +52,6 @@ export const TaskInformationScreen = () => {
     state.task.description.length
   );
 
-  const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
   const [date, setDate] = useState("");
 
   const handleCancel = () => {
