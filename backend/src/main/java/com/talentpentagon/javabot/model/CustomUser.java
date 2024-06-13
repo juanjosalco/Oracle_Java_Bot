@@ -105,6 +105,14 @@ public class CustomUser {
         auth.setEnabled(enabled);
     }
 
+    public int getAttempts() {
+        return auth.getAttempts();
+    }
+
+    public void setAttempts(int attempts) {
+        auth.setAttempts(attempts);
+    }
+
     public CustomUser() {
     }
 

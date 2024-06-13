@@ -61,6 +61,11 @@ public class SecurityController {
         
                 // Generate JWT token
                 String jwtToken = JWTUtil.generateToken(email, role, uid, teamId);
+
+                if(authConfirmation.get().getAttempts() > 0){
+                    authConfirmation.get().setAttempts(0);
+                    authRepository.save(authConfirmation.get());
+                }
         
                 return ResponseEntity.ok(new JwtResponse(jwtToken));
 
@@ -84,7 +89,6 @@ public class SecurityController {
         
     }
 
-    // TODO: EITHER FIX THE ROLE CHECK OR REMOVE IT
     @Transactional
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PreAuthorize("hasRole('Notch')")
