@@ -38,22 +38,21 @@ export const RecoverScreen = () => {
     return (
         <>
             <Header back={true}/>
-            <div className="container">
+            <div className="recover-container">
                 <div className="options">
                     <button className={"btnSelector borderSelected"}>Password reset</button>
                 </div>
                 <h1 className="titleRecover">Provide your information so we can help you recover your account.</h1>
                 <div className="inputContainer">
                     <MyTextInput 
-                        type={"text"}
+                        type={"email"}
                         placeholder={"Email"}
                         value={userEmail}
                         onChange={handleEmail}>
-
                     </MyTextInput>
                 </div>
                 {error && <p className="error">{error}</p>}
-                <MyButton text={"Send"} onClick={handleEmailSend} className={"btnGlobal"}/>
+                <MyButton text={"Send"} onClick={handleEmailSend}/>
             </div>
         </>
     );

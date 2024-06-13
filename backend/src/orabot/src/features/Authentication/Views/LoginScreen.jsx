@@ -78,7 +78,9 @@ export const LoginScreen = () => {
                     onChange={handlePassword}
                     placeholder={"Password"}
                   />
-                <MyButton text={"Log in"} onClick={handleLogin}></MyButton>
+                  <div>
+                    <MyButton text={"Log in"} onClick={handleLogin} className="login-button"/>
+                  </div>
 
                 </div>
                 {error && <p className="error">{error}</p>}

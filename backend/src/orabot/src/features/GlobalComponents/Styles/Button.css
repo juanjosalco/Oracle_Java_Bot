@@ -1,8 +1,8 @@
-.button-container {
+.button-component-container {
     display: flex;
     margin: 8px 8px;
-    flex: 1;
     position: relative;
+    flex: 1;
 }
 
 .default-button {
@@ -18,9 +18,4 @@
 
 .default-button:hover {
     background-color: #47423E;
-    }
-    
-
-.red{
-
 }

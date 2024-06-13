@@ -99,12 +99,14 @@
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
+    flex-wrap: wrap;
 }
 
 .comment-input{
     padding: 16px 8px 24px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
 }
 
 .inputSection button {
@@ -120,7 +122,7 @@
     background-color: #943324;
 }
 
-@media (max-width: 437px) {
+@media (max-width: 420px) {
     .inputSection button {
         width: 100%;
     }
