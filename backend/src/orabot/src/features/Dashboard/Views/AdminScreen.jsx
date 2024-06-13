@@ -36,10 +36,6 @@ export const AdminScreen = () => {
     return (
         <>
             <div className="containerDashboard">
-                <div className="containerHero">
-                    <h1>Hi, this is the administrator view</h1>
-                    <h3>Here you can administrate teams, and unblock users</h3>
-                </div>
                 <div className="buttonsContainer">
                     <MyButton onClick={() => {navigate("/team")}} text={"Create Team"}></MyButton>
                     <MyButton onClick={() => {navigate("/user")}} text={"Add User"}></MyButton>

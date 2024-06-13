@@ -58,27 +58,24 @@ export const TeamAdministration = () => {
         <>
             <Header back={true} />
             <div className="formContainer">
-                <h1 className="formTitles"> Name </h1>
                 <MyTextInput
-                    placeholder="Name"
+                    placeholder="Team name"
+                    label="Name"
                     value={name}
                     onChange={handleNameChange}
-                    className={"inputArea"}
                 ></MyTextInput>
-                <p className="formTitles"> Description </p>
                 <MyTextInput
                     placeholder="Description"
+                    label="Description"
                     value={description}
                     onChange={handleDescriptionChange}
-                    className={"inputArea"}
                 >
                 </MyTextInput>
-                <p className="formTitles"> Manager </p>
                 <MyTextInput
                     placeholder="Manager"
+                    label="Manager"
                     value={manager}
                     onChange={handleManagerChange}
-                    className={"inputArea"}
                 >
                 </MyTextInput>
             </div>

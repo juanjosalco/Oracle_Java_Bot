@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MyTextInput } from "../../GlobalComponents/TextInput";
-// import {
-//   emailRegex,
-//   passwordRegex,
-// } from "../../GlobalComponents/Utils/RegexUtils";
 import { useUser } from "../../../hooks/useUser";
 import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
 import { login } from "../../../api/AuthAPI";
@@ -64,35 +60,44 @@ export const LoginScreen = () => {
   return (
     <>
       <Header back={false} />
-      <div className="containerBackground">
-        <h1 className="title" >Welcome to OraBot!</h1>
-        <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
-          <div className="inputContainer">
-              <MyTextInput
-                type="email"
-                value={email}
-                onChange={handleEmail}
-                placeholder={"Email"}
-              />
-              <MyTextInput
-                type={"password"}
-                value={password}
-                onChange={handlePassword}
-                placeholder={"Password"}
-              />
+      <div className="login-container">
+        <div className="container-background">
+          <div className="background-blur">
+            <h1 className="login-title" >Welcome to OraBot!</h1>
+            <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
+              <div className="input-container">
+                  <MyTextInput
+                    type="email"
+                    value={email}
+                    onChange={handleEmail}
+                    placeholder={"Email"}
+                  />
+                  <MyTextInput
+                    type={"password"}
+                    value={password}
+                    onChange={handlePassword}
+                    placeholder={"Password"}
+                  />
+                <MyButton text={"Log in"} onClick={handleLogin}></MyButton>
+
+                </div>
+                {error && <p className="error">{error}</p>}
+              </form>
+            <div className="footer">
+              <p className="termsOfUse">
+                By logging in, you agree to our <NavLink to="/terms-of-service" className="hyperlink">Terms of Use</NavLink> and <NavLink to="/privacy-policy" className="hyperlink">Privacy Policy</NavLink>.
+              </p>
+              <p className="termsOfUse">
+                Also check our <NavLink to="/user-agreement" className="hyperlink">End-User Agreement</NavLink>.
+              </p>
+              <p className="hyperlink" onClick={handleRecover}>
+                Forgot password?
+              </p>
             </div>
-            {error && <p className="error">{error}</p>}
-            <MyButton text={"Log in"} onClick={handleLogin}></MyButton>
-          </form>
-        <div className="footer">
-         <p className="termsOfUse">
-            By logging in, you agree to our <a href="https://www.google.com/" className="link">Terms of Use and Privacy Policy</a>.
-          </p>
-          <p className="link" onClick={handleRecover}>
-            Forgot password?
-          </p>
+          </div>
         </div>
       </div>
+
     </>
   );
 };

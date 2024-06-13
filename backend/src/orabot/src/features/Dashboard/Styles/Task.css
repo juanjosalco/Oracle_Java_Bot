@@ -1,3 +1,4 @@
+
 .circle{
     width: 32px;
     height: 32px;
@@ -6,11 +7,15 @@
     margin-right: 10px;
 }
 
-.green{
+.high{
     background-color: #436B1D;
 }
 
-.orange{
+.mid{
+    background-color: #E18012;
+}
+
+.low{
     background-color: #E18012;
 }
 

@@ -1,7 +1,11 @@
-.taskContainerV{
+.task-container{
     margin-inline: 16px;
     display: flex;
     flex-direction: column;
+    background-image: url('https://static.oracle.com/cdn/fnd/gallery/2401.0.1/images/texture-rose-opacity-10.png');
+    height: 100%;
+    margin: 0;
+    padding: 16px 8px;
 }
 
 .inputsSpe{
@@ -31,14 +35,21 @@
 }
 
 .button{
-    border: 0;
     border-radius: 8px;
-    padding: 16px 24px;
+    padding: 8px 16px;
     flex: 1;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
     color: white;
     cursor: pointer;
+}
+
+.button:hover{
+    background-color: #47423E;
+}
+
+.red:hover{
+    background-color: #C84431;
 }
 
 .black{

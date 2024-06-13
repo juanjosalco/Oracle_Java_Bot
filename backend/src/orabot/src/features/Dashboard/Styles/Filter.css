@@ -19,7 +19,6 @@
 }
 
 select {
-  -webkit-appearance: none;
   padding: 8px 16px;
   margin-block: 16px;
   overflow: hidden;
@@ -142,7 +141,7 @@ p {
 }
 
 .burguerMenu{
-  width: 40px;
+  width: 21px;
   height: 40px;
   align-self: center;
   border-radius: 16px;

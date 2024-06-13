@@ -96,33 +96,33 @@ export const UserAdministration = () => {
         <>
             <Header back={true} />
             <div className="formContainer">
-                <p className="formTitles"> Name </p>
                 <MyTextInput
                     placeholder="Name"
+                    label="Name"
                     value={firstname}
                     onChange={handleNameChange}
-                    className={"inputArea"}
+                    
                 ></MyTextInput>
-                <p className="formTitles"> Lastname </p>
                 <MyTextInput
                     placeholder="Lastname"
+                    label="Lastname"
                     value={lastname}
                     onChange={handleLastNameChange}
-                    className={"inputArea"}
+                    
                 ></MyTextInput>
-                <p className="formTitles"> Email </p>
                 <MyTextInput
-                    placeholder="Email"
+                    placeholder="example@oracle.com"
+                    label="Email"
                     value={email}
                     onChange={handleEmailChange}
-                    className={"inputArea"}
+                    
                 ></MyTextInput>
-                <p className="formTitles"> Password </p>
                 <MyTextInput
-                    placeholder="Password"
+                    placeholder="********"
+                    label="Password"
                     value={password}
                     onChange={handlePasswordChange}
-                    className={"inputArea"}
+                    
                 ></MyTextInput>
                 <p className="formTitles"> Role </p>
                 <select value={role} onChange={handleRoleChange}>
@@ -142,7 +142,7 @@ export const UserAdministration = () => {
                     placeholder="Phone number"
                     value={phonenumber}
                     onChange={handlePhoneChange}
-                    className={"inputArea"}
+                    
                 ></MyTextInput>
             </div>
             <div className="buttonsContainer">

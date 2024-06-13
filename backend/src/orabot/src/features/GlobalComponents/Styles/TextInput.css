@@ -1,20 +1,59 @@
 .container {
     display: flex;
-    flex: 1;
     flex-direction: column;
+    flex: 1;
     margin: 8px 16px;
     position: relative;
+    align-items: center;
 }
+
+.default-input {
+    padding: 8px 16px 16px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* font-size: calc(16px); */
+    width: 100%;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.default-input::selection {
+    background-color: #c84431;
+    color: white;
+}
+
+.default-input:focus {
+    border: 1px solid rgba(180, 15, 15, 0.8);
+}
+
+.default-input-area {
+    padding: 8px 16px 16px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* font-size: calc(16px); */
+    transition: all 0.3s;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .8);
+    resize: none;
+    min-height: 100px;
+}
+
+.default-input-area::selection {
+    background-color: #c84431;
+    color: white;
+}
+
+.default-input-area:focus {
+    border: 1px solid rgba(180, 15, 15, 0.8);
+}
+
 
 .decorations {
     display: flex;
     gap: 8px;
     align-items: center; 
-    justify-content: flex-end; 
-    padding: 0 8px; 
 }
 
-.eyeButton {
+.eye-button {
     position: absolute;
     cursor: pointer;
     bottom: 8px;
@@ -26,15 +65,24 @@
 
 .character-counter {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    transform: translateY(-50%);
+    right: -8px;
     font-size: .8rem;
 }
 
 .character-counter-overflow{
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    transform: translateY(-50%);
+    right: -8px;
     font-size: .8rem;
     color: red;
+}
+
+.input-label{
+    position: relative;
+    left: -8px;
+    align-self: flex-start;
+    font-size: calc(16px + 0.5vw);
+    font-weight: 600;
+    margin: 8px 0px
 }
