@@ -121,6 +121,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
                   }
                 </select>
               </div>
+              <NavLink className="btnArchived leftMargin" to={"/archive"}><p>Archived</p></NavLink>
             </>
           ) : (
             <>
@@ -130,6 +131,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
                 </div>
               </div>
               <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
+              <NavLink className="btnArchived leftMargin" to={"/archive"}><p>Archived</p></NavLink>
             </>
           )}
         </div>

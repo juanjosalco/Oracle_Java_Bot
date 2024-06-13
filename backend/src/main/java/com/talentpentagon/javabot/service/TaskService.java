@@ -3,6 +3,7 @@ package com.talentpentagon.javabot.service;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.repository.TaskRepository;
@@ -73,9 +74,11 @@ public class TaskService {
         }
 
         if(tasks != null){
-            // Filter the tasks based on the status and priority
-            tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
+            if(status != "Cancelled") tasks.removeIf(task -> task.getStatus().equals("Cancelled"));
+            else tasks.removeIf(task -> !task.getStatus().equals("Cancelled") || task.isArchived());
         }
+
+        tasks.removeIf(task -> task.isArchived());
 
         if (status.equals("ALL")) return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
         else return new ResponseEntity<List<TaskItem>>(tasks, HttpStatus.OK);
@@ -96,6 +99,10 @@ public class TaskService {
             updatedTask.setCreationDate(task.getCreationDate());
             updatedTask.setDescription(task.getDescription());
             updatedTask.setStatus(task.getStatus());
+
+            if(updatedTask.getStatus().equals("Cancelled")) updatedTask.setArchived(true);
+            else updatedTask.setArchived(false);
+
             return new ResponseEntity<TaskItem>(updatedTask, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
@@ -114,28 +121,30 @@ public class TaskService {
         } 
         
         else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
-        
+
     }
 
-    // Sort and filter data
-    public ResponseEntity<List<TaskItem>> sortAndFilter(List<TaskItem> tasks, String sortBy, String status, Integer priority) {
+    // Get user archived tasks
+    public List<TaskItem> getUserArchivedTasks(Integer assignee) {
+        List<TaskItem> tasks = taskRepository.findByAssignee(assignee, Sort.by(Sort.Direction.ASC, "creationDate"));
+        List<TaskItem> archivedTasks = tasks.stream().filter(task -> task.isArchived() || task.getStatus().equals("Cancelled")).collect(Collectors.toList());;
 
-        // Sort
-        if (sortBy.equals("dueDate")) {
-            tasks.sort((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate()));
-        } else if (sortBy.equals("priority")) {
-            tasks.sort((t1, t2) -> t1.getPriority().compareTo(t2.getPriority()));
-        } else if (sortBy.equals("creationDate")) {
-            tasks.sort((t1, t2) -> t1.getCreationDate().compareTo(t2.getCreationDate()));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        return archivedTasks;
+    }
 
-        // Filter
-        if (!status.equals("ALL")) tasks.removeIf(task -> !task.getStatus().equals(status));
-        if (!(priority == 0)) tasks.removeIf(task -> !task.getPriority().equals(priority));
+    // Archive a task
+    public ResponseEntity<TaskItem> archiveTask(int id) {
+        Optional<TaskItem> optionalTask = taskRepository.findById(id);
+
+        if (optionalTask.isPresent()) {
+            TaskItem task = optionalTask.get();
+            TaskItem updatedTask = taskRepository.save(task);
+            updatedTask.setId(id);
+            updatedTask.setArchived(true);
+            return new ResponseEntity<TaskItem>(HttpStatus.OK);
+        } 
         
-        return ResponseEntity.ok(tasks);
+        else return new ResponseEntity<TaskItem>(HttpStatus.NOT_FOUND);
     }
 
 }

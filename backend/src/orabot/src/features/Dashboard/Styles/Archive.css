@@ -1,0 +1,32 @@
+.dates{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.selection{
+    display: flex;
+    flex:1;
+    justify-content: center;
+}
+
+.right{
+    margin-right: 4px;
+}
+.left{
+    margin-left: 4px;
+}
+
+.btnRange{
+    background-color: #3a3632;
+    color: #f2f2f2;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
