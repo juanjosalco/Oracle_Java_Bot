@@ -1,7 +1,6 @@
-.container {
+.input-component-container {
     display: flex;
     flex-direction: column;
-    flex: 1;
     margin: 8px 16px;
     position: relative;
     align-items: center;

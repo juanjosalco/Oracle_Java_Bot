@@ -29,7 +29,7 @@ export const MyTextInput = ({ label, value, onChange, type, placeholder, classNa
     if (type === "TextArea") className = "default-input-area";
 
     return (
-        <div className="container">
+        <div className="input-component-container">
             <label className="input-label">{label}</label>
             {type !== "TextArea" && (
                 <input
