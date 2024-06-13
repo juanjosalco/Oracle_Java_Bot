@@ -16,13 +16,16 @@
 
 .login-button{
   background-color: #B3311F;
-  padding: 16px;
-  border-radius: 8px;
   color: #f9f9f9;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  text-align: center;
   width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
+
 
 .login-button:hover{
   background-color: #fe681c;
@@ -31,7 +34,6 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   padding: 48px;
 }
 
@@ -43,8 +45,7 @@
   padding: 16px;
   background-repeat: no-repeat;
   background-size: cover;
-  /*TODO: CHANGE THIS TO BUCKET*/
-  background-image: url('https://scontent-qro1-1.xx.fbcdn.net/v/t1.6435-9/102959664_10158518515936763_7203924000163620674_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEmhTM_tVaj7G_jld2RfUpjpEoM6KNT2BykSgzoo1PYHMTjmlCeChsyTuRwthYsMx0&_nc_ohc=7XEYsxI65NYQ7kNvgHFODVP&_nc_ht=scontent-qro1-1.xx&oh=00_AYCbY9vx9p3YNHVwilguowZnYcANdMzeOqEZiiVHaSxQtw&oe=6689E0CA');
+  background-image: url('https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-turquoise-cloud-pattern');
 }
 
 .background-blur{

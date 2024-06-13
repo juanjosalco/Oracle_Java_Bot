@@ -90,7 +90,7 @@ export const LoginScreen = () => {
                 By logging in, you agree to our <NavLink to="/terms-of-service" className="hyperlink">Terms of Use</NavLink> and <NavLink to="/privacy-policy" className="hyperlink">Privacy Policy</NavLink>.
               </p>
               <p className="termsOfUse">
-                Also check our <NavLink to="/user-agreement" className="hyperlink">End-User Agreement</NavLink>.
+                For more information, please read our <NavLink to="/user-agreement" className="hyperlink">End-User Agreement</NavLink>.
               </p>
               <p className="hyperlink" onClick={handleRecover}>
                 Forgot password?

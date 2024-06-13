@@ -37,19 +37,23 @@ export const AdminScreen = () => {
         <>
             <div className="containerDashboard">
                 <div className="buttonsContainer">
-                    <MyButton onClick={() => {navigate("/team")}} text={"Create Team"}></MyButton>
-                    <MyButton onClick={() => {navigate("/user")}} text={"Add User"}></MyButton>
+                    <MyButton className="orange-button" onClick={() => {navigate("/team")}} text={"Create Team"}></MyButton>
+                    <MyButton className="orange-button" onClick={() => {navigate("/user")}} text={"Add User"}></MyButton>
                 </div>
 
-                <h1>Blocked Users</h1>
-                {
-                    blockedUsers ? blockedUsers.map((user, index) => (
-                    <div key={index} className="blockedUser">
-                        <p>{user.firstname + " " + user.lastname}</p>
-                        <button className="unblockBtn" onClick={() => unlockHandler(user.id)}>Unblock</button>
-                    </div>
-                )) : <p>No blocked users</p>
-                }
+                <div className="blocked-users-header">
+                    <h1>Blocked Users</h1>
+                </div>
+                <div className="blocked-users-container">
+                    {
+                        blockedUsers ? blockedUsers.map((user, index) => (
+                        <div key={index} className="blocked-user">
+                            <p>{user.firstname + " " + user.lastname}</p>
+                            <MyButton  text="Unblock" onClick={() => unlockHandler(user.id)}/>
+                        </div>
+                    )) : <p>No blocked users</p>
+                    }
+                </div>
             </div>
         </>
     );

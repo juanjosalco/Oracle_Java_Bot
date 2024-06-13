@@ -10,7 +10,6 @@
     padding: 8px 16px 16px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    /* font-size: calc(16px); */
     width: 100%;
     background-color: rgba(255, 255, 255, .8);
 }
@@ -55,11 +54,11 @@
 .eye-button {
     position: absolute;
     cursor: pointer;
-    bottom: 8px;
-    right: 8px;
+    transform: translateY(-85%);
+    right: 0px;
     transition: all 0.3s;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
 }
 
 .character-counter {

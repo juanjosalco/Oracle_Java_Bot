@@ -75,7 +75,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
           <div>
             <div >
               <h3 >Sort by: </h3>
-              <select name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
+              <select className="select-container" name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
                 <option value="creationDate">Select</option>
                 <option value="priority">Priority</option>
                 <option value="dueDate">Due Date</option>
@@ -84,20 +84,24 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
             </div>
             <div className="priority">
               <h3 >Priority: </h3>
-              <div className="prioritySelector">
-                {Priority.map((p, index) => (
-                  <button key={index} className={`priorityButton ${priority === index ? "prioritySelAct white" : "prioritySel white"}`} onClick={() => handlePriority(index)}>{p}</button>
-                ))}
+              <div>
               </div>
               </div>
+                <div className="filter-selector-container">
+                  {Priority.map((p, index) => (
+                    <button key={index} className={`priorityButton ${priority === index ? "prioritySelAct white" : "prioritySel white"}`} onClick={() => handlePriority(index)}>{p}</button>
+                  ))}
+                </div>
             <div className="priority">
               <h3 >Status: </h3>
-              <div className="statusSelector">
-                {Statuses.map((s, index) => (
-                  <button key={index} className={`statusButton ${status === index ? "statusSelAct white" : "statusSel white"}`} onClick={() => handleStatus(index )}>{s}</button>
-                ))}
+            </div>
+            <div>
+              <div className="filter-selector-container">
+                  {Statuses.map((s, index) => (
+                    <button key={index} className={`statusButton ${status === index ? "statusSelAct white" : "statusSel white"}`} onClick={() => handleStatus(index )}>{s}</button>
+                  ))}
               </div>
-              </div>
+            </div>
           </div>
         </Modal>
         <div className="filterOpt">
@@ -110,7 +114,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
               </div>
               <div className="rightSide smaller">
                 <div className="teamM"><p className="textX sep">Team member: </p></div>
-                <select className="select" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
+                <select className="select-container" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
                   <option value="select">All</option>
                   {teamMembers.map((member, index) => (
                     <option key={index} value={member.id}>{member.name}</option>

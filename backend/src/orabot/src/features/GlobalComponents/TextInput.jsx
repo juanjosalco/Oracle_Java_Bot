@@ -21,10 +21,10 @@ export const MyTextInput = ({ label, value, onChange, type, placeholder, classNa
 
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based in JS
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate() + 1).padStart(2, '0');
     const minStr = `${year}-${month}-${day}`;
-    const maxStr = `${year + 1}-${month}-${day}`;
+    const maxStr = `${year + 1}-${month}-${day + 1}`;
     if (className === undefined) className = "default-input";
     if (type === "TextArea") className = "default-input-area";
 
@@ -54,7 +54,7 @@ export const MyTextInput = ({ label, value, onChange, type, placeholder, classNa
             
             <div className="decorations">
                 {type === "password" && (
-                    <img className="eye-button" src={isVisible? "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-closed" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-open"} onClick={() => setIsVisible(!isVisible)} alt="fjapof">
+                    <img className="eye-button" src={isVisible? "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-icon-slash-thin" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-eye-icon-thin"} onClick={() => setIsVisible(!isVisible)} alt="fjapof">
                     </img>
                 )}
                 {maxLength ? <span className={calculateBytes(inputValue) === maxLength ?  "character-counter-overflow" : "character-counter"} >{calculateBytes(inputValue)}/{maxLength}</span> : null}

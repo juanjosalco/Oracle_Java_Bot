@@ -38,7 +38,7 @@ export const Hero = () => {
       case "Developer":
         setMessage("Welcome Developer, here you can see and manage your tasks");
         break;
-      case "Admin":
+      case "Notch":
         setMessage("Welcome Admin, here you can manage users and teams");
         break;
       default:
@@ -53,7 +53,7 @@ export const Hero = () => {
     <>
       <div className="hero-container">
         <div className="hero-content">
-          <h1 className="hero-title">{title}</h1>
+          <h1 className="hero-title">{userData.role === "Notch" ? "Administration Dashboard": title }</h1>
           <p className="hero-text">{message}</p>
         </div>
 

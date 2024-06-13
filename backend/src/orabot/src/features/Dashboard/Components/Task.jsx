@@ -22,6 +22,11 @@ export const Task = (props) => {
   const [activePopup, setActivePopup] = useState(null);
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpComments, setPopUpComments] = useState([]);
+  const [statusImages] = useState({
+    "ToDo" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-pending-icon",
+    "Ongoing" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-in-progress-icon",
+    "Done" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-done-icon",
+  });
   //const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
@@ -67,13 +72,19 @@ export const Task = (props) => {
                 ? "orange"
                 : "green"
             }`}
-          />
+          >
+            <div className="status-image">
+              <img src={statusImages[props.task.status]}/>
+            </div>
+          </div>
+                  {/* div className="status-image">
+                    <img src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-pending-icon"/>
+                  </div> */}
           <div className="taskInfo">
             <div className="titleInfo">
               <h1 className="titleX">{props.task.title}</h1>
               <div className="iconContainer">
                 <img
-                  // src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcommentary.png?alt=media&token=9232f41a-8caf-49b4-b40e-8cf7a021e63b"
                   src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-comment-filled-icon"
                   alt="Commentary Section"
                   width={32}
@@ -96,16 +107,16 @@ export const Task = (props) => {
             <div className="priorInfo">
               <div className="prior">
                 <p className="textP">{`Priority: `}</p>
-                <div
-                  className={`priorP `}
-                >
+                <div className={`priorP `}>
                   <p className={`xd ${
                     props.task.priority === 1
                       ? "high"
                       : props.task.priority === 2
                       ? "mid"
                       : "low"
-                  }`}>{`${props.task.priority}`}</p>
+                  }`}>
+                    {`${props.task.priority}`}
+                  </p>
                 </div>
               </div>
 
