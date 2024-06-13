@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Styles/Terms.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
-import { Button, MyButton } from "../../GlobalComponents/Button";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const TermsScreen = () => {
   

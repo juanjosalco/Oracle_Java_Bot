@@ -32,6 +32,14 @@
     background-color: #47423E;
 }
 
+.green{
+    background-color: #436B1D;
+}
+
+.orange{
+    background-color: #E18012;
+}
+
 .taskContainer{
     display: flex;
     flex-direction: row;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Styles/Terms.css";
 import { Header } from "../../GlobalComponents/Header";
 import { useNavigate } from "react-router-dom";
