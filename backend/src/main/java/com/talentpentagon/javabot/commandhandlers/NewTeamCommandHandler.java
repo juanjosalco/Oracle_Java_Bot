@@ -21,16 +21,27 @@ public class NewTeamCommandHandler implements NewTeam<Team, ResponseEntity<Team>
     @Override
     public ResponseEntity<Team> execute(Team team) {
 
-        // description
-        if (StringUtils.isBlank(team.getDescription())) {
-            throw new RuntimeException("Team description cannot be empty");
-        }
-
         // name
         if (StringUtils.isBlank(team.getName())) {
             throw new RuntimeException("Team name cannot be empty");
         }
+        if (!team.getName().matches(specialChars)) {
+            throw new RuntimeException("Team name cannot contain special characters");
+        }
+        if(team.getDescription().getBytes().length > 32) {
+            throw new RuntimeException("Team name cannot be more than 32 characters");
+        }
 
+        // description
+        if (StringUtils.isBlank(team.getDescription())) {
+            throw new RuntimeException("Team description cannot be empty");
+        }
+        if(team.getDescription().getBytes().length > 12) {
+            throw new RuntimeException("Team description cannot be more than 120 characters");
+        }
+        if (!team.getDescription().matches(specialChars)) {
+            throw new RuntimeException("Team description cannot contain special characters");
+        }
 
         teamService.createTeam(team);
 
