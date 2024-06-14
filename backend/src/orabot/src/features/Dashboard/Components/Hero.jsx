@@ -12,25 +12,25 @@ export const Hero = () => {
   const [ message, setMessage ] = useState("");
   const [ title, setTitle ] = useState("");
 
-  const dailyMessage = [
-    "Welcome to your dashboard",
-    "What are you working on today?",
-    "What's on your mind today?",
-    "What's your plan for today?",
-    "Let's get started!",
-    "Hello! Ready to tackle your tasks today?",
-    "What's your focus for today?",
-    "What goals are you setting today?",
-    "How can we make today productive?",
-    "What's the first task on your list?",
-    "Let's achieve something great today!",
-    "What are your priorities for today?",
-    "How can we assist with your tasks today?",
-    "What will you accomplish today?",
-    "Let's start your day with a plan!"
-  ]
-
   useEffect(() => {
+    const dailyMessage = [
+      "Welcome to your dashboard",
+      "What are you working on today?",
+      "What's on your mind today?",
+      "What's your plan for today?",
+      "Let's get started!",
+      "Hello! Ready to tackle your tasks today?",
+      "What's your focus for today?",
+      "What goals are you setting today?",
+      "How can we make today productive?",
+      "What's the first task on your list?",
+      "Let's achieve something great today!",
+      "What are your priorities for today?",
+      "How can we assist with your tasks today?",
+      "What will you accomplish today?",
+      "Let's start your day with a plan!"
+    ];
+
     switch (userData?.role) {
       case "Manager":
         setMessage("Welcome Manager, here you can see your team's tasks");
@@ -47,7 +47,7 @@ export const Hero = () => {
     }
 
     setTitle(dailyMessage[Math.floor(Math.random() * dailyMessage.length)]);
-  }, []);
+  }, [userData.role]);
 
   return (
     <>

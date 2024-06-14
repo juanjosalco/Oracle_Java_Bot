@@ -7,6 +7,7 @@ import "../Styles/Ticket.css";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const TicketScreen = () => {
     
@@ -19,10 +20,12 @@ export const TicketScreen = () => {
     return (
         <>
             <Header />
-            <div className="container">
-                <h1 className="title left">A <b>ticket</b> has been raised to recover your account.</h1>
-                <h1 className="title left">Please be patient.</h1>
-                <button className="btnX" onClick={handleClick}>Back</button> 
+            <div className="hero-container">
+                <div className="ticket">
+                    <h1 className="title left">A <b>ticket</b> has been raised to recover your account.</h1>
+                    <p>Please be patient.</p>
+                    <MyButton text="Back" onClick={handleClick} />
+                </div>
             </div>
         </>
     );

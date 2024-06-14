@@ -1,3 +1,7 @@
 .left{
     text-align: left;
 }
+
+.hero-container .ticket{
+    height: 100vh;
+}

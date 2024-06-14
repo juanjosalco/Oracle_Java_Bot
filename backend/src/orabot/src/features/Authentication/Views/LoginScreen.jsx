@@ -78,11 +78,10 @@ export const LoginScreen = () => {
                     onChange={handlePassword}
                     placeholder={"Password"}
                   />
-                  <div>
+                </div>
+                  <div style={{padding: "8px 32px"}}>
                     <MyButton text={"Log in"} onClick={handleLogin} className="login-button"/>
                   </div>
-
-                </div>
                 {error && <p className="error">{error}</p>}
               </form>
             <div className="footer">

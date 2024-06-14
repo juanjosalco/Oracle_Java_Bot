@@ -95,7 +95,7 @@ export const UserAdministration = () => {
 
     useEffect(() => {
         if (!userData.token) navigate("/");
-    }, []);
+    }, [navigate, userData.token]);
     
     return(
         <>

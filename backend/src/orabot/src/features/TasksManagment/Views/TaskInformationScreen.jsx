@@ -24,7 +24,7 @@ export const TaskInformationScreen = () => {
 
   useEffect(() => {
     if (!userData.token) navigate("/");
-    // if(!location.state) navigate("/dashboard");
+    if(!location.state) navigate("/dashboard");
   });
 
   const { state } = location;
@@ -49,11 +49,6 @@ export const TaskInformationScreen = () => {
   const [popUpTitle, setPopUpTitle] = useState("");
   const [popUpMessage, setPopUpMessage] = useState("");
   const [popUpConfirm, setPopUpConfirm] = useState("");
-  const [titleCharCount, setTitleCharCount] = useState(state.task.title.length);
-  const [descriptionCharCount, setDescriptionCharCount] = useState(
-    state.task.description.length
-  );
-
 
   const [date, setDate] = useState("");
 
@@ -152,21 +147,17 @@ export const TaskInformationScreen = () => {
     setDueDate(new Date(formattedDate));
   };
 
-  // Update title character count
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     if (newTitle.length <= MAX_TITLE_CHAR_LIMIT) {
       setTitle(newTitle);
-      setTitleCharCount(newTitle.length);
     }
   };
 
-  // Update description character count
   const handleDescriptionChange = (e) => {
     const newDescription = e.target.value;
     if (newDescription.length <= MAX_DESCRIPTION_CHAR_LIMIT) {
       setDescription(newDescription);
-      setDescriptionCharCount(newDescription.length);
     }
   };
 

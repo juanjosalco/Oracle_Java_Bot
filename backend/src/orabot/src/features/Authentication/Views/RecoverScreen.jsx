@@ -43,7 +43,7 @@ export const RecoverScreen = () => {
                     <h1 className="header">Password reset</h1>
                 </div>
                 <h1 className="titleRecover">Provide your information so we can help you recover your account.</h1>
-                <div className="inputContainer">
+                <div className="input-container">
                     <MyTextInput 
                         type={"email"}
                         placeholder={"Email"}

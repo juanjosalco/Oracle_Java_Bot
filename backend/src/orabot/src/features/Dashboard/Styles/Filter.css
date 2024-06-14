@@ -1,5 +1,6 @@
 .filterContainer {
   background-color: #47423E;
+  padding: 8px 0px;
 }
 
 .filterOpt {
@@ -42,6 +43,11 @@ select {
 
 .imageB{
 margin: auto;
+}
+
+.teamM p{
+  color: #f3f3f3f3;
+  font-size: 1.2rem;
 }
 
 .btnAdd{

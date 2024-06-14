@@ -85,7 +85,7 @@ public class TeamService {
 
             if(!team.isPresent()) return null;
                 team.get().getMembers().forEach(member -> {
-                    if(!member.getRole().equals("Manager")) return;
+                    if(member.getRole().equals("Manager")) return;
                     members.put(member.getId(), member.getFirstName() + " " + member.getLastName());
             });
 
