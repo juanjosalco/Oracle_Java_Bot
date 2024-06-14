@@ -87,4 +87,16 @@ export const postUser = async (token, request) => {
       return { error: err.response.data };
     }
   };
+
+  export const getManagers = async (token) => {
+    try {
+      const response = await axios.get(`${url}/api/v1/user/manager`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      console.error(err.response ? err.response.data : err.message);
+      return { error: err.response.data};
+    }
+  }
   
