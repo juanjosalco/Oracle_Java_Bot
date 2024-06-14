@@ -101,11 +101,6 @@ steps:
       cd ${OCI_PRIMARY_SOURCE_DIR}/backend
       docker build -f DockerfileFront -t frontend-image .
 
-  - type: Command
-    name: "Delete previous deployments"
-    command: |
-      kubectl delete --all deployments -n talent-pentagon
-
 outputArtifacts:
   - name: orabot
     type: DOCKER_IMAGE
