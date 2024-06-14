@@ -6,7 +6,13 @@
     height: 100vh;
     margin: 0;
     background-image: url('https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-texture-fingerprint-light');
-    
+    padding: 0px 32px;
+}
+
+.recover-container .input-container{
+    display: flex;
+    align-items: center;
+    width: 45%;
 }
 
 .header{

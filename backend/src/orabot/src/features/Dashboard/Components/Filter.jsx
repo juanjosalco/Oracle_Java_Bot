@@ -114,15 +114,17 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
                   <img src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-filter-icon" alt="Burger menu for sorting and filter" width={'100%'} height={'100%'} className="imageB" />
                 </div>
               </div>
-              <div className="rightSide smaller">
-                <div className="teamM"><p className="textX sep">Team member: </p></div>
-                <select className="select-container" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
-                  <option value="select">All</option>
-                  {teamMembers.map((member, index) => (
-                    <option key={index} value={member.id}>{member.name}</option>
-                  ))
-                  }
-                </select>
+              <div>
+                <div className="teamM">
+                  <p>Team member: </p>
+                  <select className="select-container" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
+                    <option value="select">All</option>
+                    {teamMembers.map((member, index) => (
+                      <option key={index} value={member.id}>{member.name}</option>
+                    ))
+                    }
+                  </select>
+                </div>
               </div>
               <MyButton className="light-button" text="Archived" onClick={() => navigate("/archive")}/>
             </>

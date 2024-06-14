@@ -103,9 +103,10 @@ export const ArchiveScreen = () => {
                     <MyButton onClick={handleRanges} text={"Select range"} className={"orange-button"}/>
                     {error && <p className="error">{error}</p>}
                 </div>
-                <div className="tasks-container">
+                <div className="task-list-container">
+                    {error && <p className="error">{error}</p>}
                     {filteredTasks.map((task, index) => (
-                        <Task key={index} task={task} role={userData.role} />
+                    <Task key={index} task={task} role={userData.role} />
                     ))}
                 </div>
             </div>
