@@ -7,7 +7,7 @@ import { Header } from "../../GlobalComponents/Header";
 
 import { useUser } from "../../../hooks/useUser";
 
-import { postTeam } from "../../../api/AdminAPI";
+import { getManagers, postTeam } from "../../../api/AdminAPI";
 import { MyTextInput } from "../../GlobalComponents/TextInput";
 import { MyButton } from "../../GlobalComponents/Button";
 
@@ -23,6 +23,7 @@ export const TeamAdministration = () => {
   const [manager, setManager] = useState("");
   const [description, setDescription] = useState(null);
   const [error, setError] = useState("");
+  const [managers, setManagers] = useState([]);
 
   const handleNameChange = (e) => {
         setName(e.target.value);
@@ -56,7 +57,17 @@ export const TeamAdministration = () => {
 
     useEffect(() => {
         if (!userData.token) navigate("/");
-    });
+        const fetchManagers = async () => {
+            const response = await getManagers(userData.token);
+            const managers = response.filter((manager) => manager.team === null);
+            if (response.error) {
+                setError(response.error);
+            } else {
+                setManagers(managers);
+            }
+        }
+        fetchManagers();
+    }, [managers, userData.token, navigate]);
 
     return(
         <>
@@ -75,13 +86,19 @@ export const TeamAdministration = () => {
                     onChange={handleDescriptionChange}
                 >
                 </MyTextInput>
-                <MyTextInput
-                    placeholder="Manager"
-                    label="Manager"
-                    value={manager}
-                    onChange={handleManagerChange}
-                >
-                </MyTextInput>
+                <h4>Manager:</h4>
+                <select className="select-container" value={manager} onChange={handleManagerChange}>
+                    { managers.length > 0 ? <option key={-1} value={null}>Select staff as manager: </option> : null} 
+                    {
+                        managers.length > 0 ?
+                        managers.map((manager) => (
+                            <option key={manager.id} value={manager.id}>{manager.firstname + " " + manager.lastname}</option>
+                        ))
+                        :
+                        <option key={null} value={null}>No managers available</option>
+                    }
+                </select>
+
             </div>
             <div className="buttonsContainer">
                 <MyButton text={"Cancel"} onClick={() => navigate("/dashboard")}></MyButton>

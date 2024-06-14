@@ -45,6 +45,15 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .build();
     }
 
+    public List<CustomUserDTO> getManagerUsers() {
+        List<CustomUserDTO> managerUsers = customUserRepository.findAll()
+                .stream()
+                .map(CustomUserDTO::new)
+                .filter(user -> user.getRole().equals("Manager"))
+                .toList();
+        return managerUsers;
+    } 
+
     // Get Blocked Users
     public List<CustomUserDTO> getBlockedUsers() {
         List<CustomUserDTO> blockedUsers = customUserRepository.findAll()

@@ -132,8 +132,8 @@ export const UserAdministration = () => {
                 <p className="formTitles"> Role </p>
                 <select className="select-container" value={role} onChange={handleRoleChange}>
                     <option key={null} value={null}>Select a role: </option>
-                    <option value="1">Developer</option>
-                    <option value="2">Manager</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Manager">Manager</option>
                 </select>
                 <p className="formTitles"> Team </p>
                 <select className="select-container" value={team} onChange={handleTeamChange}>

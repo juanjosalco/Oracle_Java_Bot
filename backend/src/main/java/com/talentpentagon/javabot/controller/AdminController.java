@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.talentpentagon.javabot.service.CustomUserDetailsService;
+
 
 
 @RestController
@@ -40,6 +42,8 @@ public class AdminController {
     private UnblockUserCommandHandler UnblockUserCommandHandler;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private CustomUserDetailsService CustomUserDetailsService;
 
     // TEAM CONTROLLER
     // Creates a new team
@@ -91,5 +95,14 @@ public class AdminController {
     @PutMapping("/user/unblock")
     public ResponseEntity<?> unblockUser(@RequestBody Integer userID) {
         return UnblockUserCommandHandler.execute(userID);
+    }
+
+    // Gets all manager users
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PreAuthorize("hasRole('Notch')")
+    @GetMapping("/user/manager")
+    public ResponseEntity<List<CustomUserDTO>> getManagerUsers() {
+        List<CustomUserDTO> managerUsers = CustomUserDetailsService.getManagerUsers();
+        return ResponseEntity.ok(managerUsers);
     }
 }
