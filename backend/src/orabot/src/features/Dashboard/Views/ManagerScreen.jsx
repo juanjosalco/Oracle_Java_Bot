@@ -56,23 +56,17 @@ export const ManagerScreen = () => {
 
   return (
     <>
-      <div className="containerDashboard">
-        <h1 className="title left bold">
-          Hi, these are the tasks of your team
-        </h1>
-        <h3 className="subtitle">
-          Here you can see what your team is working on.
-        </h3>
-      </div>
       <Filter
         role={userData.role}
         onTeamMemberSelected={handleTeamMemberSelection}
         onFilterBy={setFilterOptions}
       />
-      {error && <p className="error">{error}</p>}
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} role={userData.role} />
-      ))}
+      <div className="task-list-container">
+        {error && <p className="error">{error}</p>}
+        {tasks.map((task, index) => (
+          <Task key={index} task={task} role={userData.role} />
+        ))}
+      </div>
     </>
   );
 };

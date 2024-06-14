@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -8,6 +8,8 @@ import { Header } from "../../GlobalComponents/Header";
 import { useUser } from "../../../hooks/useUser";
 
 import { postTeam } from "../../../api/AdminAPI";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 
 export const TeamAdministration = () => {
@@ -52,37 +54,39 @@ export const TeamAdministration = () => {
         CreateTeam();
     }
 
+    useEffect(() => {
+        if (!userData.token) navigate("/");
+    });
+
     return(
         <>
             <Header back={true} />
             <div className="formContainer">
-                <p className="formTitles"> Name </p>
-                <textarea
-                    placeholder="Name"
-                    className="inputArea"
-                    defaultValue={name}
+                <MyTextInput
+                    placeholder="Team name"
+                    label="Name"
+                    value={name}
                     onChange={handleNameChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Description </p>
-                <textarea
+                ></MyTextInput>
+                <MyTextInput
                     placeholder="Description"
-                    className="inputArea"
-                    defaultValue={description}
+                    label="Description"
+                    value={description}
                     onChange={handleDescriptionChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Manager </p>
-                <textarea
-                    placeholder="Description"
-                    className="inputArea"
-                    defaultValue={manager}
+                >
+                </MyTextInput>
+                <MyTextInput
+                    placeholder="Manager"
+                    label="Manager"
+                    value={manager}
                     onChange={handleManagerChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Members </p>
+                >
+                </MyTextInput>
             </div>
-            <button className="btn" onClick={AddTeamHandler}>Create Team</button>
+            <div className="buttonsContainer">
+                <MyButton text={"Cancel"} onClick={() => navigate("/dashboard")}></MyButton>
+                <MyButton text={"Create Team"} onClick={AddTeamHandler} className={"button red"}></MyButton>
+            </div>
             {error && <p className="error">{error}</p>}
         </>
     );

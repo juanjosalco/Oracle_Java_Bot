@@ -1,53 +1,65 @@
-input {
-  all: unset;
-}
-
-h1 {
-  all: unset;
-  font-size: 20px;
+.login-title {
+  font-size: calc(32px + 1rem);
   font-weight: 700;
-  text-align: left;
-  display: block;
-  margin-top: 48px;
-  margin-bottom: 24px;
+  margin: 16px 0;
+  text-align: center;
+  color: #f9f9f9;
 }
 
-.container {
-  margin-inline: 48px;
-}
-
-.inputContainer {
+.login-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  background-color: #f9f9f9;
+  height: 100%;
+}
+
+.login-button{
+  background-color: #B3311F;
+  color: #f9f9f9;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+
+.login-button:hover{
+  background-color: #fe681c;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+}
+
+.container-background {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  padding: 16px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-turquoise-cloud-pattern');
+}
+
+.background-blur{
+  background-color: rgba(28, 24, 20, .6);
+  height: 100%;
+  backdrop-filter: blur(1px);
+  z-index: 1;
 }
 
 .inputs {
   border-bottom: 2px solid #c84431;
   padding: 16px;
   text-align: left;
-}
-
-.btnX {
-  background-color: #100F0E;
-  color: #f2f2f2;
-  font-size: 20px;
-  font-weight: 700;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 32px;
-  width: 100%;
-}
-
-.questionBtn {
-  all: unset;
-  margin-top: 24px;
-  color: #BB501C;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
+  background-color: #f9f9f9;
 }
 
 .error{
@@ -56,4 +68,28 @@ h1 {
   font-size: 1rem;
   text-align: center;
   margin-top: 16px;
+}
+
+.hyperlink {
+  color: #fe681c;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.hyperlink:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  text-align: center;
+  padding: 16px;
+  color: #f2f2f2;
+}
+
+.button-container{
+  width: 100%;
 }

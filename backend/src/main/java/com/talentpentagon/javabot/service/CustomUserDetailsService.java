@@ -60,6 +60,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<CustomUser> user = customUserRepository.findById(id);
         if (user.isPresent()) {
             user.get().setEnabled(true);
+            user.get().setAttempts(0);
             customUserRepository.save(user.get());
         }
     }

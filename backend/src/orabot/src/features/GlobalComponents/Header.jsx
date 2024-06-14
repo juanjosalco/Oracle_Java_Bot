@@ -25,7 +25,7 @@ export const Header = (props) => {
             {props.back ? <img 
                 className="back" 
                 onClick={goBack} 
-                src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fback_icon.png?alt=media&token=fbfeae8f-ec22-4de4-bf6b-5a22b9400110" 
+                src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-back-icon" 
                 alt="Go Back Button" 
                 width={20} height={20}
             ></img> : <></>} 
@@ -37,13 +37,12 @@ export const Header = (props) => {
                 width={40} height={20} />
 
             {showLogoutButton && (
-                <img 
-                    className="logout"
+                <p
+                    className="logout link"
                     onClick={handleLogout}
-                    src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Flogout.png?alt=media&token=7c239655-25b8-4cf2-b2e3-b09e75f2a56e" 
-                    alt="Log Out" 
-                    width={20} height={20}
-                />
+                >
+                    Log out
+                </p>
             )}
         </div>
     );

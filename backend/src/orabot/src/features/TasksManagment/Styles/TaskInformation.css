@@ -1,19 +1,10 @@
-.taskContainerV{
-    margin-inline: 16px;
+.task-container{
     display: flex;
     flex-direction: column;
-}
-
-.inputsSpe{
-    padding: 16px;
-    border: 1px solid #100F0E;
-}
-
-.inputArea{
-    padding: 16px;
-    border: 1px solid #100F0E;
-    font-size: 1rem;
-    margin-bottom: 0;
+    background-image: url('https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-texture-fingerprint-light');
+    height: 100%;
+    padding: 16px 32px;
+    justify-content: flex-start;
 }
 
 .statusText{
@@ -26,19 +17,27 @@
 .buttonsContainer{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 16px;
+    margin-bottom: 0px;
     gap: 16px;
 }
 
 .button{
-    border: 0;
     border-radius: 8px;
-    padding: 16px 24px;
+    padding: 8px 16px;
     flex: 1;
-    font-size: 1rem;
-    font-weight: bold;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
     color: white;
     cursor: pointer;
+}
+
+.button:hover{
+    background-color: #47423E;
+}
+
+.red:hover{
+    background-color: #C84431;
 }
 
 .black{
@@ -58,15 +57,4 @@
 
 .gray{
     background-color: #100F0E;
-}
-
-.taskTitle{
-    all: unset;
-    font-size: 1rem;
-}
-
-.groups{
-    display: flex;
-    gap: 8px;
-
 }

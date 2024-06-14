@@ -1,12 +1,22 @@
+.popUpBlur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(3px); 
+    z-index: 1000;  
+}
+
 .popUpContainer {
     background-color: whitesmoke;
     text-align: center;
     position: fixed;
     z-index: 1;
     padding: 16px;
-    width: 80%;
+    width: 70%;
     height: auto;
-    max-width: 400px;
     max-height: 80%;
     margin: 0 auto;
     top: 50%;
@@ -21,10 +31,11 @@
     text-align: center;
 }
 
-
 .popUpButtons{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    margin-top: 32px;
 }
 
 .btn {
@@ -38,4 +49,8 @@
     cursor: pointer;
     margin-top: 32px;
     width: 100%;
+  }
+
+  .red{
+    background-color: #B3311F;
   }

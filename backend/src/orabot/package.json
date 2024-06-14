@@ -18,6 +18,7 @@
     "selenium-webdriver": "^4.21.0",
     "serve": "^14.2.3",
     "telegraf": "^4.16.3",
+    "text-encoding": "^0.7.0",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -27,9 +28,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+
     "test:mocha": "mocha test/", 
     "test:jest": "jest",
     "test": "npm run test:jest && npm run test:mocha",
+
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

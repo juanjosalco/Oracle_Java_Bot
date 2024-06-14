@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { NavLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom"; 
 import { useUser } from "../../../hooks/useUser";
 import { getBlockedUsers, unblockUser } from "../../../api/AdminAPI";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const AdminScreen = () => {
 
     const { userData } = useUser();
     const [blockedUsers, setBlockedUsers] = useState([]);
+    const navigate = useNavigate();
 
     const unlockHandler = async (userID) => {
         try {
-            await unblockUser(userData.token, userID);
+            await unblockUser(userData.token, userID).then(() => {
+                setBlockedUsers(blockedUsers.filter(user => user.id !== userID));
+            });
         } catch (error) {
             console.error("Failed to unblock user:", error);
         }
@@ -32,25 +36,24 @@ export const AdminScreen = () => {
     return (
         <>
             <div className="containerDashboard">
-                <div className="containerHero">
-                    <h1 className="title left bold">Hi, this is the administrator view</h1>
-                    <h3 className="subtitle">Here you can administrate teams, and unblock users</h3>
-                </div>
-                <div>
-                    <NavLink to="/team" className="btnDash">Create Team</NavLink>
-                    <NavLink to="/user" className="btnDash">Add User</NavLink>
-                    <NavLink className="btnDash">Modify</NavLink>
+                <div className="buttonsContainer">
+                    <MyButton className="orange-button" onClick={() => {navigate("/team")}} text={"Create Team"}></MyButton>
+                    <MyButton className="orange-button" onClick={() => {navigate("/user")}} text={"Add User"}></MyButton>
                 </div>
 
-                <h1 className="title left bold">Blocked Users</h1>
-                {
-                    blockedUsers ? blockedUsers.map((user, index) => (
-                    <div key={index} className="blockedUser">
-                        <p>{user.firstname + " " + user.lastname}</p>
-                        <button className="unblockBtn" onClick={() => unlockHandler(user.id)}>Unblock</button>
-                    </div>
-                )) : <p>No blocked users</p>
-                }
+                <div className="blocked-users-header">
+                    <h1>Blocked Users</h1>
+                </div>
+                <div className="blocked-users-container">
+                    {
+                        blockedUsers ? blockedUsers.map((user, index) => (
+                        <div key={index} className="blocked-user">
+                            <p>{user.firstname + " " + user.lastname}</p>
+                            <MyButton  text="Unblock" onClick={() => unlockHandler(user.id)}/>
+                        </div>
+                    )) : <p>No blocked users</p>
+                    }
+                </div>
             </div>
         </>
     );

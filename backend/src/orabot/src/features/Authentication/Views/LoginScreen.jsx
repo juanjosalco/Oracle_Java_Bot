@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "../Styles/Login.css";
 import { Header } from "../../GlobalComponents/Header";
-import { useNavigate } from "react-router-dom";
-// import {
-//   emailRegex,
-//   passwordRegex,
-// } from "../../GlobalComponents/Utils/RegexUtils";
+import { NavLink, useNavigate } from "react-router-dom";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
 import { useUser } from "../../../hooks/useUser";
 import { decodeJwt } from "../../GlobalComponents/Utils/Jwt";
 import { login } from "../../../api/AuthAPI";
+import { MyButton } from "../../GlobalComponents/Button";
 
 export const LoginScreen = () => {
   const { saveUserData } = useUser();
@@ -25,20 +23,6 @@ export const LoginScreen = () => {
     setPassword(e.target.value);
   };
 
-  // const validateCredentials = () => {
-  //   if (email.trim() === "" || password.trim() === "") {
-  //     setError("Please enter both email and password.");
-  //     return false;
-  //   } else if (!emailRegex.test(email)) {
-  //     setError("Please enter a valid email address.");
-  //     return false;
-  //   } else if (!passwordRegex.test(password)) {
-  //     setError("Please enter a valid password.");
-  //     return false;
-  //   }
-
-  //   return true;
-  // };
 
   const handleLogin = async () => {
     const response = await login(email, password);
@@ -76,35 +60,46 @@ export const LoginScreen = () => {
   return (
     <>
       <Header back={false} />
-      <div className="container">
-        <h1>Welcome to OraBot!</h1>
-        <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
+      <div className="login-container">
+        <div className="container-background">
+          <div className="background-blur">
+            <h1 className="login-title" >Welcome to OraBot!</h1>
+            <form onSubmit={(e) => { e.preventDefault(); handleLogin();}}>
+              <div className="input-container">
+                  <MyTextInput
+                    type="email"
+                    value={email}
+                    onChange={handleEmail}
+                    placeholder={"Email"}
+                  />
+                  <MyTextInput
+                    type={"password"}
+                    value={password}
+                    onChange={handlePassword}
+                    placeholder={"Password"}
+                  />
+                  <div>
+                    <MyButton text={"Log in"} onClick={handleLogin} className="login-button"/>
+                  </div>
 
-        <div className="inputContainer">
-            <input
-              type="text"
-              placeholder="Email"
-              className="inputs"
-              value={email}
-              onChange={handleEmail}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="inputs"
-              value={password}
-              onChange={handlePassword}
-            />
+                </div>
+                {error && <p className="error">{error}</p>}
+              </form>
+            <div className="footer">
+              <p className="termsOfUse">
+                By logging in, you agree to our <NavLink to="/terms-of-service" className="hyperlink">Terms of Use</NavLink> and <NavLink to="/privacy-policy" className="hyperlink">Privacy Policy</NavLink>.
+              </p>
+              <p className="termsOfUse">
+                For more information, please read our <NavLink to="/user-agreement" className="hyperlink">End-User Agreement</NavLink>.
+              </p>
+              <p className="hyperlink" onClick={handleRecover}>
+                Forgot password?
+              </p>
+            </div>
           </div>
-          {error && <p className="error">{error}</p>}
-          <button className="btnX" onClick={handleLogin}>
-            Log in
-          </button>
-          </form>
-        <button className="questionBtn" onClick={handleRecover}>
-          Forgot password?
-        </button>
+        </div>
       </div>
+
     </>
   );
 };

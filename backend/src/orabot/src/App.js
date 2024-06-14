@@ -10,6 +10,10 @@ import { TaskInformationScreen } from "./features/TasksManagment/Views/TaskInfor
 import { UserProvider } from "./providers/user/UserProvider";
 import { UserAdministration } from "./features/Administration/Views/UserAdministration";
 import { TeamAdministration } from "./features/Administration/Views/TeamAdministration";
+import { ArchiveScreen } from "./features/Dashboard/Views/ArchiveScreen";
+import { TermsScreen } from "./features/Authentication/Views/TermsScreen";
+import { PrivacyPolicyScreen } from "./features/Authentication/Views/PrivacyPolicyScreen";
+import { UserAgreementScreen } from "./features/Authentication/Views/UserAgreementScreen";
 
 const tele = window.Telegram.WebApp;
 
@@ -51,6 +55,22 @@ function App() {
     {
       path: "/team",
       element: <TeamAdministration />,
+    }, {
+      path: "/archive",
+      element: <ArchiveScreen />,
+    
+    },
+    {
+      path: "/terms-of-service",
+      element: <TermsScreen />,
+    },
+    {
+      path: "/privacy-policy",
+      element: <PrivacyPolicyScreen />,
+    },
+    {
+      path: "/user-agreement",
+      element: <UserAgreementScreen />,
     }
   ]);
 

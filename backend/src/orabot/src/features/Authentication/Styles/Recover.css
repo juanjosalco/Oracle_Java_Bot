@@ -1,24 +1,35 @@
-.title{
-    font-weight: 500;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.options{
+.recover-container{
     display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-texture-fingerprint-light');
+    
 }
 
-.btnSelector{
-    all: unset;
-    flex: 1;
-    margin-top: 1rem;
-    padding: 8px 0;
+.header{
+    display: flex;
     justify-content: center;
-    text-align: center;
-    font-size: 1.5rem;
+    align-items: center;
+    margin: 16px 0;
+    font-size: 2.5rem;
+}
+
+.title{
     font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.titleRecover{
+    font-size: 1    rem;
+    font-weight: 400;
+    text-align: center;
+    display: block;
+    margin: 24px 16px;
+    color: #100F0E;
 }
 
 .borderSelected{

@@ -2,15 +2,19 @@
 import React from 'react';
 
 import './Styles/Modal.css';
+import { MyButton } from './Button';
 
-const Modal = ({ handleClose, show, children }) => {
+const Modal = ({ handleClose, show, children, applyFilter }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
-        <button onClick={handleClose}>Close</button>
+        <div className='buttonsContainer'>
+          <MyButton text="Close" onClick={handleClose} />
+          <MyButton text="Apply" onClick={applyFilter} className="button red" />
+        </div>
       </section>
     </div>
   );

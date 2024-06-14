@@ -17,8 +17,15 @@
 .containerHeader .logout{
     position: absolute;
     right: 24px;
-    top: auto;
     cursor: pointer;
+}
+
+.link {
+    color: #f9f9f9f9;
+  }
+  
+  .link:hover {
+text-decoration: underline;
 }
 
 h2{

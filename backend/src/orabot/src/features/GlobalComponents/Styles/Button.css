@@ -1,0 +1,23 @@
+.button-component-container {
+    display: flex;
+    margin: 8px 8px;
+    position: relative;
+    flex: 1;
+}
+
+.default-button {
+    background-color: #3A3632;
+    color: #f9f9f9;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+.default-button:hover {
+    background-color: #47423E;
+}

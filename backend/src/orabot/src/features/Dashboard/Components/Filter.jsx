@@ -4,15 +4,18 @@ import { NavLink } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
 import { getTeamMembers } from "../../../api/AuthAPI";
 import Modal from "../../GlobalComponents/Modal";
+import { useNavigate } from "react-router-dom";
 
 // Styles
 import "../Styles/Filter.css";
+import { MyButton } from "../../GlobalComponents/Button";
 
 const Statuses = ["ToDo", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
 export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
   const { userData } = useUser();
+  const navigate = useNavigate();
 
   const [priority, setPriority] = useState(-1);
   const [status, setStatus] = useState("ALL");
@@ -25,6 +28,10 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const applyFilter = () => {
+    setShowModal(false);
     onFilterBy({priority: priority+1, status: statusName, sortBy: sortBy});
   };
 
@@ -53,7 +60,6 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
   const emptyTask = {id: 0, title: "", priority: 1, description: "", dueDate: new Date(), status: ""}
 
   const handlePriority = (index) => {
-    // If the current index is already selected, set priority to 0
     const newIndex = index === priority ? null : index;
     setPriority(newIndex === null ? -1 : newIndex);
   };
@@ -66,64 +72,72 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
     };
 
   return (
-    <div className="filterContainer">
-       <Modal show={showModal} handleClose={toggleModal} title={"Sort by"}>
-        <div>
-          <div >
-            <h3 >Sort by: </h3>
-            <select name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
-              <option value="creationDate">Select</option>
-              <option value="priority">Priority</option>
-              <option value="dueDate">Due Date</option>
-            </select>
-          </div>
-          <div className="priority">
-            <h3 >Priority: </h3>
-            <div className="prioritySelector">
-              {Priority.map((p, index) => (
-                <button key={index} className={`priorityButton ${priority === index ? "prioritySelAct white" : "prioritySel white"}`} onClick={() => handlePriority(index)}>{p}</button>
-              ))}
-            </div>
-            </div>
-          <div className="priority">
-            <h3 >Status: </h3>
-            <div className="statusSelector">
-              {Statuses.map((s, index) => (
-                <button key={index} className={`statusButton ${status === index ? "statusSelAct white" : "statusSel white"}`} onClick={() => handleStatus(index )}>{s}</button>
-              ))}
-            </div>
-            </div>
-        </div>
-      </Modal>
-      <div className="filterOpt">
-        {role!=="Developer" ? (
-          <>
-            <div className="leftSide smaller">
-              <div className="burguerMenu" onClick={toggleModal}>
-                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" alt="Burger menu for sorting and filter" width={'100%'} height={'100%'} className="imageB" />
-              </div>
-            </div>
-            <div className="rightSide smaller">
-              <div className="teamM"><p className="textX sep">Team member: </p></div>
-              <select className="select" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
-                <option value="select">All</option>
-                {teamMembers.map((member, index) => (
-                  <option key={index} value={member.id}>{member.name}</option>
-                ))
-                }
+    <div className="filter-background">
+      <div className="filterContainer">
+        <Modal show={showModal} handleClose={toggleModal} applyFilter={applyFilter} title={"Sort by"}>
+          <div>
+            <div >
+              <h3 >Sort by: </h3>
+              <select className="select-container" name="Priority" onChange={(e) => handleSortBy(e.target.value)}>
+                <option value="creationDate">Select</option>
+                <option value="priority">Priority</option>
+                <option value="dueDate">Due Date</option>
               </select>
             </div>
-          </>
-        ) : (
-          <>
-           <div className="leftSide smaller">
-              <div className="burguerMenu" onClick={toggleModal}>
-                <img src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2FBurguerMenu1.png?alt=media&token=78456f76-1ea7-4b62-b40b-04d711ea9996" alt="Show Comments Button" width={'100%'} height={'100%'} className="imageB" />
+            <div className="priority">
+              <h3 >Priority: </h3>
+              <div>
+              </div>
+              </div>
+                <div className="filter-selector-container">
+                  {Priority.map((p, index) => (
+                    <button key={index} className={`priorityButton ${priority === index ? "prioritySelAct white" : "prioritySel white"}`} onClick={() => handlePriority(index)}>{p}</button>
+                  ))}
+                </div>
+            <div className="priority">
+              <h3 >Status: </h3>
+            </div>
+            <div>
+              <div className="filter-selector-container">
+                  {Statuses.map((s, index) => (
+                    <button key={index} className={`statusButton ${status === index ? "statusSelAct white" : "statusSel white"}`} onClick={() => handleStatus(index )}>{s}</button>
+                  ))}
               </div>
             </div>
-            <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
-          </>
-        )}
+          </div>
+        </Modal>
+        <div className="filterOpt">
+          {role!=="Developer" ? (
+            <>
+              <div className="leftSide smaller">
+                <div className="burguerMenu" onClick={toggleModal}>
+                  <img src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-filter-icon" alt="Burger menu for sorting and filter" width={'100%'} height={'100%'} className="imageB" />
+                </div>
+              </div>
+              <div className="rightSide smaller">
+                <div className="teamM"><p className="textX sep">Team member: </p></div>
+                <select className="select-container" name="Priority" onChange={(e) => handleTeamMemberSelection(e.target.value)}>
+                  <option value="select">All</option>
+                  {teamMembers.map((member, index) => (
+                    <option key={index} value={member.id}>{member.name}</option>
+                  ))
+                  }
+                </select>
+              </div>
+              <MyButton className="light-button" text="Archived" onClick={() => navigate("/archive")}/>
+            </>
+          ) : (
+            <>
+            <div className="leftSide smaller">
+                <div className="burguerMenu" onClick={toggleModal}>
+                  <img src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-filter-icon" alt="Burger Menu for sorting and filter" width={'100%'} height={'100%'} className="imageB" />
+                </div>
+              </div>
+              <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
+              <MyButton className="light-button" text="Archived" onClick={() => navigate("/archive")}/>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

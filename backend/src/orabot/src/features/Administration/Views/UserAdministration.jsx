@@ -8,6 +8,9 @@ import "../Styles/Administration.css";
 import { postUser, getAllTeams } from "../../../api/AdminAPI";
 
 import { useUser } from "../../../hooks/useUser";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
+import "../../GlobalComponents/Styles/Selector.css";
 
 export const UserAdministration = () => {
     const { userData } = useUser();
@@ -21,7 +24,7 @@ export const UserAdministration = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("Developer");
-    const [team, setTeam] = useState(1);
+    const [team, setTeam] = useState(null);
     const [phonenumber, setPhone] = useState("");
     const [error, setError] = useState("");
     const [teams, setTeams] = useState([]);
@@ -55,8 +58,6 @@ export const UserAdministration = () => {
     }
 
     const addUser = async () => {
-        // GET TEAM ID
-        setTeam(1);
         const newUser = {
           email: email,
           firstname: firstname,
@@ -91,66 +92,68 @@ export const UserAdministration = () => {
     const AddUserHandler = () => {
         addUser();
     }
+
+    useEffect(() => {
+        if (!userData.token) navigate("/");
+    }, []);
     
     return(
         <>
             <Header back={true} />
             <div className="formContainer">
-                <p className="formTitles"> Name </p>
-                <textarea
+                <MyTextInput
                     placeholder="Name"
-                    className="inputArea"
-                    defaultValue={firstname}
+                    label="Name"
+                    value={firstname}
                     onChange={handleNameChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Lastname </p>
-                <textarea
+                    
+                ></MyTextInput>
+                <MyTextInput
                     placeholder="Lastname"
-                    className="inputArea"
-                    defaultValue={lastname}
+                    label="Lastname"
+                    value={lastname}
                     onChange={handleLastNameChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Email </p>
-                <textarea
-                    placeholder="Email"
-                    className="inputArea"
-                    defaultValue={email}
+                    
+                ></MyTextInput>
+                <MyTextInput
+                    placeholder="example@oracle.com"
+                    label="Email"
+                    value={email}
                     onChange={handleEmailChange}
-                    rows={1}
-                />
-                <p className="formTitles"> Password </p>
-                <textarea
-                    placeholder="Password"
-                    className="inputArea"
-                    defaultValue={password}
+                    
+                ></MyTextInput>
+                <MyTextInput
+                    placeholder="********"
+                    label="Password"
+                    value={password}
                     onChange={handlePasswordChange}
-                    rows={1}
-                />
+                    
+                ></MyTextInput>
                 <p className="formTitles"> Role </p>
-                <select value={role} onChange={handleRoleChange}>
+                <select className="select-container" value={role} onChange={handleRoleChange}>
+                    <option key={null} value={null}>Select a role: </option>
                     <option value="1">Developer</option>
                     <option value="2">Manager</option>
-                    <option value="3">Admin</option>
                 </select>
                 <p className="formTitles"> Team </p>
-                <select value={team} onChange={handleTeamChange}>
+                <select className="select-container" value={team} onChange={handleTeamChange}>
+                    <option key={null} value={null}>Select a team: </option>
                     {teams.map((team) => (
                         <option key={team.id} value={team.id}>{team.name}</option>
                     ))}
                 </select>
-                <p className="formTitles"> Phone number </p>
-                <textarea
+                <MyTextInput
                     placeholder="Phone number"
-                    className="inputArea"
-                    defaultValue={phonenumber}
+                    value={phonenumber}
                     onChange={handlePhoneChange}
-                    rows={1}
-                />
-            </div>
-            <button className="btn" onClick={AddUserHandler}>Add User</button>
+                    label="Phone number"
+                ></MyTextInput>
             {error && <p className="error">{error}</p>}
+            <div className="buttonsContainer">
+                <MyButton text="Cancel" onClick={() => navigate("/dashboard")}></MyButton>
+                <MyButton text="Add User" onClick={AddUserHandler} className="button red"></MyButton>
+            </div>
+            </div>
         </>
     );
 }

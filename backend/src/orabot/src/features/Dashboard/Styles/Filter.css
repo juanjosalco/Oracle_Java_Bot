@@ -9,7 +9,7 @@
 }
 
 .sep {
-  margin-left: 56px;
+  margin-left: 16px;
 }
 
 .textX{
@@ -19,7 +19,6 @@
 }
 
 select {
-  -webkit-appearance: none;
   padding: 8px 16px;
   margin-block: 16px;
   overflow: hidden;
@@ -50,13 +49,29 @@ margin: auto;
   background-color: #bb501c;
   border: none;
   padding: 4px;
-  margin: 16px;
+  margin: 16px 0 16px 16px;
   cursor: pointer;
   justify-content: center;
   font-size: 1.8rem;
-  flex: 1;
+  flex: 2;
   color: white;
   border-radius: 8px;
+}
+
+.light-button{
+  display: flex;
+  background-color: #F9F9F9;
+  color: #3a3632;
+  margin: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 p {
@@ -78,12 +93,10 @@ p {
   border-radius: 8px;
 }
 
-.prioritySelector {
+.filter-selector-container {
   display: flex;
-  justify-content: space-between;
-  align-self: center;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  margin: 8px 16px;
 }
 
 .status {
@@ -142,10 +155,11 @@ p {
 }
 
 .burguerMenu{
-  width: 40px;
+  width: 21px;
   height: 40px;
   align-self: center;
   border-radius: 16px;
+  cursor: pointer;
 }
 
 .teamM{
@@ -154,4 +168,8 @@ p {
 
 .white{
   color: white;
+}
+
+.leftMargin{
+  margin-left: 16px;
 }

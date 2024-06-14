@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Styles
 import "../Styles/TaskInformation.css";
-
+import "../../GlobalComponents/Styles/Selector.css";
 // Components
 import { Header } from "../../GlobalComponents/Header";
 import { PopUp } from "../../GlobalComponents/PopUp";
 
 import { postTask, deleteTask, updateTask } from "../../../api/TasksAPI";
 import { useUser } from "../../../hooks/useUser";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
+import { MyButton } from "../../GlobalComponents/Button";
 
 const Statuses = ["ToDo", "Ongoing", "Done"];
 
@@ -19,6 +21,11 @@ export const TaskInformationScreen = () => {
   // Router
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userData.token) navigate("/");
+    // if(!location.state) navigate("/dashboard");
+  });
 
   const { state } = location;
 
@@ -47,8 +54,8 @@ export const TaskInformationScreen = () => {
     state.task.description.length
   );
 
-  const dateX = new Date(state.task.dueDate).toISOString().split("T")[0];
-  const [date, setDate] = useState(dateX);
+
+  const [date, setDate] = useState("");
 
   const handleCancel = () => {
     setPopUp(false);
@@ -134,15 +141,15 @@ export const TaskInformationScreen = () => {
   };
 
   const handlePriorityChange = (e) => {
-    const newPriority = parseInt(e.target.value); // Convert value to integer
-    setPriority(newPriority); // Update state with new priority
+    const newPriority = parseInt(e.target.value);
+    setPriority(newPriority); 
   };
 
   const handleDateChange = (e) => {
-    const newDate = e.target.value; // Obtener la nueva fecha seleccionada por el usuario
-    const formattedDate = new Date(newDate).toISOString().split("T")[0]; // Convertir la fecha al formato ISO 8601
-    setDate(formattedDate); // Actualizar el estado `date` con la nueva fecha
-    setDueDate(new Date(formattedDate)); // Asegurarse de que `dueDate` también se actualiza con la nueva fecha
+    const newDate = e.target.value; 
+    const formattedDate = new Date(newDate).toISOString().split("T")[0];
+    setDate(formattedDate); 
+    setDueDate(new Date(formattedDate));
   };
 
   // Update title character count
@@ -174,36 +181,32 @@ export const TaskInformationScreen = () => {
           onCancel={handleCancel}
         ></PopUp>
       ) : null}
-      <div className="taskContainerV">
-        <div className="titleCharCounter">
-          <h1>Task title ({titleCharCount}/{MAX_TITLE_CHAR_LIMIT})</h1>
-        </div>
+      <div className="task-container">
         {role === "Developer" ? (
-          <input
-            type="text"
-            placeholder="Title"
-            className="inputsSpe"
-            defaultValue={title}
-            maxLength={MAX_TITLE_CHAR_LIMIT}
+          <MyTextInput 
+            type={"text"}
+            value={title}
             onChange={handleTitleChange}
-          />
+            placeholder={"Title"}
+            maxLength={MAX_TITLE_CHAR_LIMIT}
+            label={"Title"}
+            >
+          </MyTextInput>
+
         ) : (
           <p className="taskTitle">{state.task.title}</p>
         )}
-        <div className="titleCharCounter">
-          <h1 style={{ marginTop: 16 }}>
-            Description ({descriptionCharCount}/{MAX_DESCRIPTION_CHAR_LIMIT})
-          </h1>
-        </div>
+
         {role === "Developer" ? (
-          <textarea
-            placeholder="Description"
-            className="inputArea"
-            defaultValue={description}
-            maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
-            rows={5}
+          <MyTextInput
+            placeholder={"Description"}
+            value={description}
             onChange={handleDescriptionChange}
+            type={"TextArea"}
+            maxLength={MAX_DESCRIPTION_CHAR_LIMIT}
+            label={"Description"}
           />
+          
         ) : (
           <p className="taskTitle">{state.task.description}</p>
         )}
@@ -234,7 +237,7 @@ export const TaskInformationScreen = () => {
               <h1 style={{ marginTop: 16 }}>Priority:</h1>
             )}
             {role === "Developer" ? (
-              <select value={priority} onChange={handlePriorityChange}>
+              <select className="select-container" value={priority} onChange={handlePriorityChange}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -253,9 +256,9 @@ export const TaskInformationScreen = () => {
               <h1 style={{ marginTop: 16 }}>Due date:</h1>
             )}
             {role === "Developer" ? (
-              <input
+
+              <MyTextInput
                 type="date"
-                className="dueDate"
                 value={date}
                 onChange={handleDateChange}
               />
@@ -267,17 +270,11 @@ export const TaskInformationScreen = () => {
         <div style={{ marginBottom: 16, marginTop: 8 }}>
           {role === "Developer" && (
             <div className="buttonsContainer">
-              <button className="button black" onClick={handleClick}>
-                Cancel
-              </button>
+              <MyButton text={"Cancel"} onClick={handleClick}></MyButton>
               {state.isNewTask ? (
-                <button className="button black" onClick={handleCreate}>
-                  Create
-                </button>
+                <MyButton text={"Create"} onClick={handleCreate} className={"button red"}></MyButton>
               ) : (
-                <button className="button black" onClick={handleClick}>
-                  Save
-                </button>
+                <MyButton text={"Delete"} onClick={handleClick}></MyButton>
               )}
             </div>
           )}
@@ -285,16 +282,12 @@ export const TaskInformationScreen = () => {
           {role === "Developer" ? (
             !state.isNewTask && (
               <div className="buttonsContainer">
-                <button className="button red" onClick={handleClick}>
-                  Delete
-                </button>
+                <MyButton text={"Save"} onClick={handleClick} className={"button red"}></MyButton>
               </div>
             )
           ) : (
             <div className="buttonsContainer">
-              <button className="button black" onClick={handleConfirm}>
-                Return to Dashboard
-              </button>
+              <MyButton text={"Return to Dashboard"} onClick={handleConfirm} ></MyButton>
             </div>
           )}
         </div>
