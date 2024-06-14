@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Styles 
 import "../Styles/Archive.css";
@@ -8,14 +9,16 @@ import { useUser } from "../../../hooks/useUser";
 
 // Components
 import { Header } from "../../GlobalComponents/Header";
-
+import { MyButton } from "../../GlobalComponents/Button"
 // Functions
 import { getTeamArchivedTasks, getUserArchivedTasks } from "../../../api/TasksAPI";
 import { Task } from "../Components/Task";
+import { MyTextInput } from "../../GlobalComponents/TextInput";
 
 export const ArchiveScreen = () => {
 
     const { userData } = useUser();
+    const navigate = useNavigate();
 
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -34,6 +37,11 @@ export const ArchiveScreen = () => {
         const formattedDate = new Date(newDate).toISOString().split("T")[0];
         setEndDate(formattedDate);
     };
+
+    useEffect(() => {
+        if (!userData.token) navigate("/");
+    });
+
 
     useEffect(() => {
         const getAllTasks = async () => {
@@ -71,30 +79,36 @@ export const ArchiveScreen = () => {
     return (
         <>
             <Header back={true} />
-            <div className="containerDashboard">
-                <h1>Here are the tasks that have been cancelled over time</h1>
-                <div className="dates">
-                    <h3 className="selection">Start Date</h3>
-                    <h3 className="selection">End Date</h3>
+            <div className="archived-main-container">
+                <div className="archived-background">
+                    <h1 className="title">Here are the tasks that have been cancelled over time</h1>
                 </div>
-                <div className="dates">
-                    <input
-                        type="date"
-                        className="dueDate right"
-                        onChange={handleDateChangeStart}
-                    />
-                    <input
-                        type="date"
-                        className="dueDate left"
-                        onChange={handleDateChangeEnd}
-                    />
+                <div className="archived-header-container">
+                    <div className="dates">
+                        <div>
+                            <h3 className="selection">Start Date</h3>
+                            <MyTextInput
+                                type="date"
+                                onChange={handleDateChangeStart}                    
+                            />
+                        </div>
+                        <div>
+                            <h3 className="selection">End Date</h3>
+                            <MyTextInput
+                                type="date"
+                                onChange={handleDateChangeEnd}                    
+                            />
+                        </div>
+                    </div>
+                    <MyButton onClick={handleRanges} text={"Select range"} className={"orange-button"}/>
+                    {error && <p className="error">{error}</p>}
                 </div>
-                <button className="btnRange" onClick={handleRanges}>Select range</button>
-                {error && <p className="error">{error}</p>}
+                <div className="tasks-container">
+                    {filteredTasks.map((task, index) => (
+                        <Task key={index} task={task} role={userData.role} />
+                    ))}
+                </div>
             </div>
-            {filteredTasks.map((task, index) => (
-                <Task key={index} task={task} role={userData.role} />
-            ))}
         </>
     );
 }

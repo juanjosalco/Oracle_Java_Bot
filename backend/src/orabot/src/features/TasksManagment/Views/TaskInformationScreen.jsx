@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Styles
@@ -22,8 +22,10 @@ export const TaskInformationScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (!location.state) navigate("/dashboard");
-  if (!userData) navigate("/");
+  useEffect(() => {
+    if (!userData.token) navigate("/");
+    // if(!location.state) navigate("/dashboard");
+  });
 
   const { state } = location;
 
@@ -51,6 +53,7 @@ export const TaskInformationScreen = () => {
   const [descriptionCharCount, setDescriptionCharCount] = useState(
     state.task.description.length
   );
+
 
   const [date, setDate] = useState("");
 

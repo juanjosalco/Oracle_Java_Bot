@@ -4,15 +4,18 @@ import { NavLink } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
 import { getTeamMembers } from "../../../api/AuthAPI";
 import Modal from "../../GlobalComponents/Modal";
+import { useNavigate } from "react-router-dom";
 
 // Styles
 import "../Styles/Filter.css";
+import { MyButton } from "../../GlobalComponents/Button";
 
 const Statuses = ["ToDo", "Ongoing", "Done"];
 const Priority = ["1", "2", "3"];
 
 export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
   const { userData } = useUser();
+  const navigate = useNavigate();
 
   const [priority, setPriority] = useState(-1);
   const [status, setStatus] = useState("ALL");
@@ -121,7 +124,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
                   }
                 </select>
               </div>
-              <NavLink className="btnArchived leftMargin" to={"/archive"}><p>Archived</p></NavLink>
+              <MyButton className="light-button" text="Archived" onClick={() => navigate("/archive")}/>
             </>
           ) : (
             <>
@@ -131,7 +134,7 @@ export const Filter = ({role, onTeamMemberSelected, onFilterBy}) => {
                 </div>
               </div>
               <NavLink className="btnAdd" to={"/task/add"} state={{task: emptyTask, role: role, isNewTask : true}}>+</NavLink>
-              <NavLink className="btnArchived leftMargin" to={"/archive"}><p>Archived</p></NavLink>
+              <MyButton className="light-button" text="Archived" onClick={() => navigate("/archive")}/>
             </>
           )}
         </div>

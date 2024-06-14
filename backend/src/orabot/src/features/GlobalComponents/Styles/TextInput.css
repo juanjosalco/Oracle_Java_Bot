@@ -1,9 +1,9 @@
 .input-component-container {
     display: flex;
     flex-direction: column;
-    margin: 8px 16px;
     position: relative;
     align-items: center;
+    width: 100%;
 }
 
 .default-input {
@@ -27,7 +27,6 @@
     padding: 8px 16px 16px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    /* font-size: calc(16px); */
     transition: all 0.3s;
     width: 100%;
     background-color: rgba(255, 255, 255, .8);
@@ -43,7 +42,6 @@
 .default-input-area:focus {
     border: 1px solid rgba(180, 15, 15, 0.8);
 }
-
 
 .decorations {
     display: flex;

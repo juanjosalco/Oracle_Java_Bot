@@ -26,6 +26,7 @@ export const Task = (props) => {
     "ToDo" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-pending-icon",
     "Ongoing" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-in-progress-icon",
     "Done" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-done-icon",
+    "Cancelled" : "https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-cross-icon-light",
   });
   //const [loading, setLoading] = useState(false);
 
@@ -70,6 +71,8 @@ export const Task = (props) => {
                 ? "grey"
                 : props.task.status === "Ongoing"
                 ? "orange"
+                : props.task.status === "Cancelled" 
+                ? "red"
                 : "green"
             }`}
           >
@@ -77,9 +80,6 @@ export const Task = (props) => {
               <img src={statusImages[props.task.status]} alt="Status of task"/>
             </div>
           </div>
-                  {/* div className="status-image">
-                    <img src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-pending-icon"/>
-                  </div> */}
           <div className="taskInfo">
             <div className="titleInfo">
               <h1 className="titleX">{props.task.title}</h1>

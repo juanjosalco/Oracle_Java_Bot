@@ -62,10 +62,10 @@ export const PopUpComment = ({ title, comments, onClose, taskID}) => {
                 <div className="titleSection">
                     <button type="button" onClick={onClose} className="close-button">
                         <img
-                            src="https://firebasestorage.googleapis.com/v0/b/oracle-java-bot.appspot.com/o/Assets%2FIcons%2Fcross.png?alt=media&token=8a61e868-ce6b-4e0f-b8a6-1f3705e11c5e"
+                            src="https://objectstorage.mx-queretaro-1.oraclecloud.com/p/AQJ9ycvPcEbPudU4ypftS1cFQPvSk1b4x9St_e_P4g7ERieTAgagRPGa5-jzpb2P/n/axgyv8vo90ix/b/orabot-ooxbf/o/image-cross-icon"
                             alt="Close"
-                            width="20"
-                            height="20"
+                            width="24"
+                            height="24"
                         />
                     </button>
                     <h1 className="titleComment">{title}</h1>
