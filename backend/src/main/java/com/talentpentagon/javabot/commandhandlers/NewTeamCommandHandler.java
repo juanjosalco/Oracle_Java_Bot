@@ -12,7 +12,7 @@ import com.talentpentagon.javabot.service.TeamService;
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class NewTeamCommandHandler implements NewTeam<Team, ResponseEntity<Team>>  {
+public class NewTeamCommandHandler implements NewTeam<Team, ResponseEntity<Team>> {
     @Autowired
     private TeamService teamService;
 
@@ -23,14 +23,13 @@ public class NewTeamCommandHandler implements NewTeam<Team, ResponseEntity<Team>
 
         // description
         if (StringUtils.isBlank(team.getDescription())) {
-            throw new RuntimeException("Team description cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // name
         if (StringUtils.isBlank(team.getName())) {
-            throw new RuntimeException("Team name cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
 
         teamService.createTeam(team);
 

@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import com.talentpentagon.javabot.Querys.Query;
 import com.talentpentagon.javabot.model.TeamDTO;
 import com.talentpentagon.javabot.service.TeamService;
 
 @Service
-public class GetTeamsHandler implements Query<List<TeamDTO>>{
-    
+public class GetTeamsHandler implements Query<List<TeamDTO>> {
+
     @Autowired
     private TeamService teamService;
 

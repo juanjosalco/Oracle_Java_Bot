@@ -1,6 +1,6 @@
 package com.talentpentagon.javabot.queryhandlers;
 
-import com.talentpentagon.javabot.Commands.GetCommand;
+import com.talentpentagon.javabot.Querys.GetCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 
@@ -25,7 +25,7 @@ public class GetTaskByUserCommandHandler implements GetCommand<Integer, List<Tas
     public ResponseEntity<List<TaskItem>> execute(Integer userId, String sortBy, String status, Integer priority) {
 
         if (userId == null) {
-            throw new RuntimeException("User ID cannot be null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Invoke the service method to retrieve tasks assigned to the user

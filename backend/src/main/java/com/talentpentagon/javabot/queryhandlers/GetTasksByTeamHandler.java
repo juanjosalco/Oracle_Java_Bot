@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.javabot.Commands.GetCommand;
+import com.talentpentagon.javabot.Querys.GetCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.model.Team;
 import com.talentpentagon.javabot.repository.TeamRepository;
@@ -30,7 +30,7 @@ public class GetTasksByTeamHandler implements GetCommand<Integer, List<TaskItem>
 
         // If the team doesn't exist, return not found
         if (persistedTeam == null) {
-            throw new RuntimeException("Team not found");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Fetch tasks associated with the team

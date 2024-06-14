@@ -26,20 +26,20 @@ public class NewCommentCommandHandler implements NewComment<Comment, ResponseEnt
 
         // Commenter Id
         if (comment.getCommenterId() <= 0) {
-            throw new RuntimeException("Commenter Id cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Message
         if (StringUtils.isBlank(comment.getMessage())) {
-            throw new RuntimeException("Comment cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!comment.getMessage().matches(specialChars)) {
-            throw new RuntimeException("Comment cannot contain special characters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // creation date
         if (comment.getCreationDate() == null) {
-            throw new RuntimeException("Comment creation date cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         commentService.createComment(comment);

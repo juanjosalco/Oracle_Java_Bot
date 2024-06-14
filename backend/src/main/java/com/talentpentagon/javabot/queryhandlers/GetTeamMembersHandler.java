@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.talentpentagon.javabot.Commands.GetTeamMembersCommand;
+import com.talentpentagon.javabot.Querys.GetTeamMembersCommand;
 import com.talentpentagon.javabot.service.TeamService;
 
 @Service
-public class GetTeamMembersHandler implements GetTeamMembersCommand<Integer, Map<Integer, String>>{
-    
+public class GetTeamMembersHandler implements GetTeamMembersCommand<Integer, Map<Integer, String>> {
+
     @Autowired
     private TeamService teamService;
 
@@ -21,7 +21,7 @@ public class GetTeamMembersHandler implements GetTeamMembersCommand<Integer, Map
 
         Map<Integer, String> teamMembers = teamService.getTeamMembers(teamId);
 
-        if(teamMembers == null || teamMembers.isEmpty()){
+        if (teamMembers == null || teamMembers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 

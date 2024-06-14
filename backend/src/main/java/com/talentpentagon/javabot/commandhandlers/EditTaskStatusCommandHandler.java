@@ -23,19 +23,20 @@ public class EditTaskStatusCommandHandler implements PostPutCommand<TaskItem, Re
     public ResponseEntity<TaskItem> execute(TaskItem task) {
         // status_change_date
         if (task.getStatusChangeDate() == null) {
-            throw new RuntimeException("Task status change date cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         // status
         if (StringUtils.isBlank(task.getStatus())) {
-            throw new RuntimeException("Task status cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if ((!task.getStatus().matches("^(?i) *(To do|Ongoing|Done|Cancelled)$"))) {
-            throw new RuntimeException("Task status must be one of 'To do', 'Ongoing', 'Done', 'Cancelled'");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // status_change_date
         if (task.getStatusChangeDate() == null) {
-            throw new RuntimeException("Task status change date cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         taskService.updateTaskStatus(task.getId(), task.getStatus(), task.getStatusChangeDate());

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.http.HttpStatus;
 
-import com.talentpentagon.javabot.Commands.GetByIdCommand;
+import com.talentpentagon.javabot.Querys.GetByIdCommand;
 import com.talentpentagon.javabot.model.TaskItem;
 import com.talentpentagon.javabot.service.TaskService;
 

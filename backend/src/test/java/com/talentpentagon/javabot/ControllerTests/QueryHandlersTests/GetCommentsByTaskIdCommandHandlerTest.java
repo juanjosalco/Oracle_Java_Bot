@@ -1,4 +1,4 @@
-package com.talentpentagon.javabot.TaskControllerTest;
+package com.talentpentagon.javabot.ControllerTests;
 
 import com.talentpentagon.javabot.queryhandlers.GetCommentsByTaskIdCommandHandler;
 import com.talentpentagon.javabot.model.Comment;

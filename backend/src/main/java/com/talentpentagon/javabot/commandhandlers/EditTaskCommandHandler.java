@@ -25,36 +25,36 @@ public class EditTaskCommandHandler implements PostPutCommand<TaskItem, Response
     public ResponseEntity<TaskItem> execute(TaskItem task) {
         // title
         if (StringUtils.isBlank(task.getTaskTitle())) {
-            throw new RuntimeException("Task title cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!task.getTaskTitle().matches(specialChars)) {
-            throw new RuntimeException("Task title cannot contain special characters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // description
         if (StringUtils.isBlank(task.getDescription())) {
-            throw new RuntimeException("Task description cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!task.getDescription().matches(specialChars)) {
-            throw new RuntimeException("Task description cannot contain special characters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // creation_date
         if (task.getCreationDate() == null) {
-            throw new RuntimeException("Task creation date cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // due_date
         if (task.getDueDate() == null) {
-            throw new RuntimeException("Task due date cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // priotity
         if (task.getPriority() == null) {
-            throw new RuntimeException("Task priority cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (task.getPriority() < 1 || task.getPriority() > 3) {
-            throw new RuntimeException("Task priority must be between 1 and 3");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         taskService.updateTask(task.getId(), task);

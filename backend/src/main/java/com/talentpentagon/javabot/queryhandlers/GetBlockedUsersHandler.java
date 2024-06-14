@@ -6,13 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.talentpentagon.javabot.service.CustomUserDetailsService;
+import com.talentpentagon.javabot.Querys.Query;
 import com.talentpentagon.javabot.model.CustomUserDTO;
 
 import java.util.List;
 
 @Service
-public class GetBlockedUsersHandler implements Query<List<CustomUserDTO>>{
-    
+public class GetBlockedUsersHandler implements Query<List<CustomUserDTO>> {
+
     @Autowired
     private CustomUserDetailsService customUserService;
 
@@ -21,7 +22,7 @@ public class GetBlockedUsersHandler implements Query<List<CustomUserDTO>>{
 
         List<CustomUserDTO> blockedUsers = customUserService.getBlockedUsers();
 
-        if(blockedUsers == null || blockedUsers.isEmpty()){
+        if (blockedUsers == null || blockedUsers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
 

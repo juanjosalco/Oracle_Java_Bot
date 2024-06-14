@@ -12,7 +12,7 @@ import com.talentpentagon.javabot.service.TeamService;
 import io.micrometer.common.util.StringUtils;
 
 @Service
-public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEntity<Team>>  {
+public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEntity<Team>> {
     @Autowired
     private TeamService teamService;
 
@@ -22,21 +22,21 @@ public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEnti
     public ResponseEntity<Team> execute(Team team) {
         // name
         if (StringUtils.isBlank(team.getName())) {
-            throw new RuntimeException("Team name cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!team.getName().matches(specialChars)) {
-            throw new RuntimeException("Team name cannot contain special characters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Description
         if (StringUtils.isBlank(team.getDescription())) {
-            throw new RuntimeException("Team description cannot be empty");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!team.getDescription().matches(specialChars)) {
-            throw new RuntimeException("Team description cannot contain special characters");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        teamService.editTeam(team.getId() ,team);
+        teamService.editTeam(team.getId(), team);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(team);
     }
