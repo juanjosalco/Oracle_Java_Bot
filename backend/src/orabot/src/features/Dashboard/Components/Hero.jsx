@@ -55,9 +55,7 @@ export const Hero = () => {
         <div className="hero-content">
           <h1 className="hero-title">{userData.role === "Notch" ? "Administration Dashboard": title }</h1>
           <p className="hero-text">{message}</p>
-          <p className="hero-text">New feature added, check your deployments!</p>
         </div>
-
       </div>
   </>
   );

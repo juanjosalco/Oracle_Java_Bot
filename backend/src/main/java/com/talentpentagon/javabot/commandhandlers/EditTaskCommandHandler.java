@@ -30,7 +30,7 @@ public class EditTaskCommandHandler implements PostPutCommand<TaskItem, Response
         if (!task.getTaskTitle().matches(specialChars)) {
             throw new RuntimeException("Task title cannot contain special characters");
         }
-        if(task.getTaskTitle().getBytes().length > 64) {
+        if(task.getTaskTitle().length()> 64) {
             throw new RuntimeException("Task title cannot be more than 64 characters");
         }
 
@@ -41,7 +41,7 @@ public class EditTaskCommandHandler implements PostPutCommand<TaskItem, Response
         if (!task.getDescription().matches(specialChars)) {
             throw new RuntimeException("Task description cannot contain special characters");
         }
-        if(task.getDescription().getBytes().length > 320) {
+        if(task.getDescription().length() > 320) {
             throw new RuntimeException("Task description cannot be more than 320 characters");
         }
 

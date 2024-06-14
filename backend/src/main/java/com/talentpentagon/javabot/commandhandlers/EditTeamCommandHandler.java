@@ -28,7 +28,7 @@ public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEnti
         if (!team.getName().matches(specialChars)) {
             throw new RuntimeException("Team name cannot contain special characters");
         }
-        if(team.getDescription().getBytes().length > 32) {
+        if(team.getDescription().length() > 32) {
             throw new RuntimeException("Team name cannot be more than 32 characters");
         }
 
@@ -36,7 +36,7 @@ public class EditTeamCommandHandler implements PostPutCommand<Team, ResponseEnti
         if (StringUtils.isBlank(team.getDescription())) {
             throw new RuntimeException("Team description cannot be empty");
         }
-        if(team.getDescription().getBytes().length > 12) {
+        if(team.getDescription().length() > 12) {
             throw new RuntimeException("Team description cannot be more than 120 characters");
         }
         if (!team.getDescription().matches(specialChars)) {

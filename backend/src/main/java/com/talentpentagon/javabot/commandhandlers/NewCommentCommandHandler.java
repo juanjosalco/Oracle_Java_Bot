@@ -36,7 +36,7 @@ public class NewCommentCommandHandler implements NewComment<Comment, ResponseEnt
         if (!comment.getMessage().matches(specialChars)) {
             throw new RuntimeException("Comment cannot contain special characters");
         }
-        if(comment.getMessage().getBytes().length > 120) {
+        if(comment.getMessage().length() > 120) {
             throw new RuntimeException("Comment cannot be more than 120 characters");
         }
 
