@@ -46,7 +46,7 @@ export const Hero = () => {
         break;
     }
 
-    setTitle(dailyMessage[Math.floor(Math.random() * dailyMessage.length)]);
+    setTitle("New Features Added, check your deployments!");
   }, [userData.role]);
 
   return (
