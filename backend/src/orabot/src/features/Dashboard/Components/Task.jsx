@@ -108,7 +108,7 @@ export const Task = (props) => {
               <div className="prior">
                 <p className="textP">{`Priority: `}</p>
                 <div className={`priorP `}>
-                  <p className={`xd ${
+                  <p className={`status-container ${
                     props.task.priority === 1
                       ? "high"
                       : props.task.priority === 2
