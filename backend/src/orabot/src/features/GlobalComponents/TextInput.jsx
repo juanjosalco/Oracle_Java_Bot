@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Styles/TextInput.css";
 import { calculateBytes } from "./Utils/ByteCounter";
+import "../GlobalComponents/Utils/RegexUtils";
 
-export const MyTextInput = ({ label, value, onChange, type, placeholder, className, maxLength }) => {
+export const MyTextInput = ({ label, value, onChange, type, placeholder, className, maxLength, regex }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [inputValue, setInputValue] = useState(value);
 
